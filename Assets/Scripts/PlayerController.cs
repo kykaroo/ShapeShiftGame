@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
@@ -12,24 +13,34 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Button helicopterButton;
     [SerializeField] private Button shipButton;
 
-    public float playerSpeed;
-
-    public GameObject humanFormGameObject;
-    public GameObject carFormGameObject;
-    public GameObject helicopterFormGameObject;
-    public GameObject shipFormGameObject;
+    [Header("Human Form Settings")]
+    [SerializeField] private GameObject humanFormGameObject;
+    [SerializeField] private BoxCollider humanCollider;
+    public float humanFormSpeed;
+    [Header("Car Form Settings")]
+    [SerializeField] private GameObject carFormGameObject;
+    [SerializeField] private BoxCollider carCollider;
+    public float carFormSpeed;
+    [Header("Helicopter Form Settings")]
+    [SerializeField] private GameObject helicopterFormGameObject;
+    [SerializeField] private BoxCollider helicopterCollider;
+    public float helicopterFormSpeed;
+    public float helicopterFlyHeight;
+    public float helicopterUpwardsSpeed;
+    [Header("Ship Form Settings")]
+    [SerializeField] private GameObject shipFormGameObject;
+    [SerializeField] private BoxCollider shipCollider;
+    public float shipFormSpeed;
 
     private BoxCollider _playerCollider;
-    private BoxCollider _humanCollider;
-    private BoxCollider _carCollider;
-    private BoxCollider _helicopterCollider;
-    private BoxCollider _shipCollider;
+    private GameObject _currentActiveForm;
+    private Vector3 _refVel;
 
-    private GameObject _previousFormGameObject;
+
     private void Start()
     {
         AssignButtons();
-        _previousFormGameObject = humanFormGameObject;
+        _currentActiveForm = humanFormGameObject;
         HumanForm();
     }
 
@@ -43,34 +54,72 @@ public class PlayerController : MonoBehaviour
 
     private void ShipForm()
     {
-        _previousFormGameObject.SetActive(false);
+        _currentActiveForm.SetActive(false);
         shipFormGameObject.SetActive(true);
-        _previousFormGameObject = shipFormGameObject;
+        playerBody.useGravity = true;
+        _currentActiveForm = shipFormGameObject;
     }
 
     private void HelicopterForm()
     {
-        _previousFormGameObject.SetActive(false);
+        _currentActiveForm.SetActive(false);
         helicopterFormGameObject.SetActive(true);
-        _previousFormGameObject = helicopterFormGameObject;
+        playerBody.useGravity = false;
+        _currentActiveForm = helicopterFormGameObject;
     }
 
     private void CarForm()
     {
-        _previousFormGameObject.SetActive(false);
+        _currentActiveForm.SetActive(false);
         carFormGameObject.SetActive(true);
-        _previousFormGameObject = carFormGameObject;
+        playerBody.useGravity = true;
+        _currentActiveForm = carFormGameObject;
     }
 
     private void HumanForm()
     {
-        _previousFormGameObject.SetActive(false);
+        _currentActiveForm.SetActive(false);
         humanFormGameObject.SetActive(true);
-        _previousFormGameObject = humanFormGameObject;
+        playerBody.useGravity = true;
+        _currentActiveForm = humanFormGameObject;
     }
 
     private void Update()
     {
-        gameObject.transform.Translate(Vector3.forward * (playerSpeed * Time.deltaTime));
+
+        if (_currentActiveForm == humanFormGameObject)
+            HumanFormMovement();
+
+        if (_currentActiveForm == carFormGameObject)
+            CarFormMovement();
+        
+        if (_currentActiveForm == helicopterFormGameObject)
+            HelicopterFormMovement();
+        
+        if (_currentActiveForm == shipFormGameObject)
+            ShipFormMovement();
+    }
+
+    private void ShipFormMovement()
+    {
+        gameObject.transform.Translate(Vector3.forward * (shipFormSpeed * Time.deltaTime));
+    }
+
+    private void HelicopterFormMovement()
+    {
+        if (gameObject.transform.position.y <= helicopterFlyHeight)
+            gameObject.transform.Translate(Vector3.up * (helicopterUpwardsSpeed * Time.deltaTime));
+        
+        gameObject.transform.Translate(Vector3.forward * (helicopterFormSpeed * Time.deltaTime));
+    }
+
+    private void CarFormMovement()
+    {
+        gameObject.transform.Translate(Vector3.forward * (carFormSpeed * Time.deltaTime));
+    }
+
+    private void HumanFormMovement()
+    {
+        gameObject.transform.Translate(Vector3.forward * (humanFormSpeed * Time.deltaTime));
     }
 }
