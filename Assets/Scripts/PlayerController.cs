@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
@@ -13,9 +9,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Button helicopterButton;
     [SerializeField] private Button shipButton;
 
+    [Header("Environment Settings")] 
+    [SerializeField] private LayerMask allEnvironment;
+    [SerializeField] private LayerMask groundMask;
+    [SerializeField] private LayerMask waterMask;
+    [SerializeField] private LayerMask stairsMask;
+    [SerializeField] private LayerMask stairsSlopeMask;
     [Header("Human Form Settings")]
     [SerializeField] private GameObject humanFormGameObject;
-    [SerializeField] private BoxCollider humanCollider;
+    [SerializeField] private CapsuleCollider humanCollider;
     public float humanFormSpeed;
     [Header("Car Form Settings")]
     [SerializeField] private GameObject carFormGameObject;
@@ -25,7 +27,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject helicopterFormGameObject;
     [SerializeField] private BoxCollider helicopterCollider;
     public float helicopterFormSpeed;
-    public float helicopterFlyHeight;
+    [SerializeField] private float helicopterFlyHeight;
     public float helicopterUpwardsSpeed;
     [Header("Ship Form Settings")]
     [SerializeField] private GameObject shipFormGameObject;
@@ -35,6 +37,9 @@ public class PlayerController : MonoBehaviour
     private BoxCollider _playerCollider;
     private GameObject _currentActiveForm;
     private Vector3 _refVel;
+    private RaycastHit _helicopterGroundHit;
+    private RaycastHit _surfaceHit;
+    private Vector3 _moveDirection;
 
 
     private void Start()
@@ -86,7 +91,6 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-
         if (_currentActiveForm == humanFormGameObject)
             HumanFormMovement();
 
@@ -102,24 +106,33 @@ public class PlayerController : MonoBehaviour
 
     private void ShipFormMovement()
     {
-        gameObject.transform.Translate(Vector3.forward * (shipFormSpeed * Time.deltaTime));
+        transform.Translate(Vector3.forward * (shipFormSpeed * Time.deltaTime));
     }
 
     private void HelicopterFormMovement()
     {
-        if (gameObject.transform.position.y <= helicopterFlyHeight)
-            gameObject.transform.Translate(Vector3.up * (helicopterUpwardsSpeed * Time.deltaTime));
+        Physics.Raycast(gameObject.transform.position, Vector3.down, out _helicopterGroundHit, helicopterFlyHeight + 0.1f, allEnvironment);
+        if (_helicopterGroundHit.distance <= helicopterFlyHeight)
+            transform.Translate(Vector3.up * (helicopterUpwardsSpeed * Time.deltaTime));
         
-        gameObject.transform.Translate(Vector3.forward * (helicopterFormSpeed * Time.deltaTime));
+        transform.Translate(Vector3.forward * (helicopterFormSpeed * Time.deltaTime));
     }
 
     private void CarFormMovement()
     {
-        gameObject.transform.Translate(Vector3.forward * (carFormSpeed * Time.deltaTime));
+        transform.Translate(Vector3.forward * (carFormSpeed * Time.deltaTime));
     }
 
     private void HumanFormMovement()
     {
-        gameObject.transform.Translate(Vector3.forward * (humanFormSpeed * Time.deltaTime));
+        playerBody.useGravity = !Physics.Raycast(transform.position, Vector3.down, 5f, stairsSlopeMask);
+        transform.Translate(GetMoveDirection() * (humanFormSpeed * Time.deltaTime));
     }
+    
+     private Vector3 GetMoveDirection()
+     {
+         return Physics.Raycast(transform.position, Vector3.down, out _surfaceHit, 5f, allEnvironment)
+             ? Vector3.ProjectOnPlane(Vector3.forward, _surfaceHit.normal).normalized
+             : Vector3.forward;
+     }
 }
