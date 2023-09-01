@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask waterMask;
     [SerializeField] private LayerMask stairsMask;
     [SerializeField] private LayerMask stairsSlopeMask;
+    [SerializeField] private LayerMask balloonsMask;
     [Header("Human Form Settings")]
     [SerializeField] private GameObject humanFormGameObject;
     [SerializeField] private CapsuleCollider humanCollider;
@@ -28,7 +29,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject helicopterFormGameObject;
     [SerializeField] private BoxCollider helicopterCollider;
     public float helicopterFormSpeed;
-    [SerializeField] private float helicopterFlyHeight;
+    public float helicopterFlyHeight;
     public float helicopterUpwardsSpeed;
     [Header("Ship Form Settings")]
     [SerializeField] private GameObject shipFormGameObject;
@@ -45,6 +46,8 @@ public class PlayerController : MonoBehaviour
     private float _gravityScale;
     private const float Gravity = -9.81f;
     private float _currentGravity;
+
+    public LayerMask AllEnvironment => allEnvironment;
 
 
     private void Start()
@@ -124,9 +127,9 @@ public class PlayerController : MonoBehaviour
         
         if (Physics.CheckBox(shipFormGameObject.transform.position,
                     shipFormGameObject.transform.localScale * 0.5f + Vector3.one * 0.001f, Quaternion.identity, 
-                    allEnvironment))
+                    allEnvironment - waterMask))
         {
-            transform.Translate(GetMoveDirection() * (shipFormSpeed * 0.01f * Time.deltaTime));
+            transform.Translate(GetMoveDirection() * (shipFormSpeed * 0.1f * Time.deltaTime));
         }
         else
         {
@@ -136,12 +139,27 @@ public class PlayerController : MonoBehaviour
 
     private void HelicopterFormMovement()
     {
-        Physics.Raycast(gameObject.transform.position, Vector3.down, out _helicopterGroundHit, 
-            helicopterFlyHeight * 2f, allEnvironment);
-        if (_helicopterGroundHit.distance <= helicopterFlyHeight)
-            transform.Translate(Vector3.up * (helicopterUpwardsSpeed * Time.deltaTime));
+        HandleHelicopterHeight();
+
+        if (Physics.CheckBox(helicopterFormGameObject.transform.position,
+                helicopterFormGameObject.transform.localScale * 0.5f + Vector3.one * 0.001f, Quaternion.identity,
+                balloonsMask))
+        {
+            transform.Translate(Vector3.forward * (helicopterFormSpeed * 0.1f * Time.deltaTime));
+            return;
+        }
         
         transform.Translate(Vector3.forward * (helicopterFormSpeed * Time.deltaTime));
+    }
+
+    private void HandleHelicopterHeight()
+    {
+        Physics.Raycast(helicopterFormGameObject.transform.position, Vector3.down, out _helicopterGroundHit,
+            helicopterFlyHeight * 10f, allEnvironment);
+        if (_helicopterGroundHit.distance <= helicopterFlyHeight)
+            transform.Translate(Vector3.up * (helicopterUpwardsSpeed * Time.deltaTime));
+        else
+            transform.Translate(Vector3.down * (helicopterUpwardsSpeed * Time.deltaTime));
     }
 
     private void CarFormMovement()
@@ -161,7 +179,7 @@ public class PlayerController : MonoBehaviour
                 carFormGameObject.transform.localScale * 0.5f + Vector3.one * 0.001f, Quaternion.identity,
                 waterMask))
         {
-            transform.Translate(GetMoveDirection() * (carFormSpeed * 0.01f * Time.deltaTime));
+            transform.Translate(GetMoveDirection() * (carFormSpeed * 0.1f * Time.deltaTime));
             return;
         }
         
@@ -185,7 +203,7 @@ public class PlayerController : MonoBehaviour
                 humanFormGameObject.transform.localScale * 0.5f + Vector3.one * 0.001f, Quaternion.identity,
                 waterMask))
         {
-            transform.Translate(GetMoveDirection() * (humanFormSpeed * 0.01f * Time.deltaTime));
+            transform.Translate(GetMoveDirection() * (humanFormSpeed * 0.1f * Time.deltaTime));
             return;
         }
         
