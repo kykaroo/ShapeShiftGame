@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Button carButton;
     [SerializeField] private Button helicopterButton;
     [SerializeField] private Button shipButton;
+    public float gravityScale;
 
     [Header("Environment Settings")] 
     [SerializeField] private LayerMask allEnvironment;
@@ -41,10 +42,15 @@ public class PlayerController : MonoBehaviour
     private RaycastHit _surfaceHit;
     private Vector3 _moveDirection;
 
+    private float _gravityScale;
+    private const float Gravity = -9.81f;
+    private float _currentGravity;
+
 
     private void Start()
     {
         AssignButtons();
+        _gravityScale = gravityScale;
         _currentActiveForm = humanFormGameObject;
         HumanForm();
     }
@@ -61,7 +67,7 @@ public class PlayerController : MonoBehaviour
     {
         _currentActiveForm.SetActive(false);
         shipFormGameObject.SetActive(true);
-        playerBody.useGravity = true;
+        _gravityScale = 1f;
         _currentActiveForm = shipFormGameObject;
     }
 
@@ -69,7 +75,7 @@ public class PlayerController : MonoBehaviour
     {
         _currentActiveForm.SetActive(false);
         helicopterFormGameObject.SetActive(true);
-        playerBody.useGravity = false;
+        _gravityScale = 0f;
         _currentActiveForm = helicopterFormGameObject;
     }
 
@@ -77,7 +83,7 @@ public class PlayerController : MonoBehaviour
     {
         _currentActiveForm.SetActive(false);
         carFormGameObject.SetActive(true);
-        playerBody.useGravity = true;
+        _gravityScale = 1f;
         _currentActiveForm = carFormGameObject;
     }
 
@@ -85,7 +91,7 @@ public class PlayerController : MonoBehaviour
     {
         _currentActiveForm.SetActive(false);
         humanFormGameObject.SetActive(true);
-        playerBody.useGravity = true;
+        _gravityScale = 1f;
         _currentActiveForm = humanFormGameObject;
     }
 
@@ -102,16 +108,36 @@ public class PlayerController : MonoBehaviour
         
         if (_currentActiveForm == shipFormGameObject)
             ShipFormMovement();
+
+        _currentGravity = Gravity * _gravityScale;
+        playerBody.AddForce(new(0, _currentGravity, 0), ForceMode.Force);
     }
 
     private void ShipFormMovement()
     {
-        transform.Translate(Vector3.forward * (shipFormSpeed * Time.deltaTime));
+        if (Physics.CheckBox(shipFormGameObject.transform.position,
+                shipFormGameObject.transform.localScale * 0.5f + Vector3.one * 0.001f, Quaternion.identity,
+                stairsSlopeMask))
+            _gravityScale = gravityScale * 0.01f;
+        else
+            _gravityScale = gravityScale;
+        
+        if (Physics.CheckBox(shipFormGameObject.transform.position,
+                    shipFormGameObject.transform.localScale * 0.5f + Vector3.one * 0.001f, Quaternion.identity, 
+                    allEnvironment))
+        {
+            transform.Translate(GetMoveDirection() * (shipFormSpeed * 0.01f * Time.deltaTime));
+        }
+        else
+        {
+            transform.Translate(GetMoveDirection() * (shipFormSpeed * Time.deltaTime));
+        }
     }
 
     private void HelicopterFormMovement()
     {
-        Physics.Raycast(gameObject.transform.position, Vector3.down, out _helicopterGroundHit, helicopterFlyHeight + 0.1f, allEnvironment);
+        Physics.Raycast(gameObject.transform.position, Vector3.down, out _helicopterGroundHit, 
+            helicopterFlyHeight * 2f, allEnvironment);
         if (_helicopterGroundHit.distance <= helicopterFlyHeight)
             transform.Translate(Vector3.up * (helicopterUpwardsSpeed * Time.deltaTime));
         
@@ -120,12 +146,49 @@ public class PlayerController : MonoBehaviour
 
     private void CarFormMovement()
     {
-        transform.Translate(Vector3.forward * (carFormSpeed * Time.deltaTime));
+        if (Physics.CheckBox(carFormGameObject.transform.position,
+                carFormGameObject.transform.localScale * 0.5f + Vector3.one * 0.001f, Quaternion.identity,
+                stairsSlopeMask))
+        {
+            transform.Translate(GetMoveDirection() * (carFormSpeed * 0.1f * Time.deltaTime));
+            _gravityScale = gravityScale * 0.01f;
+            return;   
+        }
+
+        _gravityScale = gravityScale;
+        
+        if (Physics.CheckBox(carFormGameObject.transform.position,
+                carFormGameObject.transform.localScale * 0.5f + Vector3.one * 0.001f, Quaternion.identity,
+                waterMask))
+        {
+            transform.Translate(GetMoveDirection() * (carFormSpeed * 0.01f * Time.deltaTime));
+            return;
+        }
+        
+        transform.Translate(GetMoveDirection() * (carFormSpeed * Time.deltaTime));
     }
 
     private void HumanFormMovement()
     {
-        playerBody.useGravity = !Physics.Raycast(transform.position, Vector3.down, 5f, stairsSlopeMask);
+        if (Physics.CheckBox(humanFormGameObject.transform.position,
+                humanFormGameObject.transform.localScale * 0.5f + Vector3.one * 0.001f, Quaternion.identity,
+                stairsSlopeMask))
+        {
+            transform.Translate(GetMoveDirection() * (humanFormSpeed * Time.deltaTime));
+            _gravityScale = gravityScale * 0.01f;
+            return;
+        }
+        
+        _gravityScale = gravityScale;
+
+        if (Physics.CheckBox(humanFormGameObject.transform.position,
+                humanFormGameObject.transform.localScale * 0.5f + Vector3.one * 0.001f, Quaternion.identity,
+                waterMask))
+        {
+            transform.Translate(GetMoveDirection() * (humanFormSpeed * 0.01f * Time.deltaTime));
+            return;
+        }
+        
         transform.Translate(GetMoveDirection() * (humanFormSpeed * Time.deltaTime));
     }
     
