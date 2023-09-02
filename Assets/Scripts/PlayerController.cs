@@ -12,28 +12,22 @@ public class PlayerController : MonoBehaviour
 
     [Header("Environment Settings")] 
     [SerializeField] private LayerMask allEnvironment;
-    [SerializeField] private LayerMask groundMask;
     [SerializeField] private LayerMask waterMask;
-    [SerializeField] private LayerMask stairsMask;
     [SerializeField] private LayerMask stairsSlopeMask;
     [SerializeField] private LayerMask balloonsMask;
     [Header("Human Form Settings")]
     [SerializeField] private GameObject humanFormGameObject;
-    [SerializeField] private CapsuleCollider humanCollider;
     public float humanFormSpeed;
     [Header("Car Form Settings")]
     [SerializeField] private GameObject carFormGameObject;
-    [SerializeField] private BoxCollider carCollider;
     public float carFormSpeed;
     [Header("Helicopter Form Settings")]
     [SerializeField] private GameObject helicopterFormGameObject;
-    [SerializeField] private BoxCollider helicopterCollider;
     public float helicopterFormSpeed;
     public float helicopterFlyHeight;
     public float helicopterUpwardsSpeed;
     [Header("Ship Form Settings")]
     [SerializeField] private GameObject shipFormGameObject;
-    [SerializeField] private BoxCollider shipCollider;
     public float shipFormSpeed;
 
     private BoxCollider _playerCollider;
@@ -98,7 +92,7 @@ public class PlayerController : MonoBehaviour
         _currentActiveForm = humanFormGameObject;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (_currentActiveForm == humanFormGameObject)
             HumanFormMovement();
@@ -156,9 +150,9 @@ public class PlayerController : MonoBehaviour
     {
         Physics.Raycast(helicopterFormGameObject.transform.position, Vector3.down, out _helicopterGroundHit,
             helicopterFlyHeight * 10f, allEnvironment);
-        if (_helicopterGroundHit.distance <= helicopterFlyHeight)
+        if (_helicopterGroundHit.distance <= helicopterFlyHeight - 0.2f)
             transform.Translate(Vector3.up * (helicopterUpwardsSpeed * Time.deltaTime));
-        else
+        if (_helicopterGroundHit.distance >= helicopterFlyHeight + 0.2f)
             transform.Translate(Vector3.down * (helicopterUpwardsSpeed * Time.deltaTime));
     }
 
