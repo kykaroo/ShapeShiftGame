@@ -452,15 +452,9 @@ MonoBehaviour:
   allEnvironment:
     serializedVersion: 2
     m_Bits: 1408
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 128
   waterMask:
     serializedVersion: 2
     m_Bits: 256
-  stairsMask:
-    serializedVersion: 2
-    m_Bits: 64
   stairsSlopeMask:
     serializedVersion: 2
     m_Bits: 1024
@@ -468,19 +462,15 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   humanFormGameObject: {fileID: 259715463}
-  humanCollider: {fileID: 0}
-  humanFormSpeed: 2
+  humanFormSpeed: 6
   carFormGameObject: {fileID: 639706378}
-  carCollider: {fileID: 639706383}
-  carFormSpeed: 8
+  carFormSpeed: 12
   helicopterFormGameObject: {fileID: 2060373184}
-  helicopterCollider: {fileID: 2060373189}
-  helicopterFormSpeed: 6
+  helicopterFormSpeed: 10
   helicopterFlyHeight: 10
   helicopterUpwardsSpeed: 10
   shipFormGameObject: {fileID: 502286915}
-  shipCollider: {fileID: 502286920}
-  shipFormSpeed: 6
+  shipFormSpeed: 12
 --- !u!54 &85050638
 Rigidbody:
   m_ObjectHideFlags: 0
