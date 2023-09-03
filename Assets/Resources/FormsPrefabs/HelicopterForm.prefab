@@ -98,6 +98,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseSpeed: 10
+  flyHeight: 10
+  upwardsSpeed: 10
+  allEnvironment:
+    serializedVersion: 2
+    m_Bits: 0
+  balloonsMask:
+    serializedVersion: 2
+    m_Bits: 0
+  gravityForce: 0
+  playerBody: {fileID: 0}
 --- !u!65 &7369339761412187350
 BoxCollider:
   m_ObjectHideFlags: 0

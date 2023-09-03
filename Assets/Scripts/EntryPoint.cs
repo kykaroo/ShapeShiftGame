@@ -6,6 +6,7 @@ using UnityEngine;
 public class EntryPoint : MonoBehaviour
 {
     [SerializeField] private FormFactory formFactory;
+    [SerializeField] private GlobalVariables globalVariables;
     [SerializeField] private FormChangeUi formChangeUi;
 
     private FormStateMachine.FormStateMachine _formStateMachine;
@@ -43,10 +44,10 @@ public class EntryPoint : MonoBehaviour
     {
         _formStateMachine = new(new()
         {
-            { typeof(HumanFormState), new HumanFormState(_humanForm) },
-            { typeof(CarFormState), new CarFormState(_carForm) },
-            { typeof(HelicopterFormState), new HelicopterFormState(_helicopterForm) },
-            { typeof(BoatFormState), new BoatFormState(_boatForm) }
+            { typeof(HumanFormState), new HumanFormState(_humanForm, globalVariables) },
+            { typeof(CarFormState), new CarFormState(_carForm, globalVariables) },
+            { typeof(HelicopterFormState), new HelicopterFormState(_helicopterForm, globalVariables) },
+            { typeof(BoatFormState), new BoatFormState(_boatForm, globalVariables) }
         });
     }
 }

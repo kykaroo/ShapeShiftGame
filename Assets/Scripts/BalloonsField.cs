@@ -1,9 +1,8 @@
+/*
 using UnityEngine;
 
 public class BalloonsField : MonoBehaviour
 {
-    [SerializeField] private PlayerController playerController;
-
     private RaycastHit _terrainHit;
 
     private void Start()
@@ -24,3 +23,4 @@ public class BalloonsField : MonoBehaviour
             transform.position = new(position.x, position.y - _terrainHit.distance, position.z);
     }
 }
+*/

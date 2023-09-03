@@ -1,14 +1,22 @@
 ﻿using FormStateMachine.Forms;
+using UnityEngine;
 
 namespace FormStateMachine.States
 {
     public class HelicopterFormState : FormStateBase
     {
-        private HelicopterForm _helicopterForm;
+        private readonly HelicopterForm _helicopterForm;
+        private Rigidbody _playerBody;
 
-        public HelicopterFormState(HelicopterForm helicopterForm)
+        public HelicopterFormState(HelicopterForm helicopterForm, GlobalVariables globalVariables)
         {
             _helicopterForm = helicopterForm;
+            
+            _helicopterForm.playerBody = globalVariables.PlayerBody;
+            _helicopterForm.gravityForce = globalVariables.GravityForce;
+
+            _helicopterForm.allEnvironment = globalVariables.AllEnvironment;
+            _helicopterForm.balloonsMask = globalVariables.BalloonsMask;
         }
 
         protected override void OnEnter()

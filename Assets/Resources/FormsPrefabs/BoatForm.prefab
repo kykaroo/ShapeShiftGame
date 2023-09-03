@@ -98,6 +98,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseSpeed: 5
+  allEnvironment:
+    serializedVersion: 2
+    m_Bits: 0
+  stairsSlopeMask:
+    serializedVersion: 2
+    m_Bits: 0
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
+  gravityForce: 0
+  slopeGravityForce: 0
+  playerBody: {fileID: 0}
 --- !u!65 &604238301984492937
 BoxCollider:
   m_ObjectHideFlags: 0
