@@ -61,7 +61,8 @@ namespace FormStateMachine.Forms
         
         private Vector3 GetMoveDirection()
         {
-            return Physics.Raycast(transform.position, Vector3.down, out _surfaceHit, 5f, allEnvironment)
+            return Physics.Raycast(transform.position + Vector3.forward * (transform.localScale.z * 0.55f), 
+                Vector3.down, out _surfaceHit, 5f, allEnvironment)
                 ? Vector3.ProjectOnPlane(Vector3.forward, _surfaceHit.normal).normalized
                 : Vector3.forward;
         }

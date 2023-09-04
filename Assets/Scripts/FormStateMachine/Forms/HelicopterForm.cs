@@ -32,9 +32,8 @@ namespace FormStateMachine.Forms
         {
             HandleHelicopterHeight();
 
-            if (Physics.CheckBox(gameObject.transform.position,
-                    gameObject.transform.localScale * 0.5f + Vector3.one * 0.001f, Quaternion.identity,
-                    balloonsMask))
+            if (Physics.CheckBox(transform.position, transform.localScale * 0.5f + Vector3.one * 0.001f, 
+                    Quaternion.identity, balloonsMask))
             {
                 playerBody.AddForce(Vector3.forward * (baseSpeed * 0.1f), ForceMode.Acceleration);
                 return;
@@ -45,7 +44,7 @@ namespace FormStateMachine.Forms
 
         private void HandleHelicopterHeight()
         {
-            Physics.Raycast(gameObject.transform.position, Vector3.down, out _groundHit,
+            Physics.Raycast(transform.position, Vector3.down, out _groundHit,
                 flyHeight * 10f, allEnvironment);
             if (_groundHit.distance <= flyHeight)
                 playerBody.AddForce(Vector3.up * upwardsSpeed, ForceMode.Acceleration);

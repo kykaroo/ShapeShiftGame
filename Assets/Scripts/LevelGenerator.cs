@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -32,14 +32,11 @@ public class LevelGenerator : MonoBehaviour
             transform.position += Vector3.forward * tileZSize;
         }
 
-        foreach (var tile in _generatedTiles)
+        foreach (var tile in _generatedTiles.Where(tile => player.position.z - tile.transform.position.z > tileZSize))
         {
-            if (player.position.z - tile.transform.position.z > tileZSize)
-            {
-                _generatedTiles.Remove(tile);
-                Destroy(tile);
-                return;
-            }
+            _generatedTiles.Remove(tile);
+            Destroy(tile);
+            return;
         }
     }
 
