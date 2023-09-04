@@ -8,6 +8,7 @@ public class EntryPoint : MonoBehaviour
     [SerializeField] private FormFactory formFactory;
     [SerializeField] private GlobalVariables globalVariables;
     [SerializeField] private FormChangeUi formChangeUi;
+    [SerializeField] private StartUi startUi;
 
     private FormStateMachine.FormStateMachine _formStateMachine;
     private HumanForm _humanForm;
@@ -21,11 +22,14 @@ public class EntryPoint : MonoBehaviour
         CreateForms();
         SetupStates();
         AddButtonListeners();
-        _formStateMachine.SetState<HumanFormState>();
+        
+        formChangeUi.gameObject.SetActive(false);
+        startUi.gameObject.SetActive(true);
     }
 
     private void AddButtonListeners()
     {
+        startUi.StartButton.onClick.AddListener(StartGame);
         formChangeUi.HumanFormButton.onClick.AddListener(() => _formStateMachine.SetState<HumanFormState>());
         formChangeUi.CarFormButton.onClick.AddListener(() => _formStateMachine.SetState<CarFormState>());
         formChangeUi.HelicopterFormButton.onClick.AddListener(() => _formStateMachine.SetState<HelicopterFormState>());
@@ -49,5 +53,13 @@ public class EntryPoint : MonoBehaviour
             { typeof(HelicopterFormState), new HelicopterFormState(_helicopterForm, globalVariables) },
             { typeof(BoatFormState), new BoatFormState(_boatForm, globalVariables) }
         });
+    }
+
+    void StartGame()
+    {
+        startUi.gameObject.SetActive(false);
+        formChangeUi.gameObject.SetActive(true);
+        
+        _formStateMachine.SetState<HumanFormState>();
     }
 }
