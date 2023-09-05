@@ -12,13 +12,13 @@ namespace FormStateMachine.States
         {
             _carForm = carForm;
             
-            _carForm.playerBody = globalVariables.PlayerBody;
+            _carForm.playerTransform = globalVariables.PlayerTransform;
             _carForm.gravityForce = globalVariables.GravityForce;
-            _carForm.slopeGravityForce = globalVariables.SlopeGravityForce;
 
             _carForm.allEnvironment = globalVariables.AllEnvironment;
             _carForm.waterMask = globalVariables.WaterMask;
             _carForm.stairsSlopeMask = globalVariables.StairsSlopeMask;
+            _carForm.groundMask = globalVariables.GroundMask;
         }
 
         protected override void OnEnter()

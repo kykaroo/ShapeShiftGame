@@ -7,10 +7,10 @@ public class LevelGenerator : MonoBehaviour
 {
     [SerializeField] private Transform player;
     [SerializeField] private float tileZSize;
-    [SerializeField] private GameObject[] levelTilesList;
-    [SerializeField] private GameObject startTile;
+    [SerializeField] private TileInfo[] levelTilesList;
+    [SerializeField] private TileInfo startTile;
     
-    private List<GameObject> _generatedTiles;
+    private LinkedList<TileInfo> _generatedTiles;
     private Vector3 _currentPosition;
 
     private void Awake()
@@ -20,28 +20,31 @@ public class LevelGenerator : MonoBehaviour
 
     private void Start()
     {
-        _generatedTiles.Add(Instantiate(startTile, transform.position, Quaternion.identity));
-        transform.position += Vector3.forward * tileZSize;
+        _generatedTiles.AddFirst(Instantiate(startTile, transform.position, Quaternion.identity));
     }
 
     private void Update()
     {
-        if (transform.position.z - player.position.z < tileZSize * 2)
+        if (_generatedTiles.Last.Value.startPosition < player.position.z)
         {
             GenerateTile();
-            transform.position += Vector3.forward * tileZSize;
         }
 
-        foreach (var tile in _generatedTiles.Where(tile => player.position.z - tile.transform.position.z > tileZSize))
+        while (_generatedTiles.First.Value.endPosition + _generatedTiles.First.Next?.Value.tileZSize < player.position.z)
         {
-            _generatedTiles.Remove(tile);
-            Destroy(tile);
-            return;
+            var value = _generatedTiles.First.Value;
+            _generatedTiles.RemoveFirst();
+            Destroy(value.gameObject);
         }
+
     }
 
     void GenerateTile()
     {
-        _generatedTiles.Add(Instantiate(levelTilesList[Random.Range(0, levelTilesList.Length)], transform.position, Quaternion.identity));
+        var nextTile = levelTilesList[Random.Range(0, levelTilesList.Length)];
+        var tileInfo = Instantiate(nextTile, Vector3.zero, Quaternion.identity);
+        var tileInfoStartPosition = _generatedTiles.Last.Value.endPosition;
+        _generatedTiles.AddLast(tileInfo);
+        tileInfo.startPosition = tileInfoStartPosition;
     }
 }

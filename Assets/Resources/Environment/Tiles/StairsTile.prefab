@@ -116,6 +116,7 @@ GameObject:
   - component: {fileID: 2728989677096351840}
   - component: {fileID: 1070275180628400261}
   - component: {fileID: 2183491907746157613}
+  - component: {fileID: -5796422844827566987}
   - component: {fileID: 5931760960302062770}
   m_Layer: 7
   m_Name: StairsTile
@@ -192,6 +193,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &-5796422844827566987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3457136444311683030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2979d3a2edab4447a0a97349fd3c1ff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <tileZSize>k__BackingField: 100
+  <minY>k__BackingField: 0
+  <maxY>k__BackingField: 0
 --- !u!65 &5931760960302062770
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -221,9 +237,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2728989677096351840}
     m_Modifications:
+    - target: {fileID: 771572702181180054, guid: 500d2d001c2f64346bcd4ca6dff89856, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3515655511344918092, guid: 500d2d001c2f64346bcd4ca6dff89856, type: 3}
       propertyPath: m_Name
       value: Stairs (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6597496045948970860, guid: 500d2d001c2f64346bcd4ca6dff89856, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6755459513931336907, guid: 500d2d001c2f64346bcd4ca6dff89856, type: 3}
       propertyPath: m_RootOrder
@@ -299,6 +323,10 @@ PrefabInstance:
     - target: {fileID: 3515655511344918092, guid: 500d2d001c2f64346bcd4ca6dff89856, type: 3}
       propertyPath: m_Name
       value: Stairs
+      objectReference: {fileID: 0}
+    - target: {fileID: 6597496045948970860, guid: 500d2d001c2f64346bcd4ca6dff89856, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6755459513931336907, guid: 500d2d001c2f64346bcd4ca6dff89856, type: 3}
       propertyPath: m_RootOrder

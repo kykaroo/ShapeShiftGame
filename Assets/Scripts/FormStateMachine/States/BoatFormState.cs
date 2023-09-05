@@ -9,14 +9,14 @@ namespace FormStateMachine.States
         public BoatFormState(BoatForm boatForm, GlobalVariables globalVariables)
         {
             _boatForm = boatForm;
-            
-            _boatForm.playerBody = globalVariables.PlayerBody;
+
+            _boatForm.playerTransform = globalVariables.PlayerTransform;
             _boatForm.gravityForce = globalVariables.GravityForce;
-            _boatForm.slopeGravityForce = globalVariables.SlopeGravityForce;
-            
+
             _boatForm.allEnvironment = globalVariables.AllEnvironment;
             _boatForm.waterMask = globalVariables.WaterMask;
             _boatForm.stairsSlopeMask = globalVariables.StairsSlopeMask;
+            _boatForm.groundMask = globalVariables.GroundMask;
         }
 
         protected override void OnEnter()

@@ -12,11 +12,11 @@ namespace FormStateMachine.States
         {
             _helicopterForm = helicopterForm;
             
-            _helicopterForm.playerBody = globalVariables.PlayerBody;
-            _helicopterForm.gravityForce = globalVariables.GravityForce;
+            _helicopterForm.playerTransform = globalVariables.PlayerTransform;
 
             _helicopterForm.allEnvironment = globalVariables.AllEnvironment;
             _helicopterForm.balloonsMask = globalVariables.BalloonsMask;
+            _helicopterForm.groundMask = globalVariables.GroundMask;
         }
 
         protected override void OnEnter()

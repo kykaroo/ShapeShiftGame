@@ -10,13 +10,13 @@ namespace FormStateMachine.States
         {
             _humanForm = humanForm;
             
-            _humanForm.playerBody = globalVariables.PlayerBody;
+            _humanForm.playerTransform = globalVariables.PlayerTransform;
             _humanForm.gravityForce = globalVariables.GravityForce;
-            _humanForm.slopeGravityForce = globalVariables.SlopeGravityForce;
 
             _humanForm.allEnvironment = globalVariables.AllEnvironment;
             _humanForm.stairsSlopeMask = globalVariables.AllEnvironment;
             _humanForm.waterMask = globalVariables.WaterMask;
+            _humanForm.groundMask = globalVariables.GroundMask;
         }
 
         protected override void OnEnter()

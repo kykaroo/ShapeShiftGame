@@ -132,7 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 85050636}
-  - component: {fileID: 85050638}
+  - component: {fileID: 85050637}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -156,7 +156,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &85050638
+--- !u!54 &85050637
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -333,7 +333,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravityMultiplier: 1
   slopeGravityMultiplier: 0.1
-  playerBody: {fileID: 85050638}
+  playerTransform: {fileID: 85050636}
   allEnvironment:
     serializedVersion: 2
     m_Bits: 1408
@@ -346,6 +346,9 @@ MonoBehaviour:
   stairsSlopeMask:
     serializedVersion: 2
     m_Bits: 1024
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -699,7 +702,7 @@ MonoBehaviour:
   - {fileID: 3457136444311683030, guid: b7ad461d2bf1a2b44b0d926c5e25bab7, type: 3}
   - {fileID: 3457136444311683030, guid: 61a73fd5647d969488e7c73546da6218, type: 3}
   - {fileID: 3457136444311683030, guid: a84ce2ef22657994393cd8bd90777263, type: 3}
-  startTile: {fileID: 3457136444311683030, guid: 253dc9afb35d2454a806dbcca39f5335, type: 3}
+  startTile: {fileID: -1665070077945219862, guid: 253dc9afb35d2454a806dbcca39f5335, type: 3}
 --- !u!4 &1700759811
 Transform:
   m_ObjectHideFlags: 0

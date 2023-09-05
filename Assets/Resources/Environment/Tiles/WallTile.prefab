@@ -116,6 +116,7 @@ GameObject:
   - component: {fileID: 2728989677096351840}
   - component: {fileID: 1070275180628400261}
   - component: {fileID: 2183491907746157613}
+  - component: {fileID: -5857874312475297637}
   - component: {fileID: 5931760960302062770}
   m_Layer: 7
   m_Name: WallTile
@@ -190,6 +191,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &-5857874312475297637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3457136444311683030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2979d3a2edab4447a0a97349fd3c1ff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <tileZSize>k__BackingField: 100
+  <minY>k__BackingField: 0
+  <maxY>k__BackingField: 0
 --- !u!65 &5931760960302062770
 BoxCollider:
   m_ObjectHideFlags: 0
