@@ -8,7 +8,7 @@ namespace FormStateMachine.States
         private readonly CarForm _carForm;
         private Rigidbody _playerBody;
 
-        public CarFormState(CarForm carForm, GlobalVariables globalVariables)
+        public CarFormState(CarForm carForm, GlobalVariables globalVariables, Ground ground)
         {
             _carForm = carForm;
             

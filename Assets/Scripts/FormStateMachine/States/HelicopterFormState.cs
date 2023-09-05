@@ -8,7 +8,7 @@ namespace FormStateMachine.States
         private readonly HelicopterForm _helicopterForm;
         private Rigidbody _playerBody;
 
-        public HelicopterFormState(HelicopterForm helicopterForm, GlobalVariables globalVariables)
+        public HelicopterFormState(HelicopterForm helicopterForm, GlobalVariables globalVariables, Ground ground)
         {
             _helicopterForm = helicopterForm;
             

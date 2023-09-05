@@ -132,7 +132,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 85050636}
-  - component: {fileID: 85050637}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -156,33 +155,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &85050637
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 85050635}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 1
-  m_Constraints: 112
-  m_CollisionDetection: 1
 --- !u!1 &223974226
 GameObject:
   m_ObjectHideFlags: 0
@@ -649,9 +621,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   formFactory: {fileID: 2015054607}
+  player: {fileID: 0}
   globalVariables: {fileID: 660593938}
   formChangeUi: {fileID: 1725128724}
   startUi: {fileID: 871528909}
+  levelConfig: {fileID: 11400000, guid: 2b6d1d55444b6774596828b133a3cd51, type: 2}
 --- !u!4 &1270349521
 Transform:
   m_ObjectHideFlags: 0
@@ -666,57 +640,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1700759809
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1700759811}
-  - component: {fileID: 1700759810}
-  m_Layer: 0
-  m_Name: LevelGenerator
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1700759810
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1700759809}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c141941d13f44da08ae516b01e92d48e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 85050636}
-  tileZSize: 100
-  levelTilesList:
-  - {fileID: 3457136444311683030, guid: b7ad461d2bf1a2b44b0d926c5e25bab7, type: 3}
-  - {fileID: 3457136444311683030, guid: 61a73fd5647d969488e7c73546da6218, type: 3}
-  - {fileID: 3457136444311683030, guid: a84ce2ef22657994393cd8bd90777263, type: 3}
-  startTile: {fileID: -1665070077945219862, guid: 253dc9afb35d2454a806dbcca39f5335, type: 3}
---- !u!4 &1700759811
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1700759809}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1725128724 stripped
 MonoBehaviour:

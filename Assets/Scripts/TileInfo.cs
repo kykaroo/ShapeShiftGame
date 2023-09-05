@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class TileInfo : MonoBehaviour
 {
     [field:SerializeField] public float tileZSize { get; private set; }
     [field:SerializeField] public float minY { get; private set; }
     [field:SerializeField] public float maxY { get; private set; }
+    [field:SerializeField] public List<Zone> checkBox { get; private set; }
     
     public float startPosition
     {

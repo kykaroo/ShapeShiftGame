@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace FormStateMachine.Forms
 {
@@ -6,8 +7,9 @@ namespace FormStateMachine.Forms
     {
         [SerializeField] private float baseSpeed;
         
-        private RaycastHit _surfaceHit;
+        public Ground Ground;
         private bool _applyGravity;
+        private Bounds _bounds;
         
         public LayerMask stairsSlopeMask;
         public LayerMask allEnvironment;
@@ -15,19 +17,22 @@ namespace FormStateMachine.Forms
         public LayerMask groundMask;
         public float gravityForce;
         public Transform playerTransform;
-        
+
+        private void Start()
+        {
+            var transform1 = transform;
+            _bounds = new(transform1.position, transform1.localScale);
+        }
+
         private void Update()
         {
-            if (_applyGravity) ApplyGravity();
-            
+            ApplyGravity();
             HumanFormMovement();
         }
         
         private void ApplyGravity()
         {
-            if (!Physics.CheckBox(transform.position,
-                    transform.localScale * 0.5f + Vector3.one * 0.001f, Quaternion.identity,
-                    allEnvironment))
+            if (Ground.CanMoveTo(_bounds, transform.position,  Vector3.down * (gravityForce * Time.deltaTime), Ground.GroundMask))
             { 
                 playerTransform.Translate(Vector3.down * (gravityForce * Time.deltaTime));
             }
@@ -35,42 +40,26 @@ namespace FormStateMachine.Forms
         
         private void HumanFormMovement()
         {
-            if (Physics.Raycast(transform.position + Vector3.down * (transform.localScale.y * 0.49f),
-                    Vector3.forward,
-                    transform.localScale.z + 0.001f, groundMask))
+            var transformPosition = transform.position;
+            var moveDirection = Ground.GetMoveDirection(transformPosition + Vector3.forward * 
+                (transform.localScale.z * 0.55f));
+
+            var moveDistance = baseSpeed * Time.deltaTime;
+
+            if (Ground.CanMoveTo(_bounds, transformPosition, Vector3.down * moveDistance, Ground.GroundMask))
             {
-                _applyGravity = false;
-                playerTransform.Translate(Vector3.up * (baseSpeed * Time.deltaTime));
-                return;
+                playerTransform.Translate(Vector3.down * moveDistance);
+            }
+
+            if (Ground.CanMoveTo(_bounds, transformPosition, moveDirection * (moveDistance * 0.1f), Ground.WaterMask))
+            {
+                moveDistance *= 0.1f;
             }
             
-            _applyGravity = true;
-            
-            if (Physics.CheckBox(transform.position,
-                    transform.localScale * 0.5f + Vector3.one * 0.001f, Quaternion.identity,
-                    stairsSlopeMask))
+            if (Ground.CanMoveTo(_bounds, transformPosition, moveDirection * moveDistance, Ground.StairsSlopeMask + Ground.GroundMask))
             {
-                playerTransform.Translate(GetMoveDirection() * (baseSpeed * Time.deltaTime));
-                return;
+                playerTransform.Translate(moveDirection * moveDistance);
             }
-            
-            if (Physics.CheckBox(transform.position,
-                    transform.localScale * 0.5f + Vector3.one * 0.001f, Quaternion.identity,
-                    waterMask))
-            {
-                playerTransform.Translate(GetMoveDirection() * (baseSpeed * 0.1f * Time.deltaTime));
-                return;
-            }
-        
-            playerTransform.Translate(GetMoveDirection() * (baseSpeed * Time.deltaTime));
-        }
-        
-        private Vector3 GetMoveDirection()
-        {
-            return Physics.Raycast(transform.position + Vector3.forward * (transform.localScale.z * 0.55f), 
-                Vector3.down, out _surfaceHit, 5f, allEnvironment)
-                ? Vector3.ProjectOnPlane(Vector3.forward, _surfaceHit.normal).normalized
-                : Vector3.forward;
         }
     }
 }

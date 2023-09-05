@@ -1,50 +1,61 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class LevelGenerator : MonoBehaviour
+public class LevelGenerator
 {
-    [SerializeField] private Transform player;
-    [SerializeField] private float tileZSize;
-    [SerializeField] private TileInfo[] levelTilesList;
-    [SerializeField] private TileInfo startTile;
+    private readonly Transform _player;
+    private readonly LevelConfig _levelConfig;
+    private readonly Ground _ground; 
     
-    private LinkedList<TileInfo> _generatedTiles;
-    private Vector3 _currentPosition;
+    private LinkedList<TileInfo> TileList => _ground.TileInfoList;
 
-    private void Awake()
+    public LevelGenerator(Transform player, LevelConfig levelConfig, Ground ground)
     {
-        _generatedTiles = new();
+        _player = player;
+        _levelConfig = levelConfig;
+        _ground = ground;
     }
 
-    private void Start()
+    public void Start()
     {
-        _generatedTiles.AddFirst(Instantiate(startTile, transform.position, Quaternion.identity));
+        TileList.AddFirst(Object.Instantiate(_levelConfig.StartTile, Vector3.zero, Quaternion.identity));
     }
 
-    private void Update()
+    public void Update()
     {
-        if (_generatedTiles.Last.Value.startPosition < player.position.z)
+        if (TileList.Last.Value.startPosition < _player.position.z)
         {
             GenerateTile();
         }
 
-        while (_generatedTiles.First.Value.endPosition + _generatedTiles.First.Next?.Value.tileZSize < player.position.z)
+        while (TileList.First.Value.endPosition + TileList.First.Next?.Value.tileZSize < _player.position.z)
         {
-            var value = _generatedTiles.First.Value;
-            _generatedTiles.RemoveFirst();
-            Destroy(value.gameObject);
+            DestroyFirstElement();
         }
-
     }
 
-    void GenerateTile()
+    private void DestroyFirstElement()
     {
-        var nextTile = levelTilesList[Random.Range(0, levelTilesList.Length)];
-        var tileInfo = Instantiate(nextTile, Vector3.zero, Quaternion.identity);
-        var tileInfoStartPosition = _generatedTiles.Last.Value.endPosition;
-        _generatedTiles.AddLast(tileInfo);
+        var value = TileList.First.Value;
+        TileList.RemoveFirst();
+        Object.Destroy(value.gameObject);
+    }
+
+    private void GenerateTile()
+    {
+        var nextTile = _levelConfig.LevelTilesList[Random.Range(0, _levelConfig.LevelTilesList.Length)];
+        var tileInfo = Object.Instantiate(nextTile, Vector3.zero, Quaternion.identity);
+        var tileInfoStartPosition = TileList.Last.Value.endPosition;
+        TileList.AddLast(tileInfo);
         tileInfo.startPosition = tileInfoStartPosition;
+    }
+
+    public void Stop()
+    {
+        while (TileList.First != null)
+        {
+            DestroyFirstElement();
+        }
     }
 }

@@ -6,7 +6,7 @@ namespace FormStateMachine.States
     {
         private readonly BoatForm _boatForm;
 
-        public BoatFormState(BoatForm boatForm, GlobalVariables globalVariables)
+        public BoatFormState(BoatForm boatForm, GlobalVariables globalVariables, Ground ground)
         {
             _boatForm = boatForm;
 

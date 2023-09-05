@@ -6,10 +6,11 @@ namespace FormStateMachine.States
     {
         private readonly HumanForm _humanForm;
 
-        public HumanFormState(HumanForm humanForm, GlobalVariables globalVariables)
+        public HumanFormState(HumanForm humanForm, GlobalVariables globalVariables, Ground ground)
         {
             _humanForm = humanForm;
-            
+
+            _humanForm.Ground = ground;
             _humanForm.playerTransform = globalVariables.PlayerTransform;
             _humanForm.gravityForce = globalVariables.GravityForce;
 
