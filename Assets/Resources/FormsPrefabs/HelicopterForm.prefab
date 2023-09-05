@@ -97,17 +97,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9394bb7d6984affa20c5cf4694912c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseSpeed: 10
+  baseSpeed: 6
   flyHeight: 10
-  upwardsSpeed: 10
-  allEnvironment:
-    serializedVersion: 2
-    m_Bits: 0
-  balloonsMask:
-    serializedVersion: 2
-    m_Bits: 0
-  gravityForce: 0
+  upwardsSpeed: 3
   playerBody: {fileID: 0}
+  velocity: {x: 0, y: 0, z: 0}
 --- !u!65 &7369339761412187350
 BoxCollider:
   m_ObjectHideFlags: 0

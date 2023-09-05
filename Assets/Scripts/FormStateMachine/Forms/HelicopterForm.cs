@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using Unity.VisualScripting;
+using UnityEngine;
 
 namespace FormStateMachine.Forms
 {
@@ -8,48 +10,78 @@ namespace FormStateMachine.Forms
         [SerializeField] private float flyHeight;
         [SerializeField] private float upwardsSpeed;
 
-        private RaycastHit _groundHit;
+        private RaycastHit _surfaceHit;
+        private BoxCollider _collider;
+        private float _maxSpeed;
+        private Vector3 _currentVelocity;
 
-        public LayerMask allEnvironment;
-        public LayerMask balloonsMask;
-        public LayerMask groundMask;
-        public Transform playerTransform;
+        public Rigidbody playerBody;
+        public Ground Ground;
+        public Vector3 velocity;
+
+        private void Awake()
+        {
+            _collider = GetComponent<BoxCollider>();
+        }
 
         private void Update()
         {
+            velocity = playerBody.velocity;
+            Physics.SyncTransforms();
             HelicopterFormMovement();
             HandleHelicopterHeight();
+            SpeedLimit();
         }
 
         private void HelicopterFormMovement()
         {
-            if (Physics.Raycast(transform.position + Vector3.forward * (transform.localScale.z * 0.5f), Vector3.forward,
-                    1f, groundMask)) return;
-            
-            if (Physics.CheckBox(transform.position,
-                    transform.localScale * 0.5f + Vector3.one * 0.001f, Quaternion.identity,
-                    balloonsMask))
+            _maxSpeed = baseSpeed;
+            if (Ground.VerticalObstacleCheck(_collider.bounds, transform.forward, Ground.AllEnvironment)) return;
+
+            if (Ground.SurfaceCollision(_collider.bounds, transform.rotation, Ground.BalloonsMask))
             {
-                playerTransform.Translate(Vector3.forward * (baseSpeed * 0.1f * Time.deltaTime));
-                return;
+                _maxSpeed = baseSpeed * 0.1f;
             }
-        
-            playerTransform.Translate(Vector3.forward * (baseSpeed * Time.deltaTime));
+
+            playerBody.AddForce(Vector3.forward * _maxSpeed, ForceMode.Acceleration);
         }
 
         private void HandleHelicopterHeight()
         {
-            Physics.Raycast(transform.position, Vector3.down, out _groundHit,
-                flyHeight * 10f, allEnvironment);
-            if (_groundHit.distance < flyHeight - 0.001f)
+            Physics.BoxCast(_collider.bounds.center, transform.lossyScale * 0.5f, Vector3.down, out _surfaceHit);
+            if (_surfaceHit.distance < flyHeight * 0.98f)
             {
-                playerTransform.Translate(Vector3.up * (upwardsSpeed * Time.deltaTime));
+                playerBody.AddForce(Vector3.up * (upwardsSpeed));
+                return;
             }
 
-            if (_groundHit.distance > flyHeight + 0.001f)
+            if (_surfaceHit.distance > flyHeight * 1.02f)
             {
-                playerTransform.Translate(Vector3.down * (upwardsSpeed * Time.deltaTime));
+                playerBody.AddForce(Vector3.down * (upwardsSpeed));
+                return;
             }
+
+            if (_surfaceHit.distance > flyHeight * 0.98f && _surfaceHit.distance < flyHeight * 1.02f)
+            { 
+                playerBody.velocity = new(velocity.x, 0, velocity.z);
+            }
+        }
+        
+        private void SpeedLimit()
+        {
+            HorizontalSpeedLimit();
+        }
+
+        private void HorizontalSpeedLimit()
+        {
+            Vector3 forwardVelocity = new Vector3(0, 0, playerBody.velocity.z);
+            if (!(forwardVelocity.magnitude > _maxSpeed)) return;
+
+            var velocity = playerBody.velocity;
+            
+            velocity = new(velocity.x, velocity.y,
+                forwardVelocity.normalized.z * _maxSpeed);
+            playerBody.velocity = velocity;
         }
     }
 }

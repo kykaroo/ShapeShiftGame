@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace FormStateMachine.Forms
 {
@@ -7,61 +8,69 @@ namespace FormStateMachine.Forms
         [SerializeField] private float baseSpeed;
         
         private RaycastHit _surfaceHit;
+        private BoxCollider _collider;
+        private float _maxSpeed;
 
-        public LayerMask allEnvironment;
-        public LayerMask stairsSlopeMask;
-        public LayerMask waterMask;
-        public LayerMask groundMask;
+        public Ground Ground;
+        public Rigidbody playerBody;
         public float gravityForce;
-        public Transform playerTransform;
-        
+
+        private void Start()
+        {
+            _collider = GetComponent<BoxCollider>();
+        }
+
         private void Update()
         {
+            Physics.SyncTransforms();
             ApplyGravity();
             BoatFormMovement();
+            SpeedLimit();
         }
 
         private void ApplyGravity()
         {
-            if (!Physics.CheckBox(transform.position,
-                    transform.localScale * 0.5f + Vector3.one * 0.001f, Quaternion.identity,
-                    allEnvironment))
+            if (Ground.SurfaceCollision(_collider.bounds, transform.rotation, Ground.AllEnvironment))
             { 
-                playerTransform.Translate(Vector3.down * (gravityForce * Time.deltaTime));
+                playerBody.AddForce(Vector3.down * (gravityForce * 0.2f), ForceMode.Acceleration);
+            }
+            else
+            {
+                playerBody.AddForce(Vector3.down * gravityForce, ForceMode.Acceleration);
             }
         }
 
         private void BoatFormMovement()
         {
-            if (Physics.Raycast(transform.position + Vector3.forward * (transform.localScale.z * 0.5f), Vector3.forward,
-                    0.1f, groundMask)) return;
+            _maxSpeed = baseSpeed;
+            var moveDirection = Ground.GetMoveDirection(transform.position + Vector3.forward * 
+                (transform.localScale.z * 0.55f));
             
-            if (Physics.CheckBox(transform.position,
-                    transform.localScale * 0.5f + Vector3.one * 0.001f, Quaternion.identity,
-                    stairsSlopeMask))
+            if (Ground.VerticalObstacleCheck(_collider.bounds, transform.forward, Ground.GroundMask))
             {
-                playerTransform.Translate(GetMoveDirection() * (baseSpeed * 0.1f * Time.deltaTime));
                 return;
             }
 
-            if (Physics.CheckBox(transform.position,
-                    transform.localScale * 0.5f + Vector3.one * 0.001f, Quaternion.identity, 
-                    allEnvironment - waterMask))
+            if (Ground.SurfaceCollision(_collider.bounds, transform.rotation, Ground.AllEnvironment - Ground.WaterMask))
             {
-                playerTransform.Translate(GetMoveDirection() * (baseSpeed * 0.1f * Time.deltaTime));
+                _maxSpeed = baseSpeed * 0.1f;
             }
-            else
+
+            if (Ground.SurfaceCollision(_collider.bounds, transform.rotation, Ground.AllEnvironment))
             {
-                playerTransform.Translate(GetMoveDirection() * (baseSpeed * Time.deltaTime));
+                playerBody.AddForce(moveDirection * _maxSpeed, ForceMode.Acceleration);
             }
         }
-        
-        private Vector3 GetMoveDirection()
+
+        private void SpeedLimit()
         {
-            return Physics.Raycast(transform.position + Vector3.forward * (transform.localScale.z * 0.55f), 
-                Vector3.down, out _surfaceHit, 5f, allEnvironment)
-                ? Vector3.ProjectOnPlane(Vector3.forward, _surfaceHit.normal).normalized
-                : Vector3.forward;
+            Vector3 forwardVelocity = new Vector3(0, 0, playerBody.velocity.z);
+            if (!(forwardVelocity.magnitude > _maxSpeed)) return;
+            
+            var velocity = playerBody.velocity;
+            velocity = new(velocity.x, velocity.y,
+                forwardVelocity.normalized.z * _maxSpeed);
+            playerBody.velocity = velocity;
         }
     }
 }

@@ -132,6 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 85050636}
+  - component: {fileID: 85050637}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -151,10 +152,37 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 963194228}
+  - {fileID: 331766586}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &85050637
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 85050635}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 96
+  m_CollisionDetection: 1
 --- !u!1 &223974226
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,6 +287,52 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &331766585
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 331766586}
+  - component: {fileID: 331766587}
+  m_Layer: 0
+  m_Name: CameraHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &331766586
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 331766585}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 963194228}
+  m_Father: {fileID: 85050636}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &331766587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 331766585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b20b99e8dac44e28a3fd50449759c384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTransform: {fileID: 85050636}
 --- !u!1 &660593936
 GameObject:
   m_ObjectHideFlags: 0
@@ -583,12 +657,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: -0.26727694, y: 0.5212489, z: -0.17610449, w: -0.7911067}
+  m_LocalRotation: {x: -0.26727697, y: 0.52124894, z: -0.1761045, w: -0.79110676}
   m_LocalPosition: {x: 23.421864, y: 13.570086, z: -1.4290009}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 85050636}
+  m_Father: {fileID: 331766586}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 36.874, y: -53.251, z: 0}
 --- !u!1 &1270349519
@@ -621,11 +695,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   formFactory: {fileID: 2015054607}
-  player: {fileID: 0}
+  player: {fileID: 85050636}
+  playerBody: {fileID: 85050637}
   globalVariables: {fileID: 660593938}
   formChangeUi: {fileID: 1725128724}
   startUi: {fileID: 871528909}
   levelConfig: {fileID: 11400000, guid: 2b6d1d55444b6774596828b133a3cd51, type: 2}
+  allEnvironment:
+    serializedVersion: 2
+    m_Bits: 1408
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 256
+  balloonsMask:
+    serializedVersion: 2
+    m_Bits: 512
+  stairsSlopeMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!4 &1270349521
 Transform:
   m_ObjectHideFlags: 0

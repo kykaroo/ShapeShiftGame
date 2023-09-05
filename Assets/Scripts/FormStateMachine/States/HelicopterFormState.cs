@@ -6,21 +6,22 @@ namespace FormStateMachine.States
     public class HelicopterFormState : FormStateBase
     {
         private readonly HelicopterForm _helicopterForm;
-        private Rigidbody _playerBody;
+        private readonly Rigidbody _playerBody;
 
-        public HelicopterFormState(HelicopterForm helicopterForm, GlobalVariables globalVariables, Ground ground)
+        public HelicopterFormState(HelicopterForm helicopterForm, GlobalVariables globalVariables, Ground ground,
+            Rigidbody playerBody)
         {
             _helicopterForm = helicopterForm;
-            
-            _helicopterForm.playerTransform = globalVariables.PlayerTransform;
+            _playerBody = playerBody;
 
-            _helicopterForm.allEnvironment = globalVariables.AllEnvironment;
-            _helicopterForm.balloonsMask = globalVariables.BalloonsMask;
-            _helicopterForm.groundMask = globalVariables.GroundMask;
+            _helicopterForm.Ground = ground;
+            _helicopterForm.playerBody = playerBody;
         }
 
         protected override void OnEnter()
         {
+            _playerBody.constraints = RigidbodyConstraints.FreezeRotation;
+            _playerBody.transform.rotation = Quaternion.identity;
             _helicopterForm.gameObject.SetActive(true);
         }
 

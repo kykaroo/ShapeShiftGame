@@ -1,27 +1,27 @@
 ﻿using FormStateMachine.Forms;
+using UnityEngine;
 
 namespace FormStateMachine.States
 {
     public class HumanFormState : FormStateBase
     {
         private readonly HumanForm _humanForm;
+        private Rigidbody _playerBody;
 
-        public HumanFormState(HumanForm humanForm, GlobalVariables globalVariables, Ground ground)
+        public HumanFormState(HumanForm humanForm, GlobalVariables globalVariables, Ground ground, Rigidbody playerBody)
         {
             _humanForm = humanForm;
+            _playerBody = playerBody;
 
+            _humanForm.playerBody = playerBody;
             _humanForm.Ground = ground;
-            _humanForm.playerTransform = globalVariables.PlayerTransform;
             _humanForm.gravityForce = globalVariables.GravityForce;
-
-            _humanForm.allEnvironment = globalVariables.AllEnvironment;
-            _humanForm.stairsSlopeMask = globalVariables.AllEnvironment;
-            _humanForm.waterMask = globalVariables.WaterMask;
-            _humanForm.groundMask = globalVariables.GroundMask;
         }
 
         protected override void OnEnter()
         {
+            _playerBody.constraints = RigidbodyConstraints.FreezeRotation;
+            _playerBody.transform.rotation = Quaternion.identity;
             _humanForm.gameObject.SetActive(true);
         }
 

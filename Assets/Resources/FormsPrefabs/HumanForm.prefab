@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3771430269306138326
 MeshFilter:
@@ -107,8 +107,11 @@ MonoBehaviour:
   waterMask:
     serializedVersion: 2
     m_Bits: 0
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 0
   gravityForce: 0
-  slopeGravityForce: 0
+  playerTransform: {fileID: 0}
   playerBody: {fileID: 0}
 --- !u!65 &6567073319478946311
 BoxCollider:

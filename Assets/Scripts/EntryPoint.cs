@@ -8,13 +8,11 @@ public class EntryPoint : MonoBehaviour
 {
     [SerializeField] private FormFactory formFactory;
     [SerializeField] private Transform player;
+    [SerializeField] private Rigidbody playerBody;
     [SerializeField] private GlobalVariables globalVariables;
     [SerializeField] private FormChangeUi formChangeUi;
     [SerializeField] private StartUi startUi;
     [SerializeField] private LevelConfig levelConfig;
-    [SerializeField] private float gravityMultiplier;
-    [SerializeField] private float slopeGravityMultiplier;
-    [SerializeField] private Transform playerTransform;
     [SerializeField] private LayerMask allEnvironment;
     [SerializeField] private LayerMask waterMask;
     [SerializeField] private LayerMask balloonsMask;
@@ -63,10 +61,10 @@ public class EntryPoint : MonoBehaviour
     {
         _formStateMachine = new(new()
         {
-            { typeof(HumanFormState), new HumanFormState(_humanForm, globalVariables, _ground) },
-            { typeof(CarFormState), new CarFormState(_carForm, globalVariables, _ground) },
-            { typeof(HelicopterFormState), new HelicopterFormState(_helicopterForm, globalVariables, _ground) },
-            { typeof(BoatFormState), new BoatFormState(_boatForm, globalVariables, _ground) }
+            { typeof(HumanFormState), new HumanFormState(_humanForm, globalVariables, _ground, playerBody) },
+            { typeof(CarFormState), new CarFormState(_carForm, globalVariables, _ground, playerBody) },
+            { typeof(HelicopterFormState), new HelicopterFormState(_helicopterForm, globalVariables, _ground, playerBody) },
+            { typeof(BoatFormState), new BoatFormState(_boatForm, globalVariables, _ground, playerBody) }
         });
     }
 

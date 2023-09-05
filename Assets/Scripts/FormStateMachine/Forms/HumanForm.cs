@@ -7,59 +7,68 @@ namespace FormStateMachine.Forms
     {
         [SerializeField] private float baseSpeed;
         
-        public Ground Ground;
         private bool _applyGravity;
-        private Bounds _bounds;
-        
-        public LayerMask stairsSlopeMask;
-        public LayerMask allEnvironment;
-        public LayerMask waterMask;
-        public LayerMask groundMask;
+        private BoxCollider _collider;
+        private float _maxSpeed;
+
+        public Ground Ground;
         public float gravityForce;
-        public Transform playerTransform;
+        public Rigidbody playerBody;
 
         private void Start()
         {
-            var transform1 = transform;
-            _bounds = new(transform1.position, transform1.localScale);
+            _collider = GetComponent<BoxCollider>();
         }
 
         private void Update()
         {
+            Physics.SyncTransforms();
             ApplyGravity();
             HumanFormMovement();
+            SpeedLimit();
         }
         
         private void ApplyGravity()
         {
-            if (Ground.CanMoveTo(_bounds, transform.position,  Vector3.down * (gravityForce * Time.deltaTime), Ground.GroundMask))
+            if (Ground.SurfaceCollision(_collider.bounds, transform.rotation, Ground.AllEnvironment))
             { 
-                playerTransform.Translate(Vector3.down * (gravityForce * Time.deltaTime));
+                playerBody.AddForce(Vector3.down * (gravityForce * 0.2f), ForceMode.Acceleration);
+            }
+            else
+            {
+                playerBody.AddForce(Vector3.down * gravityForce, ForceMode.Acceleration);
             }
         }
         
         private void HumanFormMovement()
         {
+            _maxSpeed = baseSpeed;
             var transformPosition = transform.position;
+            var transformRotation = transform.rotation;
+            var moveSpeed = baseSpeed;
             var moveDirection = Ground.GetMoveDirection(transformPosition + Vector3.forward * 
                 (transform.localScale.z * 0.55f));
-
-            var moveDistance = baseSpeed * Time.deltaTime;
-
-            if (Ground.CanMoveTo(_bounds, transformPosition, Vector3.down * moveDistance, Ground.GroundMask))
-            {
-                playerTransform.Translate(Vector3.down * moveDistance);
-            }
-
-            if (Ground.CanMoveTo(_bounds, transformPosition, moveDirection * (moveDistance * 0.1f), Ground.WaterMask))
-            {
-                moveDistance *= 0.1f;
-            }
             
-            if (Ground.CanMoveTo(_bounds, transformPosition, moveDirection * moveDistance, Ground.StairsSlopeMask + Ground.GroundMask))
+            if (Ground.SurfaceCollision(_collider.bounds, transformRotation, Ground.WaterMask))
             {
-                playerTransform.Translate(moveDirection * moveDistance);
+                _maxSpeed = baseSpeed * 0.1f;
             }
+
+            if (Ground.SurfaceCollision(_collider.bounds, transformRotation, Ground.AllEnvironment))
+            {
+                playerBody.AddForce(moveDirection * _maxSpeed, ForceMode.Acceleration);
+            }
+        }
+
+        private void SpeedLimit()
+        {
+            Vector3 forwardVelocity = new Vector3(0, 0, playerBody.velocity.z);
+            if (!(forwardVelocity.magnitude > _maxSpeed)) return;
+            
+            var velocity = playerBody.velocity;
+            velocity = new(velocity.x, velocity.y,
+                forwardVelocity.normalized.z * _maxSpeed);
+            playerBody.velocity = velocity;
         }
     }
 }

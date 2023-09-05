@@ -6,23 +6,23 @@ namespace FormStateMachine.States
     public class CarFormState : FormStateBase
     {
         private readonly CarForm _carForm;
-        private Rigidbody _playerBody;
+        private readonly Rigidbody _playerBody;
 
-        public CarFormState(CarForm carForm, GlobalVariables globalVariables, Ground ground)
+        public CarFormState(CarForm carForm, GlobalVariables globalVariables, Ground ground, Rigidbody playerBody)
         {
             _carForm = carForm;
+            _playerBody = playerBody;
             
-            _carForm.playerTransform = globalVariables.PlayerTransform;
+            _carForm.playerBody = playerBody;
+            _carForm.Ground = ground;
             _carForm.gravityForce = globalVariables.GravityForce;
-
-            _carForm.allEnvironment = globalVariables.AllEnvironment;
-            _carForm.waterMask = globalVariables.WaterMask;
-            _carForm.stairsSlopeMask = globalVariables.StairsSlopeMask;
-            _carForm.groundMask = globalVariables.GroundMask;
         }
 
         protected override void OnEnter()
         {
+            _playerBody.constraints = RigidbodyConstraints.None;
+            _playerBody.constraints = RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+            _playerBody.transform.rotation = Quaternion.identity;
             _carForm.gameObject.SetActive(true);
         }
 

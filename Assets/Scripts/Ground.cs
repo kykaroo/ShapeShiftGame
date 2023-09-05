@@ -3,29 +3,23 @@ using UnityEngine;
 
 public class Ground
 {
-    private LayerMask _allEnvironment;
-    private LayerMask _waterMask;
-    private LayerMask _balloonsMask;
-    private LayerMask _stairsSlopeMask;
-    private LayerMask _groundMask;
+    public LayerMask AllEnvironment { get; }
 
-    public LayerMask AllEnvironment => _allEnvironment;
+    public LayerMask WaterMask { get; }
 
-    public LayerMask WaterMask => _waterMask;
+    public LayerMask BalloonsMask { get; }
 
-    public LayerMask BalloonsMask => _balloonsMask;
+    public LayerMask StairsSlopeMask { get; }
 
-    public LayerMask StairsSlopeMask => _stairsSlopeMask;
-
-    public LayerMask GroundMask => _groundMask;
+    public LayerMask GroundMask { get; }
 
     public Ground(LayerMask allEnvironment, LayerMask waterMask, LayerMask balloonsMask, LayerMask stairsSlopeMask, LayerMask groundMask)
     {
-        _allEnvironment = allEnvironment;
-        _waterMask = waterMask;
-        _balloonsMask = balloonsMask;
-        _stairsSlopeMask = stairsSlopeMask;
-        _groundMask = groundMask;
+        AllEnvironment = allEnvironment;
+        WaterMask = waterMask;
+        BalloonsMask = balloonsMask;
+        StairsSlopeMask = stairsSlopeMask;
+        GroundMask = groundMask;
     }
 
     public LinkedList<TileInfo> TileInfoList { get; } = new();
@@ -33,13 +27,21 @@ public class Ground
     public Vector3 GetMoveDirection(Vector3 origin)
     {
         return Physics.Raycast(origin, 
-            Vector3.down, out var surfaceHit, 5f, _allEnvironment)
+            Vector3.down, out var surfaceHit, 5f, AllEnvironment)
             ? Vector3.ProjectOnPlane(Vector3.forward, surfaceHit.normal).normalized
             : Vector3.forward;
     }
 
-    public bool CanMoveTo(Bounds body, Vector3 from, Vector3 to, LayerMask mask)
+    public bool SurfaceCollision(Bounds bounds, Quaternion playerRotation, LayerMask maskToCheck)
     {
-        return !Physics.BoxCast(body.center, body.extents, (to - from).normalized, Quaternion.identity, Vector3.Distance(from, to), mask);
+        var surfaceCollision = Physics.CheckBox(bounds.center, bounds.size * 1.01f, playerRotation, maskToCheck);
+        return surfaceCollision;
+    }
+
+    
+
+    public bool VerticalObstacleCheck(Bounds bounds, Vector3 transformForward, LayerMask maskToCheck)
+    {
+        return Physics.Raycast(bounds.center, transformForward, bounds.extents.x + 0.01f, maskToCheck);
     }
 }

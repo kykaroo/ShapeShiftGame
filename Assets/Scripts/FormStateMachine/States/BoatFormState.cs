@@ -1,26 +1,28 @@
 ﻿using FormStateMachine.Forms;
+using UnityEngine;
 
 namespace FormStateMachine.States
 {
     public class BoatFormState : FormStateBase
     {
         private readonly BoatForm _boatForm;
+        private readonly Rigidbody _playerBody;
 
-        public BoatFormState(BoatForm boatForm, GlobalVariables globalVariables, Ground ground)
+        public BoatFormState(BoatForm boatForm, GlobalVariables globalVariables, Ground ground, Rigidbody playerBody)
         {
             _boatForm = boatForm;
+            _playerBody = playerBody;
 
-            _boatForm.playerTransform = globalVariables.PlayerTransform;
+            _boatForm.playerBody = playerBody;
+            _boatForm.Ground = ground;
             _boatForm.gravityForce = globalVariables.GravityForce;
-
-            _boatForm.allEnvironment = globalVariables.AllEnvironment;
-            _boatForm.waterMask = globalVariables.WaterMask;
-            _boatForm.stairsSlopeMask = globalVariables.StairsSlopeMask;
-            _boatForm.groundMask = globalVariables.GroundMask;
         }
 
         protected override void OnEnter()
         {
+            _playerBody.constraints = RigidbodyConstraints.None;
+            _playerBody.constraints = RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+            _playerBody.transform.rotation = Quaternion.identity;
             _boatForm.gameObject.SetActive(true);
         }
 
