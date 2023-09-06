@@ -7,7 +7,8 @@ public class LevelGenerator
     private readonly Transform _player;
     private readonly LevelConfig _levelConfig;
     private readonly Ground _ground;
-    
+    private const int TilesAhead = 1;
+
     private LinkedList<TileInfo> TileList => _ground.TileInfoList;
 
     public LevelGenerator(Transform player, LevelConfig levelConfig, Ground ground)
@@ -24,12 +25,12 @@ public class LevelGenerator
 
     public void Update()
     {
-        if (TileList.Last.Value.StartPosition < _player.position.z)
+        if (TileList.Last.Value.StartPosition - TileList.Last.Value.TileZSize * TilesAhead < _player.position.z)
         {
             GenerateTile();
         }
 
-        while (TileList.First.Value.EndPosition + TileList.First.Next?.Value.TileZSize < _player.position.z)
+        while (TileList.First.Value.EndPosition + TileList.First.Next?.Value.TileZSize  < _player.position.z)
         {
             DestroyFirstElement();
         }
