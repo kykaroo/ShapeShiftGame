@@ -27,47 +27,24 @@ public class LevelGenerator
         _currentTerrain = new();
         TileList.AddFirst(Object.Instantiate(_levelConfig.StartTile, Vector3.zero, Quaternion.identity));
         _currentTerrain.AddFirst(Object.Instantiate(TerrainList[0], _ground.TerrainStartPosition, Quaternion.identity));
-    }
-
-    public void Update()
-    {
-        if (TileList.Last.Value.StartPosition - TileList.Last.Value.TileZSize * TilesAhead < _player.position.z)
+        
+        var tilesToGenerate = _levelConfig.NumberOfTiles;
+        while (tilesToGenerate > 0)
         {
             GenerateTile();
+            tilesToGenerate--;
         }
 
-        if (_player.position.z > _currentTerrain.Last.Value.transform.position.z + 350f)
-        {
-            var position = _currentTerrain.Last.Value.transform.position;
-            Vector3 terrainPos = new(position.x, position.y, position.z + 500);
-            _currentTerrain.AddLast(Object.Instantiate(TerrainList[0], terrainPos, Quaternion.identity));
-        }
-
-        while (TileList.First.Value.EndPosition + TileList.First.Next?.Value.TileZSize < _player.position.z)
-        {
-            DestroyFirstElementInTilesList();
-        }
-
-        while (_currentTerrain.First.Value.transform.position.z + 600f < _player.position.z)
-        {
-            DestroyFirstElementInTerrainList();
-        }
+        GenerateFinishTile();
     }
 
-    private void DestroyFirstElementInTerrainList()
+    private void GenerateFinishTile()
     {
-        var value = _currentTerrain.First.Value;
-        _currentTerrain.RemoveFirst();
-        Object.Destroy(value.gameObject);
+        var tileInfoStartPosition = TileList.Last.Value.EndPosition;
+        TileList.AddLast(Object.Instantiate(_levelConfig.FinishTile, Vector3.zero, Quaternion.identity));
+        TileList.Last.Value.StartPosition = tileInfoStartPosition;
     }
-
-    private void DestroyFirstElementInTilesList()
-    {
-        var value = TileList.First.Value;
-        TileList.RemoveFirst();
-        Object.Destroy(value.gameObject);
-    }
-
+    
     private void GenerateTile()
     {
         var nextTile = _levelConfig.LevelTilesList[Random.Range(0, _levelConfig.LevelTilesList.Length)];
@@ -83,5 +60,12 @@ public class LevelGenerator
         {
             DestroyFirstElementInTilesList();
         }
+    }
+    
+    private void DestroyFirstElementInTilesList()
+    {
+        var value = TileList.First.Value;
+        TileList.RemoveFirst();
+        Object.Destroy(value.gameObject);
     }
 }

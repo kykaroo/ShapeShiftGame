@@ -80,9 +80,4 @@ public class EntryPoint : MonoBehaviour
         
         _formStateMachine.SetState<HumanFormState>();
     }
-
-    private void Update()
-    {
-        _levelGenerator.Update();
-    }
 }
