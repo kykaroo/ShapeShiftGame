@@ -13,16 +13,27 @@ public class Ground
 
     public LayerMask GroundMask { get; }
 
-    public Ground(LayerMask allEnvironment, LayerMask waterMask, LayerMask balloonsMask, LayerMask stairsSlopeMask, LayerMask groundMask)
+    public Vector3 TerrainStartPosition { get; }
+    
+    public float TerrainLenght { get; }
+    
+    public List<Terrain> TerrainPrefabs { get; }
+    
+    public LinkedList<TileInfo> TileInfoList { get; } = new();
+
+    public Ground(LayerMask allEnvironment, LayerMask waterMask, LayerMask balloonsMask, LayerMask stairsSlopeMask, 
+        LayerMask groundMask, Vector3 terrainStartPosition, float terrainLenght, List<Terrain> terrainPrefabs)
     {
         AllEnvironment = allEnvironment;
         WaterMask = waterMask;
         BalloonsMask = balloonsMask;
         StairsSlopeMask = stairsSlopeMask;
         GroundMask = groundMask;
+        TerrainStartPosition = terrainStartPosition;
+        TerrainLenght = terrainLenght;
+        TerrainPrefabs = terrainPrefabs;
     }
 
-    public LinkedList<TileInfo> TileInfoList { get; } = new();
 
     public Vector3 GetMoveDirection(Vector3 origin)
     {

@@ -10,6 +10,10 @@ public class LevelGenerator
     private const int TilesAhead = 1;
 
     private LinkedList<TileInfo> TileList => _ground.TileInfoList;
+    
+    private List<Terrain> TerrainList => _ground.TerrainPrefabs;
+
+    private LinkedList<Terrain> _currentTerrain;
 
     public LevelGenerator(Transform player, LevelConfig levelConfig, Ground ground)
     {
@@ -20,7 +24,9 @@ public class LevelGenerator
 
     public void Start()
     {
+        _currentTerrain = new();
         TileList.AddFirst(Object.Instantiate(_levelConfig.StartTile, Vector3.zero, Quaternion.identity));
+        _currentTerrain.AddFirst(Object.Instantiate(TerrainList[0], _ground.TerrainStartPosition, Quaternion.identity));
     }
 
     public void Update()
@@ -30,13 +36,32 @@ public class LevelGenerator
             GenerateTile();
         }
 
-        while (TileList.First.Value.EndPosition + TileList.First.Next?.Value.TileZSize  < _player.position.z)
+        if (_player.position.z > _currentTerrain.Last.Value.transform.position.z + 350f)
         {
-            DestroyFirstElement();
+            var position = _currentTerrain.Last.Value.transform.position;
+            Vector3 terrainPos = new(position.x, position.y, position.z + 500);
+            _currentTerrain.AddLast(Object.Instantiate(TerrainList[0], terrainPos, Quaternion.identity));
+        }
+
+        while (TileList.First.Value.EndPosition + TileList.First.Next?.Value.TileZSize < _player.position.z)
+        {
+            DestroyFirstElementInTilesList();
+        }
+
+        while (_currentTerrain.First.Value.transform.position.z + 600f < _player.position.z)
+        {
+            DestroyFirstElementInTerrainList();
         }
     }
 
-    private void DestroyFirstElement()
+    private void DestroyFirstElementInTerrainList()
+    {
+        var value = _currentTerrain.First.Value;
+        _currentTerrain.RemoveFirst();
+        Object.Destroy(value.gameObject);
+    }
+
+    private void DestroyFirstElementInTilesList()
     {
         var value = TileList.First.Value;
         TileList.RemoveFirst();
@@ -56,7 +81,7 @@ public class LevelGenerator
     {
         while (TileList.First != null)
         {
-            DestroyFirstElement();
+            DestroyFirstElementInTilesList();
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using FormStateMachine;
 using FormStateMachine.Forms;
 using FormStateMachine.States;
@@ -19,6 +20,9 @@ public class EntryPoint : MonoBehaviour
     [SerializeField] private LayerMask stairsSlopeMask;
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private ParticleSystem poofParticleSystem;
+    [SerializeField] private Vector3 terrainStartPosition;
+    [SerializeField] private float terrainLenght;
+    [SerializeField] private List<Terrain> terrainPrefabs;
 
     private FormStateMachine.FormStateMachine _formStateMachine;
     private HumanForm _humanForm;
@@ -31,7 +35,7 @@ public class EntryPoint : MonoBehaviour
 
     private void Start()
     {
-        _ground = new(allEnvironment, waterMask, balloonsMask, stairsSlopeMask, groundMask);
+        _ground = new(allEnvironment, waterMask, balloonsMask, stairsSlopeMask, groundMask, terrainStartPosition, terrainLenght, terrainPrefabs);
         _levelGenerator = new(player, levelConfig, _ground);
         _levelGenerator.Start();
         CreateForms();
