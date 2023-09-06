@@ -49,12 +49,13 @@ namespace FormStateMachine.Forms
             
             if (Ground.VerticalObstacleCheck(_collider.bounds, transform.forward, Ground.GroundMask)) return;
 
-            if (Ground.SurfaceCollision(_collider.bounds, transform.rotation, Ground.StairsSlopeMask + Ground.WaterMask))
+            if (Ground.SurfaceCollision(_collider.bounds, playerBody.transform.rotation, 
+                    Ground.StairsSlopeMask + Ground.WaterMask))
             {
                 _maxSpeed = baseSpeed * 0.1f;
             }
 
-            if (Ground.SurfaceCollision(_collider.bounds, transform.rotation, Ground.AllEnvironment))
+            if (Ground.SurfaceCollision(_collider.bounds, playerBody.transform.rotation, Ground.AllEnvironment))
             {
                 playerBody.AddForce(moveDirection * _maxSpeed, ForceMode.Acceleration);
             }
@@ -64,10 +65,10 @@ namespace FormStateMachine.Forms
         {
             Vector3 forwardVelocity = new Vector3(0, 0, playerBody.velocity.z);
             if (!(forwardVelocity.magnitude > _maxSpeed)) return;
-            
+
             var velocity = playerBody.velocity;
             velocity = new(velocity.x, velocity.y,
-                forwardVelocity.normalized.z * _maxSpeed);
+                forwardVelocity.z * 0.9f);
             playerBody.velocity = velocity;
         }
     }

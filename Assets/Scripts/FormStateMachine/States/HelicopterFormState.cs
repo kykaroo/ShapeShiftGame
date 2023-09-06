@@ -7,12 +7,14 @@ namespace FormStateMachine.States
     {
         private readonly HelicopterForm _helicopterForm;
         private readonly Rigidbody _playerBody;
+        private ParticleSystem _poofParticleSystem;
 
         public HelicopterFormState(HelicopterForm helicopterForm, GlobalVariables globalVariables, Ground ground,
-            Rigidbody playerBody)
+            Rigidbody playerBody, ParticleSystem poofParticleSystem)
         {
             _helicopterForm = helicopterForm;
             _playerBody = playerBody;
+            _poofParticleSystem = poofParticleSystem;
 
             _helicopterForm.Ground = ground;
             _helicopterForm.playerBody = playerBody;
@@ -22,6 +24,7 @@ namespace FormStateMachine.States
         {
             _playerBody.constraints = RigidbodyConstraints.FreezeRotation;
             _playerBody.transform.rotation = Quaternion.identity;
+            _poofParticleSystem.Play();
             _helicopterForm.gameObject.SetActive(true);
         }
 

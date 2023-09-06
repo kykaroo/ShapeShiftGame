@@ -18,6 +18,7 @@ public class EntryPoint : MonoBehaviour
     [SerializeField] private LayerMask balloonsMask;
     [SerializeField] private LayerMask stairsSlopeMask;
     [SerializeField] private LayerMask groundMask;
+    [SerializeField] private ParticleSystem poofParticleSystem;
 
     private FormStateMachine.FormStateMachine _formStateMachine;
     private HumanForm _humanForm;
@@ -61,10 +62,10 @@ public class EntryPoint : MonoBehaviour
     {
         _formStateMachine = new(new()
         {
-            { typeof(HumanFormState), new HumanFormState(_humanForm, globalVariables, _ground, playerBody) },
-            { typeof(CarFormState), new CarFormState(_carForm, globalVariables, _ground, playerBody) },
-            { typeof(HelicopterFormState), new HelicopterFormState(_helicopterForm, globalVariables, _ground, playerBody) },
-            { typeof(BoatFormState), new BoatFormState(_boatForm, globalVariables, _ground, playerBody) }
+            { typeof(HumanFormState), new HumanFormState(_humanForm, globalVariables, _ground, playerBody, poofParticleSystem) },
+            { typeof(CarFormState), new CarFormState(_carForm, globalVariables, _ground, playerBody, poofParticleSystem) },
+            { typeof(HelicopterFormState), new HelicopterFormState(_helicopterForm, globalVariables, _ground, playerBody, poofParticleSystem) },
+            { typeof(BoatFormState), new BoatFormState(_boatForm, globalVariables, _ground, playerBody, poofParticleSystem) }
         });
     }
 

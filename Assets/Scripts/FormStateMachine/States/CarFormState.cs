@@ -7,11 +7,14 @@ namespace FormStateMachine.States
     {
         private readonly CarForm _carForm;
         private readonly Rigidbody _playerBody;
+        private ParticleSystem _poofParticleSystem;
 
-        public CarFormState(CarForm carForm, GlobalVariables globalVariables, Ground ground, Rigidbody playerBody)
+        public CarFormState(CarForm carForm, GlobalVariables globalVariables, Ground ground, Rigidbody playerBody,
+            ParticleSystem poofParticleSystem)
         {
             _carForm = carForm;
             _playerBody = playerBody;
+            _poofParticleSystem = poofParticleSystem;
             
             _carForm.playerBody = playerBody;
             _carForm.Ground = ground;
@@ -23,6 +26,7 @@ namespace FormStateMachine.States
             _playerBody.constraints = RigidbodyConstraints.None;
             _playerBody.constraints = RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
             _playerBody.transform.rotation = Quaternion.identity;
+            _poofParticleSystem.Play();
             _carForm.gameObject.SetActive(true);
         }
 

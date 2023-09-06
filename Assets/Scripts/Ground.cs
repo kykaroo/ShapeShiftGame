@@ -34,7 +34,7 @@ public class Ground
 
     public bool SurfaceCollision(Bounds bounds, Quaternion playerRotation, LayerMask maskToCheck)
     {
-        var surfaceCollision = Physics.CheckBox(bounds.center, bounds.size * 1.01f, playerRotation, maskToCheck);
+        var surfaceCollision = Physics.CheckBox(bounds.center, bounds.extents * 1.01f, playerRotation, maskToCheck);
         return surfaceCollision;
     }
 
