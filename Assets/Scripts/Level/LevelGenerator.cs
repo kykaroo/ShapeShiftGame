@@ -41,7 +41,7 @@ namespace Level
 
             GenerateFinishTile();
 
-            while (TileList.Last.Value.EndPosition > BackgroundList.Last.Value.EndPosition)
+            while (TileList.Last.Value.EndPosition > BackgroundList.Last.Value.EndPosition.z)
             {
                 GenerateBackground();
             }

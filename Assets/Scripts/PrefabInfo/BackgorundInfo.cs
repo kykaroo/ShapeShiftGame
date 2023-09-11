@@ -4,14 +4,14 @@ namespace PrefabInfo
 {
     public class BackgroundInfo : MonoBehaviour
     {
-        [field: SerializeField] public float BackgroundZSize { get; private set; }
+        [SerializeField] private Terrain terrain;
 
-        public float StartPosition
+        public Vector3 StartPosition
         {
-            get => transform.position.z;
-            set => transform.position = Vector3.forward * (value + BackgroundZSize);
+            get => transform.position;
+            set => transform.position = value;
         }
 
-        public float EndPosition => transform.position.z + BackgroundZSize;
+        public Vector3 EndPosition => transform.position + Vector3.forward * terrain.terrainData.size.z;
     }
 }
