@@ -4,30 +4,30 @@ using Random = UnityEngine.Random;
 
 public class LevelGenerator
 {
+    
     private readonly Transform _player;
     private readonly LevelConfig _levelConfig;
     private readonly Ground _ground;
-    private const int TilesAhead = 1;
 
     private LinkedList<TileInfo> TileList => _ground.TileInfoList;
     
-    private List<Terrain> TerrainList => _ground.TerrainPrefabs;
+    private LinkedList<BackgroundInfo> BackgroundList => _ground.BackgroundTileList;
 
-    private LinkedList<Terrain> _currentTerrain;
+    public VictoryTrigger VictoryTrigger;
 
-    public LevelGenerator(Transform player, LevelConfig levelConfig, Ground ground)
+    public LevelGenerator(LevelConfig levelConfig, Ground ground)
     {
-        _player = player;
         _levelConfig = levelConfig;
         _ground = ground;
     }
 
-    public void Start()
+    public void GenerateLevel()
     {
-        _currentTerrain = new();
         TileList.AddFirst(Object.Instantiate(_levelConfig.StartTile, Vector3.zero, Quaternion.identity));
-        _currentTerrain.AddFirst(Object.Instantiate(TerrainList[0], _ground.TerrainStartPosition, Quaternion.identity));
-        
+        BackgroundList.AddFirst(Object.Instantiate(
+            _levelConfig.BackgroundTileList[Random.Range(0, _levelConfig.BackgroundTileList.Length)],
+            _levelConfig.BackgroundStartPosition, Quaternion.identity));
+
         var tilesToGenerate = _levelConfig.NumberOfTiles;
         while (tilesToGenerate > 0)
         {
@@ -36,6 +36,11 @@ public class LevelGenerator
         }
 
         GenerateFinishTile();
+
+        while (TileList.Last.Value.EndPosition > BackgroundList.Last.Value.EndPosition)
+        {
+            GenerateBackground();
+        }
     }
 
     private void GenerateFinishTile()
@@ -43,6 +48,7 @@ public class LevelGenerator
         var tileInfoStartPosition = TileList.Last.Value.EndPosition;
         TileList.AddLast(Object.Instantiate(_levelConfig.FinishTile, Vector3.zero, Quaternion.identity));
         TileList.Last.Value.StartPosition = tileInfoStartPosition;
+        VictoryTrigger = TileList.Last.Value.FinishTileVictoryTrigger;
     }
     
     private void GenerateTile()
@@ -54,18 +60,39 @@ public class LevelGenerator
         tileInfo.StartPosition = tileInfoStartPosition;
     }
 
-    public void Stop()
+    public void ClearLevel()
     {
         while (TileList.First != null)
         {
             DestroyFirstElementInTilesList();
         }
+        
+        while (BackgroundList.First != null)
+        {
+            DestroyFirstElementInBackgroundList();
+        }
     }
-    
+
+    private void DestroyFirstElementInBackgroundList()
+    {
+        var value = BackgroundList.First.Value;
+        BackgroundList.RemoveFirst();
+        Object.Destroy(value.gameObject);
+    }
+
     private void DestroyFirstElementInTilesList()
     {
         var value = TileList.First.Value;
         TileList.RemoveFirst();
         Object.Destroy(value.gameObject);
+    }
+    
+    private void GenerateBackground()
+    {
+        var nextTile = _levelConfig.BackgroundTileList[Random.Range(0, _levelConfig.BackgroundTileList.Length)];
+        var backgroundInfo = Object.Instantiate(nextTile, Vector3.zero, Quaternion.identity);
+        var tileInfoStartPosition = BackgroundList.Last.Value.EndPosition;
+        BackgroundList.AddLast(backgroundInfo);
+        backgroundInfo.StartPosition = tileInfoStartPosition;
     }
 }

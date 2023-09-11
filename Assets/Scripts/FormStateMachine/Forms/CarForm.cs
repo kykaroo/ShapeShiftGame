@@ -14,14 +14,14 @@ namespace FormStateMachine.Forms
         public Rigidbody playerBody;
         public Ground Ground;
 
-        private void Start()
+        private void Awake()
         {
-            var transform1 = transform;
             _collider = GetComponent<BoxCollider>();
         }
 
         private void Update()
         {
+            
             Physics.SyncTransforms();
             ApplyGravity();
             CarFormMovement();
@@ -56,7 +56,7 @@ namespace FormStateMachine.Forms
 
             if (Ground.SurfaceCollision(_collider.bounds, playerBody.transform.rotation, Ground.AllEnvironment))
             {
-                playerBody.AddForce(moveDirection * _maxSpeed, ForceMode.Acceleration);
+                playerBody.AddForce(transform.forward * _maxSpeed, ForceMode.Acceleration);
             }
         }
 

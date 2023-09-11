@@ -19,3 +19,6 @@ MonoBehaviour:
   startTile: {fileID: -1665070077945219862, guid: 253dc9afb35d2454a806dbcca39f5335, type: 3}
   finishTile: {fileID: 5026267663542118459, guid: 68d5f774b124496458b96ad3af912dfb, type: 3}
   numberOfTiles: 5
+  backgroundTileList:
+  - {fileID: -1417271248983929338, guid: 9ecabc266f7398f469cba410cdcb7dd4, type: 3}
+  backgroundStartPosition: {x: -71.1, y: -0.1, z: -25}

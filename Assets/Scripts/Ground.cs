@@ -20,18 +20,17 @@ public class Ground
     public List<Terrain> TerrainPrefabs { get; }
     
     public LinkedList<TileInfo> TileInfoList { get; } = new();
+    
+    public LinkedList<BackgroundInfo> BackgroundTileList { get; } = new();
 
     public Ground(LayerMask allEnvironment, LayerMask waterMask, LayerMask balloonsMask, LayerMask stairsSlopeMask, 
-        LayerMask groundMask, Vector3 terrainStartPosition, float terrainLenght, List<Terrain> terrainPrefabs)
+        LayerMask groundMask)
     {
         AllEnvironment = allEnvironment;
         WaterMask = waterMask;
         BalloonsMask = balloonsMask;
         StairsSlopeMask = stairsSlopeMask;
         GroundMask = groundMask;
-        TerrainStartPosition = terrainStartPosition;
-        TerrainLenght = terrainLenght;
-        TerrainPrefabs = terrainPrefabs;
     }
 
 

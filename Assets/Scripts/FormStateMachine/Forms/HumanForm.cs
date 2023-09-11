@@ -14,7 +14,7 @@ namespace FormStateMachine.Forms
         public float gravityForce;
         public Rigidbody playerBody;
 
-        private void Start()
+        private void Awake()
         {
             _collider = GetComponent<BoxCollider>();
         }

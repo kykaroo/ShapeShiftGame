@@ -98,20 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseSpeed: 10
-  allEnvironment:
-    serializedVersion: 2
-    m_Bits: 0
-  stairsSlopeMask:
-    serializedVersion: 2
-    m_Bits: 0
-  waterMask:
-    serializedVersion: 2
-    m_Bits: 0
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 0
   gravityForce: 0
-  playerTransform: {fileID: 0}
   playerBody: {fileID: 0}
 --- !u!65 &8805530573326181060
 BoxCollider:

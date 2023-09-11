@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 4512616647421148583}
   - component: {fileID: 349711000163234982}
   - component: {fileID: 2125661470626102526}
+  - component: {fileID: -1417271248983929338}
   m_Layer: 0
-  m_Name: Terrain
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -92,3 +93,16 @@ TerrainCollider:
   serializedVersion: 2
   m_TerrainData: {fileID: 15600000, guid: 42185ec92e4da9242803308a04415d08, type: 2}
   m_EnableTreeColliders: 1
+--- !u!114 &-1417271248983929338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8981935751408064142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b538367ed4143ba977811aa1e5702ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <BackgroundZSize>k__BackingField: 500

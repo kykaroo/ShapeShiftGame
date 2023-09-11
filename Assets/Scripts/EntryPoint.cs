@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using FormStateMachine;
 using FormStateMachine.Forms;
 using FormStateMachine.States;
@@ -7,22 +5,26 @@ using UnityEngine;
 
 public class EntryPoint : MonoBehaviour
 {
+    [Header("Scene objects")]
     [SerializeField] private FormFactory formFactory;
-    [SerializeField] private Transform player;
     [SerializeField] private Rigidbody playerBody;
+    [SerializeField] private GameObject startPosition;
     [SerializeField] private GlobalVariables globalVariables;
+    [SerializeField] private GameObject playerCamera;
+    [SerializeField] private GameObject victoryCamera;
+    [Header("Ui")]
     [SerializeField] private FormChangeUi formChangeUi;
     [SerializeField] private StartUi startUi;
+    [SerializeField] private VictoryUi victoryUi;
     [SerializeField] private LevelConfig levelConfig;
+    [Header("Ground masks")]
     [SerializeField] private LayerMask allEnvironment;
     [SerializeField] private LayerMask waterMask;
     [SerializeField] private LayerMask balloonsMask;
     [SerializeField] private LayerMask stairsSlopeMask;
     [SerializeField] private LayerMask groundMask;
+    [Header("Change form effect")]
     [SerializeField] private ParticleSystem poofParticleSystem;
-    [SerializeField] private Vector3 terrainStartPosition;
-    [SerializeField] private float terrainLenght;
-    [SerializeField] private List<Terrain> terrainPrefabs;
 
     private FormStateMachine.FormStateMachine _formStateMachine;
     private HumanForm _humanForm;
@@ -35,14 +37,14 @@ public class EntryPoint : MonoBehaviour
 
     private void Start()
     {
-        _ground = new(allEnvironment, waterMask, balloonsMask, stairsSlopeMask, groundMask, terrainStartPosition, terrainLenght, terrainPrefabs);
-        _levelGenerator = new(player, levelConfig, _ground);
-        _levelGenerator.Start();
+        victoryCamera.SetActive(false);
+        playerCamera.SetActive(true);
+        _ground = new(allEnvironment, waterMask, balloonsMask, stairsSlopeMask, groundMask);
+        _levelGenerator = new(levelConfig, _ground);
         CreateForms();
         SetupStates();
         AddButtonListeners();
-        formChangeUi.gameObject.SetActive(false);
-        startUi.gameObject.SetActive(true);
+        RestartLevel();
     }
 
     private void AddButtonListeners()
@@ -52,6 +54,7 @@ public class EntryPoint : MonoBehaviour
         formChangeUi.CarFormButton.onClick.AddListener(() => _formStateMachine.SetState<CarFormState>());
         formChangeUi.HelicopterFormButton.onClick.AddListener(() => _formStateMachine.SetState<HelicopterFormState>());
         formChangeUi.BoatFormButton.onClick.AddListener(() => _formStateMachine.SetState<BoatFormState>());
+        victoryUi.PlayAgainButton.onClick.AddListener(RestartLevel);
     }
 
     private void CreateForms()
@@ -69,15 +72,41 @@ public class EntryPoint : MonoBehaviour
             { typeof(HumanFormState), new HumanFormState(_humanForm, globalVariables, _ground, playerBody, poofParticleSystem) },
             { typeof(CarFormState), new CarFormState(_carForm, globalVariables, _ground, playerBody, poofParticleSystem) },
             { typeof(HelicopterFormState), new HelicopterFormState(_helicopterForm, globalVariables, _ground, playerBody, poofParticleSystem) },
-            { typeof(BoatFormState), new BoatFormState(_boatForm, globalVariables, _ground, playerBody, poofParticleSystem) }
+            { typeof(BoatFormState), new BoatFormState(_boatForm, globalVariables, _ground, playerBody, poofParticleSystem) },
+            { typeof(NoneFormState), new NoneFormState(playerBody) }
         });
     }
 
     void StartGame()
     {
         startUi.gameObject.SetActive(false);
+        victoryUi.gameObject.SetActive(false);
         formChangeUi.gameObject.SetActive(true);
         
         _formStateMachine.SetState<HumanFormState>();
+    }
+
+    void RestartLevel()
+    {
+        _levelGenerator.ClearLevel();
+        _levelGenerator.GenerateLevel();
+        _levelGenerator.VictoryTrigger.OnLevelComplete += LevelComplete;
+        _formStateMachine.SetState<NoneFormState>();
+        playerBody.gameObject.transform.position = startPosition.transform.position;
+        
+        formChangeUi.gameObject.SetActive(false);
+        victoryUi.gameObject.SetActive(false);
+        startUi.gameObject.SetActive(true);
+        victoryCamera.SetActive(false);
+        playerCamera.SetActive(true);
+    }
+
+    void LevelComplete()
+    {
+        victoryCamera.transform.position = playerCamera.transform.position;
+        playerCamera.SetActive(false);
+        victoryCamera.SetActive(true);
+        formChangeUi.gameObject.SetActive(false);
+        victoryUi.gameObject.SetActive(true);
     }
 }

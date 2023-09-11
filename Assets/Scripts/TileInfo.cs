@@ -3,6 +3,9 @@
 public class TileInfo : MonoBehaviour
 {
     [field:SerializeField] public float TileZSize { get; private set; }
+    [SerializeField] private VictoryTrigger finishTileVictoryTrigger;
+
+    public VictoryTrigger FinishTileVictoryTrigger => finishTileVictoryTrigger;
 
     public float StartPosition
     {

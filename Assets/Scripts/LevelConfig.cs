@@ -7,6 +7,8 @@ public class LevelConfig : ScriptableObject
     [SerializeField] private TileInfo startTile;
     [SerializeField] private TileInfo finishTile;
     [SerializeField] private int numberOfTiles;
+    [SerializeField] private BackgroundInfo[] backgroundTileList;
+    [SerializeField] private Vector3 backgroundStartPosition;
 
     public TileInfo[] LevelTilesList => levelTilesList;
 
@@ -15,4 +17,8 @@ public class LevelConfig : ScriptableObject
     public TileInfo FinishTile => finishTile;
 
     public int NumberOfTiles => numberOfTiles;
+    
+    public BackgroundInfo[] BackgroundTileList => backgroundTileList;
+
+    public Vector3 BackgroundStartPosition => backgroundStartPosition;
 }
