@@ -1,6 +1,9 @@
 using FormStateMachine;
 using FormStateMachine.Forms;
 using FormStateMachine.States;
+using Level;
+using ScriptableObjects;
+using Ui;
 using UnityEngine;
 
 public class EntryPoint : MonoBehaviour
@@ -92,12 +95,12 @@ public class EntryPoint : MonoBehaviour
         _levelGenerator.GenerateLevel();
         _levelGenerator.VictoryTrigger.OnLevelComplete += LevelComplete;
         _formStateMachine.SetState<NoneFormState>();
-        playerBody.gameObject.transform.position = startPosition.transform.position;
-        
+        playerBody.position = startPosition.transform.position;
+
         formChangeUi.gameObject.SetActive(false);
         victoryUi.gameObject.SetActive(false);
-        startUi.gameObject.SetActive(true);
         victoryCamera.SetActive(false);
+        startUi.gameObject.SetActive(true);
         playerCamera.SetActive(true);
     }
 

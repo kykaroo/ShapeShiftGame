@@ -44,7 +44,6 @@ namespace FormStateMachine.Forms
             _maxSpeed = baseSpeed;
             var transformPosition = transform.position;
             var transformRotation = transform.rotation;
-            var moveSpeed = baseSpeed;
             var moveDirection = Ground.GetMoveDirection(transformPosition + Vector3.forward * 
                 (transform.localScale.z * 0.55f));
             

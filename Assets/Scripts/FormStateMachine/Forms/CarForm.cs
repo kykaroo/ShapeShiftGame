@@ -21,7 +21,6 @@ namespace FormStateMachine.Forms
 
         private void Update()
         {
-            
             Physics.SyncTransforms();
             ApplyGravity();
             CarFormMovement();
@@ -56,7 +55,7 @@ namespace FormStateMachine.Forms
 
             if (Ground.SurfaceCollision(_collider.bounds, playerBody.transform.rotation, Ground.AllEnvironment))
             {
-                playerBody.AddForce(transform.forward * _maxSpeed, ForceMode.Acceleration);
+                playerBody.AddForce(moveDirection * _maxSpeed, ForceMode.Acceleration);
             }
         }
 

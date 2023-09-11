@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using PrefabInfo;
 using UnityEngine;
 
 public class Ground
@@ -13,12 +14,6 @@ public class Ground
 
     public LayerMask GroundMask { get; }
 
-    public Vector3 TerrainStartPosition { get; }
-    
-    public float TerrainLenght { get; }
-    
-    public List<Terrain> TerrainPrefabs { get; }
-    
     public LinkedList<TileInfo> TileInfoList { get; } = new();
     
     public LinkedList<BackgroundInfo> BackgroundTileList { get; } = new();
@@ -47,9 +42,7 @@ public class Ground
         var surfaceCollision = Physics.CheckBox(bounds.center, bounds.extents * 1.01f, playerRotation, maskToCheck);
         return surfaceCollision;
     }
-
     
-
     public bool VerticalObstacleCheck(Bounds bounds, Vector3 transformForward, LayerMask maskToCheck)
     {
         return Physics.Raycast(bounds.center, transformForward, bounds.extents.x + 0.01f, maskToCheck);

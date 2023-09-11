@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7abe451d55024e07b347062282322811, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseSpeed: 10
+  baseSpeed: 20
   gravityForce: 0
   playerBody: {fileID: 0}
 --- !u!65 &8805530573326181060
