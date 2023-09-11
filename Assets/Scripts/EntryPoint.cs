@@ -12,7 +12,6 @@ public class EntryPoint : MonoBehaviour
     [SerializeField] private FormFactory formFactory;
     [SerializeField] private Rigidbody playerBody;
     [SerializeField] private GameObject startPosition;
-    [SerializeField] private GlobalVariables globalVariables;
     [SerializeField] private GameObject playerCamera;
     [SerializeField] private GameObject victoryCamera;
     [Header("Ui")]
@@ -28,6 +27,7 @@ public class EntryPoint : MonoBehaviour
     [SerializeField] private LayerMask groundMask;
     [Header("Change form effect")]
     [SerializeField] private ParticleSystem poofParticleSystem;
+    [SerializeField] private float gravityMultiplier;
 
     private FormStateMachine.FormStateMachine _formStateMachine;
     private HumanForm _humanForm;
@@ -36,6 +36,8 @@ public class EntryPoint : MonoBehaviour
     private BoatForm _boatForm;
     private Ground _ground;
     private LevelGenerator _levelGenerator;
+    private const float Gravity = 9.81f;
+    private float _gravityForce;
 
 
     private void Start()
@@ -44,6 +46,7 @@ public class EntryPoint : MonoBehaviour
         playerCamera.SetActive(true);
         _ground = new(allEnvironment, waterMask, balloonsMask, stairsSlopeMask, groundMask);
         _levelGenerator = new(levelConfig, _ground);
+        _gravityForce = Gravity * gravityMultiplier;
         CreateForms();
         SetupStates();
         AddButtonListeners();
@@ -72,10 +75,10 @@ public class EntryPoint : MonoBehaviour
     {
         _formStateMachine = new(new()
         {
-            { typeof(HumanFormState), new HumanFormState(_humanForm, globalVariables, _ground, playerBody, poofParticleSystem) },
-            { typeof(CarFormState), new CarFormState(_carForm, globalVariables, _ground, playerBody, poofParticleSystem) },
-            { typeof(HelicopterFormState), new HelicopterFormState(_helicopterForm, globalVariables, _ground, playerBody, poofParticleSystem) },
-            { typeof(BoatFormState), new BoatFormState(_boatForm, globalVariables, _ground, playerBody, poofParticleSystem) },
+            { typeof(HumanFormState), new HumanFormState(_humanForm, _ground, playerBody, poofParticleSystem, _gravityForce) },
+            { typeof(CarFormState), new CarFormState(_carForm, _ground, playerBody, poofParticleSystem, _gravityForce) },
+            { typeof(HelicopterFormState), new HelicopterFormState(_helicopterForm, _ground, playerBody, poofParticleSystem, _gravityForce) },
+            { typeof(BoatFormState), new BoatFormState(_boatForm, _ground, playerBody, poofParticleSystem, _gravityForce) },
             { typeof(NoneFormState), new NoneFormState(playerBody) }
         });
     }

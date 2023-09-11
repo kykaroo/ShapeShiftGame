@@ -19,7 +19,7 @@ namespace FormStateMachine.Forms
             _collider = GetComponent<BoxCollider>();
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             Physics.SyncTransforms();
             ApplyGravity();
@@ -31,11 +31,11 @@ namespace FormStateMachine.Forms
         {
             if (Ground.SurfaceCollision(_collider.bounds, transform.rotation, Ground.AllEnvironment))
             { 
-                playerBody.AddForce(Vector3.down * (gravityForce * 0.2f), ForceMode.Acceleration);
+                playerBody.AddForce(Vector3.down * (gravityForce * 0.2f * playerBody.mass), ForceMode.Acceleration);
             }
             else
             {
-                playerBody.AddForce(Vector3.down * gravityForce, ForceMode.Acceleration);
+                playerBody.AddForce(Vector3.down * (gravityForce * playerBody.mass), ForceMode.Acceleration);
             }
         }
 
@@ -68,7 +68,7 @@ namespace FormStateMachine.Forms
             
             var velocity = playerBody.velocity;
             velocity = new(velocity.x, velocity.y,
-                forwardVelocity.normalized.z * _maxSpeed);
+                forwardVelocity.z * 0.4f);
             playerBody.velocity = velocity;
         }
     }

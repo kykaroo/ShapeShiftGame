@@ -9,8 +9,8 @@ namespace FormStateMachine.States
         private Rigidbody _playerBody;
         private ParticleSystem _poofParticleSystem;
 
-        public HumanFormState(HumanForm humanForm, GlobalVariables globalVariables, Ground ground, Rigidbody playerBody,
-            ParticleSystem poofParticleSystem)
+        public HumanFormState(HumanForm humanForm, Ground ground, Rigidbody playerBody,
+            ParticleSystem poofParticleSystem, float gravityForce)
         {
             _humanForm = humanForm;
             _playerBody = playerBody;
@@ -18,7 +18,7 @@ namespace FormStateMachine.States
 
             _humanForm.playerBody = playerBody;
             _humanForm.Ground = ground;
-            _humanForm.gravityForce = globalVariables.GravityForce;
+            _humanForm.gravityForce = gravityForce;
         }
 
         protected override void OnEnter()

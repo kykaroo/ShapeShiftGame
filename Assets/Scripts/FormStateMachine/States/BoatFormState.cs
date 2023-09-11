@@ -9,8 +9,8 @@ namespace FormStateMachine.States
         private readonly Rigidbody _playerBody;
         private ParticleSystem _poofParticleSystem;
 
-        public BoatFormState(BoatForm boatForm, GlobalVariables globalVariables, Ground ground, Rigidbody playerBody,
-            ParticleSystem poofParticleSystem)
+        public BoatFormState(BoatForm boatForm, Ground ground, Rigidbody playerBody,
+            ParticleSystem poofParticleSystem, float gravityForce)
         {
             _boatForm = boatForm;
             _playerBody = playerBody;
@@ -18,12 +18,11 @@ namespace FormStateMachine.States
 
             _boatForm.playerBody = playerBody;
             _boatForm.Ground = ground;
-            _boatForm.gravityForce = globalVariables.GravityForce;
+            _boatForm.gravityForce = gravityForce;
         }
 
         protected override void OnEnter()
         {
-            _playerBody.constraints = RigidbodyConstraints.None;
             _playerBody.constraints = RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
             _playerBody.transform.rotation = Quaternion.identity;
             _poofParticleSystem.Play();

@@ -9,8 +9,8 @@ namespace FormStateMachine.States
         private readonly Rigidbody _playerBody;
         private ParticleSystem _poofParticleSystem;
 
-        public HelicopterFormState(HelicopterForm helicopterForm, GlobalVariables globalVariables, Ground ground,
-            Rigidbody playerBody, ParticleSystem poofParticleSystem)
+        public HelicopterFormState(HelicopterForm helicopterForm, Ground ground,
+            Rigidbody playerBody, ParticleSystem poofParticleSystem, float gravityForce)
         {
             _helicopterForm = helicopterForm;
             _playerBody = playerBody;

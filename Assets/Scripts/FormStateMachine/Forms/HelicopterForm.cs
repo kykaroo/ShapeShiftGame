@@ -22,13 +22,14 @@ namespace FormStateMachine.Forms
             _collider = GetComponent<BoxCollider>();
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             velocity = playerBody.velocity;
             Physics.SyncTransforms();
             HelicopterFormMovement();
             HandleHelicopterHeight();
             SpeedLimit();
+            playerBody.transform.rotation = Quaternion.identity;
         }
 
         private void HelicopterFormMovement()
@@ -49,13 +50,13 @@ namespace FormStateMachine.Forms
             Physics.BoxCast(_collider.bounds.center, transform.lossyScale * 0.5f, Vector3.down, out _surfaceHit);
             if (_surfaceHit.distance < flyHeight * 0.98f)
             {
-                playerBody.AddForce(Vector3.up * (upwardsSpeed));
+                playerBody.AddForce(Vector3.up * upwardsSpeed);
                 return;
             }
 
             if (_surfaceHit.distance > flyHeight * 1.02f)
             {
-                playerBody.AddForce(Vector3.down * (upwardsSpeed));
+                playerBody.AddForce(Vector3.down * upwardsSpeed);
                 return;
             }
 
@@ -78,7 +79,7 @@ namespace FormStateMachine.Forms
             var velocity = playerBody.velocity;
             
             velocity = new(velocity.x, velocity.y,
-                forwardVelocity.normalized.z * _maxSpeed);
+                forwardVelocity.z * 0.4f);
             playerBody.velocity = velocity;
         }
     }

@@ -9,8 +9,8 @@ namespace FormStateMachine.States
         private readonly Rigidbody _playerBody;
         private ParticleSystem _poofParticleSystem;
 
-        public CarFormState(CarForm carForm, GlobalVariables globalVariables, Ground ground, Rigidbody playerBody,
-            ParticleSystem poofParticleSystem)
+        public CarFormState(CarForm carForm, Ground ground, Rigidbody playerBody,
+            ParticleSystem poofParticleSystem, float gravityForce)
         {
             _carForm = carForm;
             _playerBody = playerBody;
@@ -18,12 +18,11 @@ namespace FormStateMachine.States
             
             _carForm.playerBody = playerBody;
             _carForm.Ground = ground;
-            _carForm.gravityForce = globalVariables.GravityForce;
+            _carForm.gravityForce = gravityForce;
         }
 
         protected override void OnEnter()
         {
-            _playerBody.constraints = RigidbodyConstraints.None;
             _playerBody.constraints = RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
             _playerBody.transform.rotation = Quaternion.identity;
             _poofParticleSystem.Play();
