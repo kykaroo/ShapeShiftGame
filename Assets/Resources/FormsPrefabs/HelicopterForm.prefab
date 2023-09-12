@@ -233,9 +233,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9394bb7d6984affa20c5cf4694912c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseSpeed: 15
+  baseSpeed: 14
+  maxHeightSpeedMultiplier: 1.25
   flyHeight: 10
   upwardsSpeed: 25
+  animator: {fileID: 6653610106892240686}
   playerBody: {fileID: 0}
   velocity: {x: 0, y: 0, z: 0}
 --- !u!1 &5573433825446395462

@@ -5,13 +5,16 @@ namespace FormStateMachine.Forms
     public class HelicopterForm : MonoBehaviour
     {
         [SerializeField] private float baseSpeed;
+        [SerializeField] private float maxHeightSpeedMultiplier;
         [SerializeField] private float flyHeight;
         [SerializeField] private float upwardsSpeed;
+        [SerializeField] private Animator animator;
 
         private RaycastHit _surfaceHit;
         private BoxCollider _collider;
         private float _maxSpeed;
         private Vector3 _currentVelocity;
+        private bool _onMaxHeight;
 
         [HideInInspector]
         public Rigidbody playerBody;
@@ -19,6 +22,8 @@ namespace FormStateMachine.Forms
         public Ground Ground;
         [HideInInspector]
         public Vector3 velocity;
+
+        private static readonly int OnMaxHeight = Animator.StringToHash("onMaxHeight");
 
         private void Awake()
         {
@@ -30,8 +35,14 @@ namespace FormStateMachine.Forms
             velocity = playerBody.velocity;
             Physics.SyncTransforms();
             HelicopterFormMovement();
-            HandleHelicopterHeight();
+            HandleHeight();
+            HandleMaxHeightRotation();
             SpeedLimit();
+        }
+
+        private void HandleMaxHeightRotation()
+        {
+            animator.SetBool(OnMaxHeight, _onMaxHeight);
         }
 
         private void HelicopterFormMovement()
@@ -44,17 +55,24 @@ namespace FormStateMachine.Forms
                 _maxSpeed = baseSpeed * 0.1f;
             }
 
+            if (_onMaxHeight)
+            {
+                _maxSpeed = baseSpeed * maxHeightSpeedMultiplier;
+            }
             playerBody.AddForce(Vector3.forward * _maxSpeed, ForceMode.Acceleration);
         }
 
-        private void HandleHelicopterHeight()
+        private void HandleHeight()
         {
             Physics.BoxCast(_collider.bounds.center, transform.lossyScale * 0.5f, Vector3.down, out _surfaceHit);
             if (_surfaceHit.distance < flyHeight * 0.98f)
             {
+                _onMaxHeight = false;
                 playerBody.AddForce(Vector3.up * upwardsSpeed);
                 return;
             }
+            
+            _onMaxHeight = true;
 
             if (_surfaceHit.distance > flyHeight * 1.02f)
             {
@@ -63,7 +81,7 @@ namespace FormStateMachine.Forms
             }
 
             if (_surfaceHit.distance > flyHeight * 0.98f && _surfaceHit.distance < flyHeight * 1.02f)
-            { 
+            {
                 playerBody.velocity = new(velocity.x, 0, velocity.z);
             }
         }
@@ -81,7 +99,7 @@ namespace FormStateMachine.Forms
             var velocity = playerBody.velocity;
             
             velocity = new(velocity.x, velocity.y,
-                forwardVelocity.z * 0.4f);
+                forwardVelocity.z * 0.9f);
             playerBody.velocity = velocity;
         }
     }
