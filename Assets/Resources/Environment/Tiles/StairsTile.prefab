@@ -854,10 +854,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2728989677096351840}
     m_Modifications:
+    - target: {fileID: 1906891857599364796, guid: 500d2d001c2f64346bcd4ca6dff89856, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1906891857599364796, guid: 500d2d001c2f64346bcd4ca6dff89856, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1c56bcb476b22964d98ba3e4ab258361, type: 2}
     - target: {fileID: 3515655511344918092, guid: 500d2d001c2f64346bcd4ca6dff89856, type: 3}
       propertyPath: m_Name
       value: Stairs
       objectReference: {fileID: 0}
+    - target: {fileID: 5307261960221205724, guid: 500d2d001c2f64346bcd4ca6dff89856, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 6597496045948970860, guid: 500d2d001c2f64346bcd4ca6dff89856, type: 3}
       propertyPath: m_Layer
       value: 7
