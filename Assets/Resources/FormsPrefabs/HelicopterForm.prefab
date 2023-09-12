@@ -210,10 +210,10 @@ BoxCollider:
   m_Material: {fileID: 13400000, guid: 7f092a2ce0e70be4e9bf58ddd009c737, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1920
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -235,7 +235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseSpeed: 10
   flyHeight: 10
-  upwardsSpeed: 10
+  upwardsSpeed: 20
   playerBody: {fileID: 0}
   velocity: {x: 0, y: 0, z: 0}
 --- !u!1 &5573433825446395462
@@ -330,6 +330,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7019397761607175727}
+  - component: {fileID: 6653610106892240686}
   m_Layer: 0
   m_Name: Helicopter(Clone)
   m_TagString: Untagged
@@ -355,3 +356,24 @@ Transform:
   m_Father: {fileID: 9142723010911899623}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &6653610106892240686
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6960229323513337866}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c502e8df88697fc43af5e265ec461c5b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

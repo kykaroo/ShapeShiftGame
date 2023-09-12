@@ -24,7 +24,7 @@ namespace FormStateMachine.States
         protected override void OnEnter()
         {
             _playerBody.constraints = RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-            _playerBody.transform.rotation = Quaternion.identity;
+            _playerBody.rotation = Quaternion.identity;
             _poofParticleSystem.Play();
             _carForm.gameObject.SetActive(true);
         }

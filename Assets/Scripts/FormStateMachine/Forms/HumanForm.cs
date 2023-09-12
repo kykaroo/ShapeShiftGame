@@ -25,7 +25,6 @@ namespace FormStateMachine.Forms
             ApplyGravity();
             HumanFormMovement();
             SpeedLimit();
-            playerBody.transform.rotation = Quaternion.identity;
         }
         
         private void ApplyGravity()

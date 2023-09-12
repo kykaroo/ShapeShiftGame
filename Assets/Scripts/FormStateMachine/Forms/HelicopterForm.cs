@@ -29,7 +29,6 @@ namespace FormStateMachine.Forms
             HelicopterFormMovement();
             HandleHelicopterHeight();
             SpeedLimit();
-            playerBody.transform.rotation = Quaternion.identity;
         }
 
         private void HelicopterFormMovement()

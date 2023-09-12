@@ -23,7 +23,7 @@ namespace FormStateMachine.States
         protected override void OnEnter()
         {
             _playerBody.constraints = RigidbodyConstraints.FreezeRotation;
-            _playerBody.transform.rotation = Quaternion.identity;
+            _playerBody.rotation = Quaternion.identity;
             _poofParticleSystem.Play();
             _helicopterForm.gameObject.SetActive(true);
         }
