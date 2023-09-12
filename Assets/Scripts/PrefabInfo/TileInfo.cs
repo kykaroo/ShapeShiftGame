@@ -5,7 +5,6 @@ namespace PrefabInfo
 {
     public class TileInfo : MonoBehaviour
     {
-        [field:SerializeField] public float TileZSize { get; private set; }
         [SerializeField] private VictoryTrigger finishTileVictoryTrigger;
         [SerializeField] private Transform start;
         [SerializeField] private Transform end;

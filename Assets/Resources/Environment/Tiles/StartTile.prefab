@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2728989677096351840}
+  m_Father: {fileID: 1881149852680355228}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &769795857814574521
@@ -140,11 +140,10 @@ Transform:
   m_GameObject: {fileID: 3457136444311683030}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 0.2, z: 50}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8345422958766303192}
-  - {fileID: 7561388667435540877}
+  - {fileID: 1881149852680355228}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -160,10 +159,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2979d3a2edab4447a0a97349fd3c1ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileZSize>k__BackingField: 50
   finishTileVictoryTrigger: {fileID: 0}
   start: {fileID: 1657570823368164980}
   end: {fileID: 7931723579693080400}
+--- !u!1 &4566117480850104708
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1881149852680355228}
+  m_Layer: 7
+  m_Name: Scaleble
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1881149852680355228
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4566117480850104708}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 10, y: 0.2, z: 50}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7561388667435540877}
+  - {fileID: 8345422958766303192}
+  m_Father: {fileID: 2728989677096351840}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4970489804914620972
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,7 +228,7 @@ Transform:
   m_Children:
   - {fileID: 1657570823368164980}
   - {fileID: 7931723579693080400}
-  m_Father: {fileID: 2728989677096351840}
+  m_Father: {fileID: 1881149852680355228}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5373457731682020274

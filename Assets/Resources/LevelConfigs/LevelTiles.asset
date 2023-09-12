@@ -17,7 +17,7 @@ MonoBehaviour:
   - {fileID: 5026267663542118459, guid: 61a73fd5647d969488e7c73546da6218, type: 3}
   - {fileID: -5857874312475297637, guid: b7ad461d2bf1a2b44b0d926c5e25bab7, type: 3}
   startTile: {fileID: -1665070077945219862, guid: 253dc9afb35d2454a806dbcca39f5335, type: 3}
-  finishTile: {fileID: 5026267663542118459, guid: 68d5f774b124496458b96ad3af912dfb, type: 3}
+  finishTile: {fileID: 8526742897531777107, guid: 68d5f774b124496458b96ad3af912dfb, type: 3}
   numberOfTiles: 5
   backgroundTileList:
   - {fileID: -1417271248983929338, guid: 9ecabc266f7398f469cba410cdcb7dd4, type: 3}

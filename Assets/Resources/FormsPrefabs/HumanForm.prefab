@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a86b25bf4e54d8997bffb3af7421d4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseSpeed: 10
+  baseSpeed: 15
   gravityForce: 0
   playerBody: {fileID: 0}
 --- !u!65 &2197796268484650766
