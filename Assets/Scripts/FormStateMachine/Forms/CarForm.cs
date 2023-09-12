@@ -10,8 +10,11 @@ namespace FormStateMachine.Forms
         private BoxCollider _collider;
         private float _maxSpeed;
 
+        [HideInInspector]
         public float gravityForce;
+        [HideInInspector]
         public Rigidbody playerBody;
+        [HideInInspector]
         public Ground Ground;
 
         private void Awake()

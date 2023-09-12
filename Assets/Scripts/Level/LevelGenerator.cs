@@ -41,7 +41,7 @@ namespace Level
 
             GenerateFinishTile();
 
-            while (TileList.Last.Value.EndPosition > BackgroundList.Last.Value.EndPosition.z)
+            while (TileList.Last.Value.End.z > BackgroundList.Last.Value.EndPosition.z)
             {
                 GenerateBackground();
             }
@@ -49,9 +49,9 @@ namespace Level
 
         private void GenerateFinishTile()
         {
-            var tileInfoStartPosition = TileList.Last.Value.EndPosition;
+            var tileInfoStartPosition = TileList.Last.Value.End;
             TileList.AddLast(Object.Instantiate(_levelConfig.FinishTile, Vector3.zero, Quaternion.identity));
-            TileList.Last.Value.StartPosition = tileInfoStartPosition;
+            TileList.Last.Value.ConnectStartToCurrentEnd = tileInfoStartPosition;
             VictoryTrigger = TileList.Last.Value.FinishTileVictoryTrigger;
         }
     
@@ -59,9 +59,9 @@ namespace Level
         {
             var nextTile = _levelConfig.LevelTilesList[Random.Range(0, _levelConfig.LevelTilesList.Length)];
             var tileInfo = Object.Instantiate(nextTile, Vector3.zero, Quaternion.identity);
-            var tileInfoStartPosition = TileList.Last.Value.EndPosition;
+            var tileInfoStartPosition = TileList.Last.Value.End;
             TileList.AddLast(tileInfo);
-            tileInfo.StartPosition = tileInfoStartPosition;
+            tileInfo.ConnectStartToCurrentEnd = tileInfoStartPosition;
         }
 
         public void ClearLevel()

@@ -13,8 +13,11 @@ namespace FormStateMachine.Forms
         private float _maxSpeed;
         private Vector3 _currentVelocity;
 
+        [HideInInspector]
         public Rigidbody playerBody;
+        [HideInInspector]
         public Ground Ground;
+        [HideInInspector]
         public Vector3 velocity;
 
         private void Awake()

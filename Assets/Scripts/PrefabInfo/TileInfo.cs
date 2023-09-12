@@ -7,15 +7,16 @@ namespace PrefabInfo
     {
         [field:SerializeField] public float TileZSize { get; private set; }
         [SerializeField] private VictoryTrigger finishTileVictoryTrigger;
+        [SerializeField] private Transform start;
+        [SerializeField] private Transform end;
+
+        public Vector3 End => end.position;
 
         public VictoryTrigger FinishTileVictoryTrigger => finishTileVictoryTrigger;
 
-        public float StartPosition
+        public Vector3 ConnectStartToCurrentEnd
         {
-            get => transform.position.z - TileZSize * 0.5f;
-            set => transform.position = Vector3.forward * (value + 0.5f * TileZSize);
+            set => transform.position = value + (transform.position - start.position);
         }
-
-        public float EndPosition => transform.position.z + TileZSize * 0.5f;
     }
 }

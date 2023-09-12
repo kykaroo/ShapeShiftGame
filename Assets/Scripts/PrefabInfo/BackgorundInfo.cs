@@ -8,7 +8,6 @@ namespace PrefabInfo
 
         public Vector3 StartPosition
         {
-            get => transform.position;
             set => transform.position = value;
         }
 
