@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5460896166219442904}
   - component: {fileID: 8964093674615104893}
   - component: {fileID: 6593882273367626167}
-  - component: {fileID: 2513861358420070165}
   m_Layer: 0
   m_Name: pizzeria house
   m_TagString: Untagged
@@ -84,16 +83,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2513861358420070165
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4648507072973713506}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 9.173882, y: 9.338072, z: 6.794386}
-  m_Center: {x: -0.0000023841858, y: 4.669036, z: 0.00000011920929}

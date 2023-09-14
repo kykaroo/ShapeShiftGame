@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5942742485766983066}
   - component: {fileID: 7338342206350836287}
   - component: {fileID: 4770420393298933493}
-  - component: {fileID: 6198772906960542881}
   m_Layer: 0
   m_Name: round tree
   m_TagString: Untagged
@@ -84,16 +83,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6198772906960542881
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6427494710875723552}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 4.554688, y: 6.738598, z: 4.4404926}
-  m_Center: {x: 0.000023126602, y: 3.369299, z: 0.0000021457672}

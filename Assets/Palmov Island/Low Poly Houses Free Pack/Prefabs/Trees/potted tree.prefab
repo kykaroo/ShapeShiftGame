@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6323188161133455376}
   - component: {fileID: 6948950547850307509}
   - component: {fileID: 5155309843825775487}
-  - component: {fileID: 6213326063252834786}
   m_Layer: 0
   m_Name: potted tree
   m_TagString: Untagged
@@ -84,16 +83,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6213326063252834786
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6668611196270211754}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.89710665, y: 1.7835782, z: 0.89710736}
-  m_Center: {x: 0.00000022351742, y: 0.8917891, z: 0.00000010430813}

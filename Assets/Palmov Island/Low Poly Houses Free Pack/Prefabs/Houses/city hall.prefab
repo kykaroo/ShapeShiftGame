@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1692248296126866811}
   - component: {fileID: 2365455545817230046}
   - component: {fileID: 519952454632676884}
-  - component: {fileID: 9182317862059403370}
   m_Layer: 0
   m_Name: city hall
   m_TagString: Untagged
@@ -84,16 +83,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &9182317862059403370
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2033307545637404609}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 15.519779, y: 14.9736, z: 12.257131}
-  m_Center: {x: -0.00000071525574, y: 7.4868, z: 0}

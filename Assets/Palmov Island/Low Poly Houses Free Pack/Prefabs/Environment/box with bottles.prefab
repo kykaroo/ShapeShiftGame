@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3095705812015389950}
   - component: {fileID: 2114989357814584155}
   - component: {fileID: 4232544535161726865}
-  - component: {fileID: 7556106485964872531}
   m_Layer: 0
   m_Name: box with bottles
   m_TagString: Untagged
@@ -84,16 +83,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7556106485964872531
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2431372758668166724}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.1417012, y: 1.6603962, z: 2.563399}
-  m_Center: {x: 0, y: 0.8301981, z: 0}
