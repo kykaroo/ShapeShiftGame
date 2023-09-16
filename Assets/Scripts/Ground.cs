@@ -47,4 +47,10 @@ public class Ground
     {
         return Physics.Raycast(bounds.center, transformForward, bounds.extents.x + 0.01f, maskToCheck);
     }
+
+    public LayerMask GetTerrainType(Bounds bounds)
+    {
+        Physics.Raycast(bounds.center + Vector3.forward * bounds.extents.z, bounds.center + Vector3.forward * bounds.extents.z + Vector3.down, out var hit, bounds.extents.x + 0.01f);
+        return hit.collider.gameObject.layer;
+    }
 }

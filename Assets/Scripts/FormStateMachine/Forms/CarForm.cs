@@ -5,9 +5,9 @@ namespace FormStateMachine.Forms
     public class CarForm : MonoBehaviour
     {
         [SerializeField] private float baseSpeed;
+        [SerializeField] private BoxCollider _collider;
 
         private RaycastHit _surfaceHit;
-        private BoxCollider _collider;
         private float _maxSpeed;
 
         [HideInInspector]
@@ -16,10 +16,12 @@ namespace FormStateMachine.Forms
         public Rigidbody playerBody;
         [HideInInspector]
         public Ground Ground;
+        
+        public string Name { get; private set; }
 
         private void Awake()
         {
-            _collider = GetComponent<BoxCollider>();
+            Name = "Car";
         }
 
         private void FixedUpdate()

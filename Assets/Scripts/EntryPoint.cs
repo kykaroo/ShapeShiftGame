@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using FormStateMachine;
 using FormStateMachine.Forms;
 using FormStateMachine.States;
@@ -8,10 +9,10 @@ using UnityEngine;
 
 public class EntryPoint : MonoBehaviour
 {
+    [Header("Scene objects")] 
+    [SerializeField] private int aiNumber;
     [Header("Scene objects")]
     [SerializeField] private FormFactory formFactory;
-    [SerializeField] private Rigidbody playerBody;
-    [SerializeField] private GameObject startPosition;
     [SerializeField] private GameObject playerCamera;
     [SerializeField] private GameObject victoryCamera;
     [Header("Ui")]
@@ -26,14 +27,20 @@ public class EntryPoint : MonoBehaviour
     [SerializeField] private LayerMask stairsSlopeMask;
     [SerializeField] private LayerMask groundMask;
     [Header("Change form effect")]
-    [SerializeField] private ParticleSystem poofParticleSystem;
+    [SerializeField] private ParticleSystem[] poofParticleSystems;
     [SerializeField] private float gravityMultiplier;
+    [Header("Player and AI objects")]
+    [SerializeField] private Rigidbody[] playersBody;
+    [SerializeField] private GameObject[] playersStartPositions;
+    [Header("Ai difficulty")]
+    [SerializeField] private AiDifficulty[] aiDifficulty;
+    [SerializeField] private EnemyAi[] enemyAis;
 
-    private FormStateMachine.FormStateMachine _formStateMachine;
-    private HumanForm _humanForm;
-    private CarForm _carForm;
-    private HelicopterForm _helicopterForm;
-    private BoatForm _boatForm;
+    private List<FormStateMachine.FormStateMachine> _formStateMachine;
+    private List<HumanForm> _humanForm;
+    private List<CarForm> _carForm;
+    private List<HelicopterForm> _helicopterForm;
+    private List<BoatForm> _boatForm;
     private Ground _ground;
     private LevelGenerator _levelGenerator;
     private const float Gravity = 9.81f;
@@ -42,63 +49,94 @@ public class EntryPoint : MonoBehaviour
 
     private void Start()
     {
+        _formStateMachine = new();
+        _humanForm = new();
+        _carForm = new();
+        _helicopterForm = new();
+        _boatForm = new();
+        
         victoryCamera.SetActive(false);
         playerCamera.SetActive(true);
         _ground = new(allEnvironment, waterMask, balloonsMask, stairsSlopeMask, groundMask);
         _levelGenerator = new(levelConfig, _ground);
         _gravityForce = Gravity * gravityMultiplier;
+        
         CreateForms();
-        SetupStates();
+        
+        for (var i = 0; i < aiNumber + 1; i++)
+        {
+            CreatePlayer(i);
+        }
+        
         AddButtonListeners();
+        
+        for (var i = 0; i < aiNumber; i++)
+        {
+            enemyAis[i].Initialize(aiDifficulty[i], _formStateMachine[i + 1]);
+        }
+        
         RestartLevel();
+    }
+
+    private void CreatePlayer(int playerId)
+    {
+        _formStateMachine.Add( new(new()
+        {
+            { typeof(HumanFormState), new HumanFormState(_humanForm[playerId], _ground, playersBody[playerId], poofParticleSystems[playerId], _gravityForce) },
+            { typeof(CarFormState), new CarFormState(_carForm[playerId], _ground, playersBody[playerId], poofParticleSystems[playerId], _gravityForce) },
+            { typeof(HelicopterFormState), new HelicopterFormState(_helicopterForm[playerId], _ground, playersBody[playerId], poofParticleSystems[playerId], _gravityForce) },
+            { typeof(BoatFormState), new BoatFormState(_boatForm[playerId], _ground, playersBody[playerId], poofParticleSystems[playerId], _gravityForce) },
+            { typeof(NoneFormState), new NoneFormState(playersBody[playerId]) }
+        }));
     }
 
     private void AddButtonListeners()
     {
         startUi.StartButton.onClick.AddListener(StartGame);
-        formChangeUi.HumanFormButton.onClick.AddListener(() => _formStateMachine.SetState<HumanFormState>());
-        formChangeUi.CarFormButton.onClick.AddListener(() => _formStateMachine.SetState<CarFormState>());
-        formChangeUi.HelicopterFormButton.onClick.AddListener(() => _formStateMachine.SetState<HelicopterFormState>());
-        formChangeUi.BoatFormButton.onClick.AddListener(() => _formStateMachine.SetState<BoatFormState>());
+        formChangeUi.HumanFormButton.onClick.AddListener(() => _formStateMachine[0].SetState<HumanFormState>());
+        formChangeUi.CarFormButton.onClick.AddListener(() => _formStateMachine[0].SetState<CarFormState>());
+        formChangeUi.HelicopterFormButton.onClick.AddListener(() => _formStateMachine[0].SetState<HelicopterFormState>());
+        formChangeUi.BoatFormButton.onClick.AddListener(() => _formStateMachine[0].SetState<BoatFormState>());
         victoryUi.PlayAgainButton.onClick.AddListener(RestartLevel);
     }
 
     private void CreateForms()
     {
-        _humanForm = formFactory.CreateForm<HumanForm>();
-        _carForm = formFactory.CreateForm<CarForm>();
-        _helicopterForm = formFactory.CreateForm<HelicopterForm>();
-        _boatForm = formFactory.CreateForm<BoatForm>();
-    }
-
-    private void SetupStates()
-    {
-        _formStateMachine = new(new()
+        for (var i = 0; i < aiNumber + 1; i++)
         {
-            { typeof(HumanFormState), new HumanFormState(_humanForm, _ground, playerBody, poofParticleSystem, _gravityForce) },
-            { typeof(CarFormState), new CarFormState(_carForm, _ground, playerBody, poofParticleSystem, _gravityForce) },
-            { typeof(HelicopterFormState), new HelicopterFormState(_helicopterForm, _ground, playerBody, poofParticleSystem, _gravityForce) },
-            { typeof(BoatFormState), new BoatFormState(_boatForm, _ground, playerBody, poofParticleSystem, _gravityForce) },
-            { typeof(NoneFormState), new NoneFormState(playerBody) }
-        });
+            _humanForm.Add(formFactory.CreateForm<HumanForm>(i));
+            _carForm.Add(formFactory.CreateForm<CarForm>(i));
+            _helicopterForm.Add(formFactory.CreateForm<HelicopterForm>(i));
+            _boatForm.Add(formFactory.CreateForm<BoatForm>(i));
+        }
     }
 
-    void StartGame()
+    private void StartGame()
     {
         startUi.gameObject.SetActive(false);
         victoryUi.gameObject.SetActive(false);
         formChangeUi.gameObject.SetActive(true);
-        
-        _formStateMachine.SetState<HumanFormState>();
+
+        foreach (var formStateMachine in _formStateMachine)
+        {
+            formStateMachine.SetState<HumanFormState>();
+        }
     }
 
-    void RestartLevel()
+    private void RestartLevel()
     {
         _levelGenerator.ClearLevel();
         _levelGenerator.GenerateLevel();
         _levelGenerator.VictoryTrigger.OnLevelComplete += LevelComplete;
-        _formStateMachine.SetState<NoneFormState>();
-        playerBody.position = startPosition.transform.position;
+        foreach (var formStateMachine in _formStateMachine)
+        {
+            formStateMachine.SetState<NoneFormState>();
+        }
+
+        for (var i = 0; i < aiNumber + 1; i++)
+        {
+            playersBody[i].position = playersStartPositions[i].transform.position;
+        }
 
         formChangeUi.gameObject.SetActive(false);
         victoryUi.gameObject.SetActive(false);
@@ -107,7 +145,7 @@ public class EntryPoint : MonoBehaviour
         playerCamera.SetActive(true);
     }
 
-    void LevelComplete()
+    private void LevelComplete()
     {
         victoryCamera.transform.position = playerCamera.transform.position;
         playerCamera.SetActive(false);

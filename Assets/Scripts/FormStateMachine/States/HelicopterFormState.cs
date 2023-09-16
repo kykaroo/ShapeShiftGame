@@ -13,6 +13,7 @@ namespace FormStateMachine.States
             Rigidbody playerBody, ParticleSystem poofParticleSystem, float gravityForce)
         {
             _helicopterForm = helicopterForm;
+            _helicopterForm.gameObject.SetActive(false);
             _playerBody = playerBody;
             _poofParticleSystem = poofParticleSystem;
 
@@ -22,7 +23,7 @@ namespace FormStateMachine.States
 
         protected override void OnEnter()
         {
-            _playerBody.constraints = RigidbodyConstraints.FreezeRotation;
+            _playerBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX;
             _playerBody.rotation = Quaternion.identity;
             _poofParticleSystem.Play();
             _helicopterForm.gameObject.SetActive(true);
@@ -31,6 +32,11 @@ namespace FormStateMachine.States
         protected override void OnExit()
         {
             _helicopterForm.gameObject.SetActive(false);
+        }
+        
+        public override string GetFormName()
+        {
+            return _helicopterForm.Name;
         }
     }
 }

@@ -5,9 +5,9 @@ namespace FormStateMachine.Forms
     public class BoatForm : MonoBehaviour
     {
         [SerializeField] private float baseSpeed;
-        
+        [SerializeField] private BoxCollider _collider;
+
         private RaycastHit _surfaceHit;
-        private BoxCollider _collider;
         private float _maxSpeed;
 
         [HideInInspector]
@@ -17,9 +17,11 @@ namespace FormStateMachine.Forms
         [HideInInspector]
         public float gravityForce;
 
+        public string Name { get; private set; }
+
         private void Awake()
         {
-            _collider = GetComponent<BoxCollider>();
+            Name = "Boat";
         }
 
         private void FixedUpdate()

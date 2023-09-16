@@ -1,25 +1,30 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace FormStateMachine.Forms
 {
     public class HumanForm : MonoBehaviour
     {
         [SerializeField] private float baseSpeed;
-        
-        private bool _applyGravity;
-        private BoxCollider _collider;
-        private float _maxSpeed;
+        [SerializeField] private BoxCollider _collider;
 
+        public BoxCollider Collider => _collider;
+
+        private bool _applyGravity;
+        private float _maxSpeed;
+        
         [HideInInspector]
         public Ground Ground;
         [HideInInspector]
         public float gravityForce;
         [HideInInspector]
         public Rigidbody playerBody;
+        
+        public string Name { get; private set; }
 
         private void Awake()
         {
-            _collider = GetComponent<BoxCollider>();
+            Name = "Human";
         }
 
         private void FixedUpdate()

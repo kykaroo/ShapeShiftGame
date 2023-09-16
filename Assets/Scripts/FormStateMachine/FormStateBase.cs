@@ -14,8 +14,12 @@
         {
             OnExit();
         }
-
+        
         protected virtual void OnEnter() { }
         protected virtual void OnExit() { }
+        public virtual string GetFormName()
+        {
+            return null;
+        }
     }
 }

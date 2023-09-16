@@ -361,7 +361,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3976849265916831841
 Transform:
   m_ObjectHideFlags: 0
@@ -412,6 +412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseSpeed: 25
+  _collider: {fileID: 8993609103242575141}
   gravityForce: 0
   playerBody: {fileID: 0}
 --- !u!1 &7089604575767544549

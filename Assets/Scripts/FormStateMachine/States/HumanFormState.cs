@@ -13,6 +13,7 @@ namespace FormStateMachine.States
             ParticleSystem poofParticleSystem, float gravityForce)
         {
             _humanForm = humanForm;
+            _humanForm.gameObject.SetActive(false);
             _playerBody = playerBody;
             _poofParticleSystem = poofParticleSystem;
 
@@ -23,7 +24,7 @@ namespace FormStateMachine.States
 
         protected override void OnEnter()
         {
-            _playerBody.constraints = RigidbodyConstraints.FreezeRotation;
+            _playerBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX;
             _playerBody.rotation = Quaternion.identity;
             _poofParticleSystem.Play();
             _humanForm.gameObject.SetActive(true);
@@ -32,6 +33,11 @@ namespace FormStateMachine.States
         protected override void OnExit()
         {
             _humanForm.gameObject.SetActive(false);
+        }
+
+        public override string GetFormName()
+        {
+            return _humanForm.Name;
         }
     }
 }

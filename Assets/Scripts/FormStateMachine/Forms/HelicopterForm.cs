@@ -5,13 +5,13 @@ namespace FormStateMachine.Forms
     public class HelicopterForm : MonoBehaviour
     {
         [SerializeField] private float baseSpeed;
+        [SerializeField] private BoxCollider _collider;
         [SerializeField] private float maxHeightSpeedMultiplier;
         [SerializeField] private float flyHeight;
         [SerializeField] private float upwardsSpeed;
         [SerializeField] private Animator animator;
 
         private RaycastHit _surfaceHit;
-        private BoxCollider _collider;
         private float _maxSpeed;
         private Vector3 _currentVelocity;
         private bool _onMaxHeight;
@@ -22,12 +22,14 @@ namespace FormStateMachine.Forms
         public Ground Ground;
         [HideInInspector]
         public Vector3 velocity;
+        
+        public string Name { get; private set; }
 
         private static readonly int OnMaxHeight = Animator.StringToHash("onMaxHeight");
 
         private void Awake()
         {
-            _collider = GetComponent<BoxCollider>();
+            Name = "Helicopter";
         }
 
         private void FixedUpdate()
