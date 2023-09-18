@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Ui
@@ -10,12 +11,22 @@ namespace Ui
         [SerializeField] private Button helicopterFormButton;
         [SerializeField] private Button boatFormButton;
 
-        public Button HumanFormButton => humanFormButton;
+        public event Action OnHumanFormButtonClick;
+        public event Action OnCarFormButtonClick;
+        public event Action OnHelicopterFormButtonClick;
+        public event Action OnBoatFormButtonClick;
 
-        public Button CarFormButton => carFormButton;
-
-        public Button HelicopterFormButton => helicopterFormButton;
-
-        public Button BoatFormButton => boatFormButton;
+        private void HumanFormButtonClick() => OnHumanFormButtonClick?.Invoke();
+        private void CarFormButtonClick() => OnCarFormButtonClick?.Invoke();
+        private void HelicopterFormButtonClick() => OnHelicopterFormButtonClick?.Invoke();
+        private void BoatFormButtonClick() => OnBoatFormButtonClick?.Invoke();
+        
+        private void Awake()
+        {
+            humanFormButton.onClick.AddListener(HumanFormButtonClick);
+            carFormButton.onClick.AddListener(CarFormButtonClick);
+            helicopterFormButton.onClick.AddListener(HelicopterFormButtonClick);
+            boatFormButton.onClick.AddListener(BoatFormButtonClick);
+        }
     }
 }

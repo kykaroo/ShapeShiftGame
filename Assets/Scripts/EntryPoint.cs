@@ -19,6 +19,7 @@ public class EntryPoint : MonoBehaviour
     [SerializeField] private FormChangeUi formChangeUi;
     [SerializeField] private StartUi startUi;
     [SerializeField] private VictoryUi victoryUi;
+    [SerializeField] private Shop.Shop shopUi;
     [SerializeField] private LevelConfig levelConfig;
     [Header("Ground masks")]
     [SerializeField] private LayerMask allEnvironment;
@@ -49,14 +50,9 @@ public class EntryPoint : MonoBehaviour
 
     private void Start()
     {
-        _formStateMachine = new();
-        _humanForm = new();
-        _carForm = new();
-        _helicopterForm = new();
-        _boatForm = new();
+        InitializeLists();
+        PrepareGameObjects();
         
-        victoryCamera.SetActive(false);
-        playerCamera.SetActive(true);
         _ground = new(allEnvironment, waterMask, balloonsMask, stairsSlopeMask, groundMask);
         _levelGenerator = new(levelConfig, _ground);
         _gravityForce = Gravity * gravityMultiplier;
@@ -78,6 +74,25 @@ public class EntryPoint : MonoBehaviour
         RestartLevel();
     }
 
+    private void PrepareGameObjects()
+    {
+        victoryCamera.SetActive(false);
+        playerCamera.SetActive(true);
+        formChangeUi.gameObject.SetActive(false); 
+        startUi.gameObject.SetActive(false); 
+        victoryUi.gameObject.SetActive(false); 
+        shopUi.gameObject.SetActive(false);
+    }
+
+    private void InitializeLists()
+    {
+        _formStateMachine = new();
+        _humanForm = new();
+        _carForm = new();
+        _helicopterForm = new();
+        _boatForm = new();
+    }
+
     private void CreatePlayer(int playerId)
     {
         _formStateMachine.Add( new(new()
@@ -92,12 +107,29 @@ public class EntryPoint : MonoBehaviour
 
     private void AddButtonListeners()
     {
-        startUi.StartButton.onClick.AddListener(StartGame);
-        formChangeUi.HumanFormButton.onClick.AddListener(() => _formStateMachine[0].SetState<HumanFormState>());
-        formChangeUi.CarFormButton.onClick.AddListener(() => _formStateMachine[0].SetState<CarFormState>());
-        formChangeUi.HelicopterFormButton.onClick.AddListener(() => _formStateMachine[0].SetState<HelicopterFormState>());
-        formChangeUi.BoatFormButton.onClick.AddListener(() => _formStateMachine[0].SetState<BoatFormState>());
-        victoryUi.PlayAgainButton.onClick.AddListener(RestartLevel);
+        startUi.OnStartButtonClick += OnStartGame;
+        startUi.OnShopButtonClick += OpenShop;
+
+        formChangeUi.OnHumanFormButtonClick += () => _formStateMachine[0].SetState<HumanFormState>();
+        formChangeUi.OnCarFormButtonClick += () => _formStateMachine[0].SetState<CarFormState>();
+        formChangeUi.OnHelicopterFormButtonClick += () => _formStateMachine[0].SetState<HelicopterFormState>();
+        formChangeUi.OnBoatFormButtonClick += () => _formStateMachine[0].SetState<BoatFormState>();
+        
+        victoryUi.OnPlayAgainButtonClick += RestartLevel;
+
+        shopUi.OnBackButtonClick += CloseShop;
+    }
+
+    private void OpenShop()
+    {
+        startUi.gameObject.SetActive(false);
+        shopUi.gameObject.SetActive(true);
+    }
+
+    private void CloseShop()
+    {
+        shopUi.gameObject.SetActive(false);
+        startUi.gameObject.SetActive(true);
     }
 
     private void CreateForms()
@@ -111,7 +143,7 @@ public class EntryPoint : MonoBehaviour
         }
     }
 
-    private void StartGame()
+    private void OnStartGame()
     {
         startUi.gameObject.SetActive(false);
         victoryUi.gameObject.SetActive(false);

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Ui
@@ -7,6 +8,13 @@ namespace Ui
     {
         [SerializeField] private Button playAgainButton;
 
-        public Button PlayAgainButton => playAgainButton;
+        public event Action OnPlayAgainButtonClick;
+
+        private void PlayAgainButtonClick() => OnPlayAgainButtonClick?.Invoke();
+
+        private void Awake()
+        {
+            playAgainButton.onClick.AddListener(PlayAgainButtonClick);
+        }
     }
 }
