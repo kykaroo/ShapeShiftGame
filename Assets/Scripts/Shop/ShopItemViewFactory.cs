@@ -17,17 +17,45 @@ namespace Shop
 
         public ShopItemView Get(ShopItem shopItem, Transform parent)
         {
-            var instance = shopItem switch
-            {
-                HumanFormSkinItem => Instantiate(humanFormSkinItemPrefab, parent),
-                CarFormSkinItem => Instantiate(carFormSkinItemPrefab, parent),
-                HelicopterFormSkinItem => Instantiate(helicopterFormSkinItemPrefab, parent),
-                BoatFormSkinItem => Instantiate(boatFormSkinItemPrefab, parent),
-                _ => throw new ArgumentException(nameof(shopItem))
-            };
+            var visitor = new ShopItemVisitor(humanFormSkinItemPrefab, carFormSkinItemPrefab,
+                helicopterFormSkinItemPrefab, boatFormSkinItemPrefab);
+            visitor.Visit(shopItem);
 
-            instance.Initialize(shopItem);
+            var instance = Instantiate(visitor.Prefab, parent);
             return instance;
+        }
+        
+        private class ShopItemVisitor : IShopItemVisitor
+        {
+            private readonly ShopItemView _humanSkinItemPrefab;
+            private readonly ShopItemView _carSkinItemPrefab;
+            private readonly ShopItemView _helicopterSkinItemPrefab;
+            private readonly ShopItemView _boatSkinItemPrefab;
+
+            public ShopItemVisitor(ShopItemView humanSkinItemPrefab, ShopItemView carSkinItemPrefab,
+                ShopItemView helicopterSkinItemPrefab, ShopItemView boatSkinItemPrefab)
+            {
+                _humanSkinItemPrefab = humanSkinItemPrefab;
+                _carSkinItemPrefab = carSkinItemPrefab;
+                _helicopterSkinItemPrefab = helicopterSkinItemPrefab;
+                _boatSkinItemPrefab = boatSkinItemPrefab;
+            }
+            
+            public ShopItemView Prefab { get; private set; }
+            
+            public void Visit(ShopItem shopItem) => Visit((dynamic)shopItem);
+
+            public void Visit(HumanFormSkinItem humanFormSkinItem) => 
+                Prefab = _humanSkinItemPrefab;
+
+            public void Visit(CarFormSkinItem carFormSkinItem) =>
+                Prefab = _carSkinItemPrefab;
+
+            public void Visit(HelicopterFormSkinItem helicopterFormSkinItem) =>
+                Prefab = _helicopterSkinItemPrefab;
+
+            public void Visit(BoatFormSkinItem boatFormSkinItem) =>
+                Prefab = _boatSkinItemPrefab;
         }
     }
 }

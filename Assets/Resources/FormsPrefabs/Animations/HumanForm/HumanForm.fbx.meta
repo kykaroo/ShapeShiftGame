@@ -67,7 +67,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Armature|Idle
+      name: Idle
       takeName: Armature|Idle
       internalID: -8945691123924629249
       firstFrame: 0

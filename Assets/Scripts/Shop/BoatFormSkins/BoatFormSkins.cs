@@ -2,6 +2,7 @@
 {
     public enum BoatFormSkins
     {
-        
+        Boat1,
+        Boat2
     }
 }

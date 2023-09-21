@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44d23a8472284ab199904c9f4d3b5e20, type: 3}
+  m_Name: HeliAttack
+  m_EditorClassIdentifier: 
+  <GameModel>k__BackingField: {fileID: 4303778209515384205, guid: 1bf16f9fbf86ba24780505b93c0fe76c, type: 3}
+  <ShopModel>k__BackingField: {fileID: 1939305298911914566, guid: 18eb7fc2d14111545800060e40309fdf, type: 3}
+  <Image>k__BackingField: {fileID: 21300000, guid: 23c072842158cce42a8181f599832727, type: 3}
+  <Price>k__BackingField: 300
+  <SkinType>k__BackingField: 1

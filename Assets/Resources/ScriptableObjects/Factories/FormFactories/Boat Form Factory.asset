@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f944d91b749441c939f5247a8718d81, type: 3}
+  m_Name: Boat Form Factory
+  m_EditorClassIdentifier: 
+  boat1: {fileID: -8438333300642622930, guid: 494731c8ca8e0dd479f7759ad15e58ef, type: 3}
+  boat2: {fileID: -8438333300642622930, guid: 1f5e290ed6e06a8428742390909ccc86, type: 3}

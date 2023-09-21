@@ -2,6 +2,8 @@
 {
     public enum CarFormSkins
     {
-        
+        White,
+        Red,
+        Blue
     }
 }

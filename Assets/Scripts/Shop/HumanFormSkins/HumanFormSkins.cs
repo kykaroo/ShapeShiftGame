@@ -2,6 +2,8 @@
 {
     public enum HumanFormSkins
     {
-        Default
+        White,
+        Red,
+        Yellow
     }
 }

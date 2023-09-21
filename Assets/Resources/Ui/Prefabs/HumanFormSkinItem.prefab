@@ -271,7 +271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.43137255}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -601,7 +601,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6509434, g: 0.55522114, b: 0.1013261, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -630,8 +630,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c671c85d95c407d92ba499f256ef5f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultBackground: {fileID: 0}
-  highlightBackground: {fileID: 0}
+  useSprites: 0
+  defaultBackgroundSprite: {fileID: 0}
+  highlightBackgroundSprite: {fileID: 0}
+  defaultBackgroundColour: {r: 1, g: 0.61922556, b: 0, a: 1}
+  highlightBackgroundColour: {r: 1, g: 0.92926645, b: 0, a: 1}
   contentImage: {fileID: 6359147041385618346}
   lockImage: {fileID: 3992378907503889201}
   selectionText: {fileID: 7234336816297896086}
@@ -671,8 +674,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000030518, y: 0}
-  m_SizeDelta: {x: 192.3568, y: 180.8124}
+  m_AnchoredPosition: {x: 2.0608, y: 2.0608}
+  m_SizeDelta: {x: 172.3075, y: 172.3075}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3149430216019244444
 CanvasRenderer:

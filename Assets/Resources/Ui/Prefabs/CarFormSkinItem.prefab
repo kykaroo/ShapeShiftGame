@@ -92,9 +92,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5718834081987880349, guid: 55603d9e4bb4b2d44a35c77465769fd0, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 213.2132
+      objectReference: {fileID: 0}
+    - target: {fileID: 5718834081987880349, guid: 55603d9e4bb4b2d44a35c77465769fd0, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 158.914
+      objectReference: {fileID: 0}
+    - target: {fileID: 5718834081987880349, guid: 55603d9e4bb4b2d44a35c77465769fd0, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.00002718
+      objectReference: {fileID: 0}
+    - target: {fileID: 5718834081987880349, guid: 55603d9e4bb4b2d44a35c77465769fd0, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.0000023842
+      objectReference: {fileID: 0}
     - target: {fileID: 7159756675311931395, guid: 55603d9e4bb4b2d44a35c77465769fd0, type: 3}
       propertyPath: m_Name
-      value: HumanFormSkinItem Variant
+      value: CarFormSkinItem
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b5e9d355f0e488c93b5d49bf7c27435, type: 3}
+  m_Name: HumanRed
+  m_EditorClassIdentifier: 
+  <GameModel>k__BackingField: {fileID: 6905426390614599702, guid: 13b2eccee3c93bc45baea8517f47f2e6, type: 3}
+  <ShopModel>k__BackingField: {fileID: 9067145647049249916, guid: 50a1c45e27bfa0844bc46ee7b00893ff, type: 3}
+  <Image>k__BackingField: {fileID: 21300000, guid: bf1f1f19e96445c408c8a88fece6208e, type: 3}
+  <Price>k__BackingField: 300
+  <SkinType>k__BackingField: 1

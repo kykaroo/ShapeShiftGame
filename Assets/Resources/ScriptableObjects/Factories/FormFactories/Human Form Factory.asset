@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4db7a3a274cc43a6b4dcd070c189c209, type: 3}
+  m_Name: Human Form Factory
+  m_EditorClassIdentifier: 
+  white: {fileID: -1581437348753860742, guid: f3f9cd3a441c4484c81cc142e51a4c61, type: 3}
+  red: {fileID: -1581437348753860742, guid: 13b2eccee3c93bc45baea8517f47f2e6, type: 3}
+  yellow: {fileID: -1581437348753860742, guid: 5caca13577c996c4ca96f9ac89811f15, type: 3}

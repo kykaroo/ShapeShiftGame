@@ -14,6 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   humanFormSkinItems:
   - {fileID: 11400000, guid: c859b4ee1e9237149833de7b8fd08552, type: 2}
-  carFormSkinItems: []
-  helicopterFormSkinItems: []
-  boatFormSkinItems: []
+  - {fileID: 11400000, guid: 5e226e6eb9fc0f644806e4d979c86d94, type: 2}
+  - {fileID: 11400000, guid: 6169c4c58ebb36f4f8452f3320dcf39f, type: 2}
+  carFormSkinItems:
+  - {fileID: 11400000, guid: d1ec87c2ee3635a4aaf755a8261c900b, type: 2}
+  - {fileID: 11400000, guid: defd0b36355b5214da4ee86dac1f0f91, type: 2}
+  - {fileID: 11400000, guid: 320062700df398d43b2efa02d5f745ba, type: 2}
+  helicopterFormSkinItems:
+  - {fileID: 11400000, guid: e6e24141429fcdc48855ac45f020f078, type: 2}
+  - {fileID: 11400000, guid: 602e7b2ddf2b59340a8eabc8bee58f68, type: 2}
+  - {fileID: 11400000, guid: 91b5c638b06f6774e9c98a65a4b625e4, type: 2}
+  boatFormSkinItems:
+  - {fileID: 11400000, guid: e647bd8f9f94e174cac9c130b8d66ee2, type: 2}
+  - {fileID: 11400000, guid: e190e6fd770f9084ba6d6f8e4eb4eb47, type: 2}

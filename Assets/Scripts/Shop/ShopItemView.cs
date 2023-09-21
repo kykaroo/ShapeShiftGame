@@ -7,24 +7,27 @@ using UnityEngine.UI;
 namespace Shop
 {
     [RequireComponent(typeof(Image))]
-    public class ShopItemView : MonoBehaviour
+    public class ShopItemView : MonoBehaviour, IPointerClickHandler
     {
-        [SerializeField] private Sprite defaultBackground;
-        [SerializeField] private Sprite highlightBackground;
+        [SerializeField] private bool useSprites;
+        [SerializeField] private Sprite defaultBackgroundSprite;
+        [SerializeField] private Sprite highlightBackgroundSprite;
+        [SerializeField] private Color defaultBackgroundColour;
+        [SerializeField] private Color highlightBackgroundColour;
         [SerializeField] private Image contentImage;
         [SerializeField] private Image lockImage;
         [SerializeField] private Image selectionText;
         [SerializeField] private TextMeshProUGUI priceText;
 
         private Image _backgroundImage;
-        
+
         public ShopItem Item { get; private set; }
         
         public bool IsLock { get; private set; }
 
         public int Price => Item.Price;
 
-        public GameObject Model => Item.Model;
+        public GameObject Model => Item.ShopModel;
 
         public event Action<ShopItemView> OnClick;
 
@@ -33,7 +36,15 @@ namespace Shop
         public void Initialize(ShopItem item)
         {
             _backgroundImage = GetComponent<Image>();
-            _backgroundImage.sprite = defaultBackground;
+            
+            if (useSprites)
+            {
+                _backgroundImage.sprite = defaultBackgroundSprite;
+            }
+            else
+            {
+                _backgroundImage.color = defaultBackgroundColour;
+            }
 
             Item = item;
 
@@ -59,7 +70,26 @@ namespace Shop
         public void Select() => selectionText.gameObject.SetActive(true);
         public void Unselect() => selectionText.gameObject.SetActive(false);
 
-        public void Highlight() => _backgroundImage.sprite = highlightBackground;
-        public void UnHighlight() => _backgroundImage.sprite = defaultBackground;
+        public void Highlight()
+        {
+            if (useSprites)
+            { 
+                _backgroundImage.sprite = highlightBackgroundSprite;
+                return;
+            }
+            
+            _backgroundImage.color = highlightBackgroundColour;
+        }
+
+        public void UnHighlight()
+        {
+            if (useSprites)
+            { 
+                _backgroundImage.sprite = defaultBackgroundSprite;
+                return;
+            }
+            
+            _backgroundImage.color = defaultBackgroundColour;
+        }
     }
 }

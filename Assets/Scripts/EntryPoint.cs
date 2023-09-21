@@ -1,20 +1,23 @@
 using System.Collections.Generic;
-using FormStateMachine;
+using Data;
+using FormsFactories;
 using FormStateMachine.Forms;
 using FormStateMachine.States;
 using Level;
 using ScriptableObjects;
+using Shop.BoatFormSkins;
+using Shop.CarFormSkins;
+using Shop.HelicopterFormSkins;
+using Shop.HumanFormSkins;
 using Ui;
 using UnityEngine;
 
 public class EntryPoint : MonoBehaviour
 {
-    [Header("Scene objects")] 
-    [SerializeField] private int aiNumber;
     [Header("Scene objects")]
-    [SerializeField] private FormFactory formFactory;
     [SerializeField] private GameObject playerCamera;
     [SerializeField] private GameObject victoryCamera;
+    [SerializeField] private ShopBootstrap shopBootstrap;
     [Header("Ui")]
     [SerializeField] private FormChangeUi formChangeUi;
     [SerializeField] private StartUi startUi;
@@ -28,20 +31,40 @@ public class EntryPoint : MonoBehaviour
     [SerializeField] private LayerMask stairsSlopeMask;
     [SerializeField] private LayerMask groundMask;
     [Header("Change form effect")]
-    [SerializeField] private ParticleSystem[] poofParticleSystems;
+    [SerializeField] private ParticleSystem playerPoofParticleSystem;
+    [SerializeField] private ParticleSystem[] aiPoofParticleSystems;
     [SerializeField] private float gravityMultiplier;
     [Header("Player and AI objects")]
-    [SerializeField] private Rigidbody[] playersBody;
-    [SerializeField] private GameObject[] playersStartPositions;
-    [Header("Ai difficulty")]
+    [SerializeField] private Rigidbody playerBody;
+    [SerializeField] private Rigidbody[] aiBodies;
+    [SerializeField] private Transform playerStartPosition;
+    [SerializeField] private Transform[] aiStartPositions;
+    [SerializeField] private Transform playerTransform;
+    [SerializeField] private Transform[] aiTransforms;
+    [Header("Ai")]
+    [SerializeField] private int aiNumber;
     [SerializeField] private AiDifficulty[] aiDifficulty;
     [SerializeField] private EnemyAi[] enemyAis;
+    [Header("Factories")]
+    [SerializeField] private HumanFormFactory humanFormFactory;
+    [SerializeField] private CarFormFactory carFormFactory;
+    [SerializeField] private HelicopterFormFactory helicopterFormFactory;
+    [SerializeField] private BoatFormFactory boatFormFactory;
+    
+    private IPersistentData _persistentPlayerData;
 
+    private FormStateMachine.FormStateMachine _playerFormStateMachine;
+    private HumanForm _playerHumanForm;
+    private CarForm _playerCarForm;
+    private HelicopterForm _playerHelicopterForm;
+    private BoatForm _playerBoatForm;
+    
     private List<FormStateMachine.FormStateMachine> _formStateMachine;
-    private List<HumanForm> _humanForm;
-    private List<CarForm> _carForm;
-    private List<HelicopterForm> _helicopterForm;
-    private List<BoatForm> _boatForm;
+    private List<HumanForm> _aiHumanFormList;
+    private List<CarForm> _aiCarFormsList;
+    private List<HelicopterForm> _aiHelicopterFormsList;
+    private List<BoatForm> _aiBoatFormsList;
+    
     private Ground _ground;
     private LevelGenerator _levelGenerator;
     private const float Gravity = 9.81f;
@@ -50,28 +73,36 @@ public class EntryPoint : MonoBehaviour
 
     private void Start()
     {
+        _persistentPlayerData = shopBootstrap.PersistentPlayerData;
+        SpawnPlayerForms();
         InitializeLists();
         PrepareGameObjects();
+        
         
         _ground = new(allEnvironment, waterMask, balloonsMask, stairsSlopeMask, groundMask);
         _levelGenerator = new(levelConfig, _ground);
         _gravityForce = Gravity * gravityMultiplier;
         
+        CreatePlayerForms();
         CreateForms();
-        
-        for (var i = 0; i < aiNumber + 1; i++)
-        {
-            CreatePlayer(i);
-        }
-        
         AddButtonListeners();
         
         for (var i = 0; i < aiNumber; i++)
         {
-            enemyAis[i].Initialize(aiDifficulty[i], _formStateMachine[i + 1]);
+            CreateAiForms(i);
+            enemyAis[i].Initialize(aiDifficulty[i], _formStateMachine[i]);
         }
         
         RestartLevel();
+    }
+
+    private void SpawnPlayerForms()
+    {
+        var spawnPointPosition = playerStartPosition.position;
+        _playerHumanForm = humanFormFactory.Get(_persistentPlayerData.PlayerData.SelectedHumanFormSkin, spawnPointPosition, playerTransform);
+        _playerCarForm = carFormFactory.Get(_persistentPlayerData.PlayerData.SelectedCarFormSkin, spawnPointPosition, playerTransform);
+        _playerHelicopterForm = helicopterFormFactory.Get(_persistentPlayerData.PlayerData.SelectedHelicopterFormSkin, spawnPointPosition, playerTransform);
+        _playerBoatForm = boatFormFactory.Get(_persistentPlayerData.PlayerData.SelectedBoatFormSkin, spawnPointPosition, playerTransform);
     }
 
     private void PrepareGameObjects()
@@ -87,21 +118,62 @@ public class EntryPoint : MonoBehaviour
     private void InitializeLists()
     {
         _formStateMachine = new();
-        _humanForm = new();
-        _carForm = new();
-        _helicopterForm = new();
-        _boatForm = new();
+        _aiHumanFormList = new();
+        _aiCarFormsList = new();
+        _aiHelicopterFormsList = new();
+        _aiBoatFormsList = new();
+    }
+    
+    private void CreatePlayerForms()
+    {
+        _playerFormStateMachine = new(new()
+        {
+            {
+                typeof(HumanFormState),
+                new HumanFormState(_playerHumanForm, _ground, playerBody, playerPoofParticleSystem, _gravityForce)
+            },
+            {
+                typeof(CarFormState),
+                new CarFormState(_playerCarForm, _ground, playerBody, playerPoofParticleSystem, _gravityForce)
+            },
+            {
+                typeof(HelicopterFormState),
+                new HelicopterFormState(_playerHelicopterForm, _ground, playerBody, playerPoofParticleSystem,
+                    _gravityForce)
+            },
+            {
+                typeof(BoatFormState),
+                new BoatFormState(_playerBoatForm, _ground, playerBody, playerPoofParticleSystem, _gravityForce)
+            },
+            { typeof(NoneFormState), new NoneFormState(playerBody) }
+        });
     }
 
-    private void CreatePlayer(int playerId)
+    private void CreateAiForms(int playerId)
     {
-        _formStateMachine.Add( new(new()
+        _formStateMachine.Add(new(new()
         {
-            { typeof(HumanFormState), new HumanFormState(_humanForm[playerId], _ground, playersBody[playerId], poofParticleSystems[playerId], _gravityForce) },
-            { typeof(CarFormState), new CarFormState(_carForm[playerId], _ground, playersBody[playerId], poofParticleSystems[playerId], _gravityForce) },
-            { typeof(HelicopterFormState), new HelicopterFormState(_helicopterForm[playerId], _ground, playersBody[playerId], poofParticleSystems[playerId], _gravityForce) },
-            { typeof(BoatFormState), new BoatFormState(_boatForm[playerId], _ground, playersBody[playerId], poofParticleSystems[playerId], _gravityForce) },
-            { typeof(NoneFormState), new NoneFormState(playersBody[playerId]) }
+            {
+                typeof(HumanFormState),
+                new HumanFormState(_aiHumanFormList[playerId], _ground, aiBodies[playerId],
+                    aiPoofParticleSystems[playerId], _gravityForce)
+            },
+            {
+                typeof(CarFormState),
+                new CarFormState(_aiCarFormsList[playerId], _ground, aiBodies[playerId],
+                    aiPoofParticleSystems[playerId], _gravityForce)
+            },
+            {
+                typeof(HelicopterFormState),
+                new HelicopterFormState(_aiHelicopterFormsList[playerId], _ground, aiBodies[playerId],
+                    aiPoofParticleSystems[playerId], _gravityForce)
+            },
+            {
+                typeof(BoatFormState),
+                new BoatFormState(_aiBoatFormsList[playerId], _ground, aiBodies[playerId],
+                    aiPoofParticleSystems[playerId], _gravityForce)
+            },
+            { typeof(NoneFormState), new NoneFormState(aiBodies[playerId]) }
         }));
     }
 
@@ -110,10 +182,10 @@ public class EntryPoint : MonoBehaviour
         startUi.OnStartButtonClick += OnStartGame;
         startUi.OnShopButtonClick += OpenShop;
 
-        formChangeUi.OnHumanFormButtonClick += () => _formStateMachine[0].SetState<HumanFormState>();
-        formChangeUi.OnCarFormButtonClick += () => _formStateMachine[0].SetState<CarFormState>();
-        formChangeUi.OnHelicopterFormButtonClick += () => _formStateMachine[0].SetState<HelicopterFormState>();
-        formChangeUi.OnBoatFormButtonClick += () => _formStateMachine[0].SetState<BoatFormState>();
+        formChangeUi.OnHumanFormButtonClick += () => _playerFormStateMachine.SetState<HumanFormState>();
+        formChangeUi.OnCarFormButtonClick += () => _playerFormStateMachine.SetState<CarFormState>();
+        formChangeUi.OnHelicopterFormButtonClick += () => _playerFormStateMachine.SetState<HelicopterFormState>();
+        formChangeUi.OnBoatFormButtonClick += () => _playerFormStateMachine.SetState<BoatFormState>();
         
         victoryUi.OnPlayAgainButtonClick += RestartLevel;
 
@@ -126,20 +198,32 @@ public class EntryPoint : MonoBehaviour
         shopUi.gameObject.SetActive(true);
     }
 
+    private void ClearPlayerForms()
+    {
+        Destroy(_playerHumanForm.gameObject);
+        Destroy(_playerCarForm.gameObject);
+        Destroy(_playerHelicopterForm.gameObject);
+        Destroy(_playerBoatForm.gameObject);
+    }
+
     private void CloseShop()
     {
         shopUi.gameObject.SetActive(false);
         startUi.gameObject.SetActive(true);
+        
+        ClearPlayerForms();
+        SpawnPlayerForms();
+        CreatePlayerForms();
     }
 
     private void CreateForms()
     {
-        for (var i = 0; i < aiNumber + 1; i++)
+        for (var i = 0; i < aiNumber; i++)
         {
-            _humanForm.Add(formFactory.CreateForm<HumanForm>(i));
-            _carForm.Add(formFactory.CreateForm<CarForm>(i));
-            _helicopterForm.Add(formFactory.CreateForm<HelicopterForm>(i));
-            _boatForm.Add(formFactory.CreateForm<BoatForm>(i));
+            _aiHumanFormList.Add(humanFormFactory.Get(HumanFormSkins.White, aiStartPositions[i].position, aiTransforms[i]));
+            _aiCarFormsList.Add(carFormFactory.Get(CarFormSkins.White, aiStartPositions[i].position, aiTransforms[i]));
+            _aiHelicopterFormsList.Add(helicopterFormFactory.Get(HelicopterFormSkins.Scout, aiStartPositions[i].position, aiTransforms[i]));
+            _aiBoatFormsList.Add(boatFormFactory.Get(BoatFormSkins.Boat1, aiStartPositions[i].position, aiTransforms[i]));
         }
     }
 
@@ -148,6 +232,8 @@ public class EntryPoint : MonoBehaviour
         startUi.gameObject.SetActive(false);
         victoryUi.gameObject.SetActive(false);
         formChangeUi.gameObject.SetActive(true);
+        
+        _playerFormStateMachine.SetState<HumanFormState>();
 
         foreach (var formStateMachine in _formStateMachine)
         {
@@ -160,14 +246,22 @@ public class EntryPoint : MonoBehaviour
         _levelGenerator.ClearLevel();
         _levelGenerator.GenerateLevel();
         _levelGenerator.VictoryTrigger.OnLevelComplete += LevelComplete;
+        
+        _playerFormStateMachine.SetState<NoneFormState>();
+        playerPoofParticleSystem.Clear();
+            
         foreach (var formStateMachine in _formStateMachine)
         {
             formStateMachine.SetState<NoneFormState>();
         }
 
-        for (var i = 0; i < aiNumber + 1; i++)
+        playerBody.position = playerStartPosition.position;
+
+        for (var i = 0; i < aiNumber; i++)
         {
-            playersBody[i].position = playersStartPositions[i].transform.position;
+            aiPoofParticleSystems[i].Clear();
+            enemyAis[i].StopAllCoroutines();
+            aiBodies[i].position = aiStartPositions[i].position;
         }
 
         formChangeUi.gameObject.SetActive(false);

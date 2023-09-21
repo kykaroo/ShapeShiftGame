@@ -2,6 +2,8 @@
 {
     public enum HelicopterFormSkins
     {
-        
+        Scout,
+        Attack,
+        Transport
     }
 }
