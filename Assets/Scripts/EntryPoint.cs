@@ -43,7 +43,7 @@ public class EntryPoint : MonoBehaviour
     [SerializeField] private Transform[] aiTransforms;
     [Header("Ai")]
     [SerializeField] private int aiNumber;
-    [SerializeField] private AiDifficulty[] aiDifficulty;
+    [SerializeField] private AiDifficulty[] aiDifficulties;
     [SerializeField] private EnemyAi[] enemyAis;
     [Header("Factories")]
     [SerializeField] private HumanFormFactory humanFormFactory;
@@ -86,11 +86,11 @@ public class EntryPoint : MonoBehaviour
         CreatePlayerForms();
         CreateForms();
         AddButtonListeners();
-        
+
         for (var i = 0; i < aiNumber; i++)
         {
             CreateAiForms(i);
-            enemyAis[i].Initialize(aiDifficulty[i], _formStateMachine[i]);
+            enemyAis[i].Initialize(aiDifficulties[i], _formStateMachine[i]);
         }
         
         RestartLevel();
@@ -190,6 +190,34 @@ public class EntryPoint : MonoBehaviour
         victoryUi.OnPlayAgainButtonClick += RestartLevel;
 
         shopUi.OnBackButtonClick += CloseShop;
+        startUi.OnDifficultyChanged += ChangeDifficulty;
+    }
+
+    private void ChangeDifficulty(int value)
+    {
+        switch (value)
+        {
+            case 0:
+                SetAiDifficulty(AiDifficulty.Easy);
+                break;
+            case 1:
+                SetAiDifficulty(AiDifficulty.Medium);
+                break;
+            case 2:
+                SetAiDifficulty(AiDifficulty.Hard);
+                break;
+            case 3:
+                SetAiDifficulty(AiDifficulty.Insane);
+                break;
+        }
+    }
+
+    private void SetAiDifficulty(AiDifficulty difficulty)
+    {
+        for (var i = 0; i < aiDifficulties.Length; i++)
+        {
+            aiDifficulties[i] = difficulty;
+        }
     }
 
     private void OpenShop()
