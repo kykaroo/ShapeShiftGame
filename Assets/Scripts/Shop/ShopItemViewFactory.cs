@@ -43,7 +43,26 @@ namespace Shop
             
             public ShopItemView Prefab { get; private set; }
             
-            public void Visit(ShopItem shopItem) => Visit((dynamic)shopItem);
+            public void Visit(ShopItem shopItem)
+            {
+                switch (shopItem)
+                {
+                    case HumanFormSkinItem humanFormSkinItem:
+                        Visit(humanFormSkinItem);
+                        break;
+                    case CarFormSkinItem carFormSkinItem:
+                        Visit(carFormSkinItem);
+                        break;
+                    case HelicopterFormSkinItem helicopterFormSkinItem:
+                        Visit(helicopterFormSkinItem);
+                        break;
+                    case BoatFormSkinItem boatFormSkinItem:
+                        Visit(boatFormSkinItem);
+                        break;
+                    default:
+                        throw new ArgumentException();
+                }
+            }
 
             public void Visit(HumanFormSkinItem humanFormSkinItem) => 
                 Prefab = _humanSkinItemPrefab;

@@ -41,7 +41,7 @@ public class ShopBootstrap : MonoBehaviour
     private void InitializeData()
     {
         _persistentPlayerData = new PersistentData();
-        _dataProvider = new DataLocalProvider(_persistentPlayerData);
+        _dataProvider = new PlayerPrefsProvider(_persistentPlayerData);
 
         LoadData();
     }

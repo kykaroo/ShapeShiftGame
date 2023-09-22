@@ -1,4 +1,5 @@
-﻿using Data;
+﻿using System;
+using Data;
 using Shop.BoatFormSkins;
 using Shop.CarFormSkins;
 using Shop.HelicopterFormSkins;
@@ -12,7 +13,26 @@ namespace Shop
 
         public SkinUnlocker(IPersistentData persistentData) => _persistentData = persistentData;
 
-        public void Visit(ShopItem shopItem) => Visit((dynamic)shopItem);
+        public void Visit(ShopItem shopItem)
+        {
+            switch (shopItem)
+            {
+                case HumanFormSkinItem humanFormSkinItem:
+                    Visit(humanFormSkinItem);
+                    break;
+                case CarFormSkinItem carFormSkinItem:
+                    Visit(carFormSkinItem);
+                    break;
+                case HelicopterFormSkinItem helicopterFormSkinItem:
+                    Visit(helicopterFormSkinItem);
+                    break;
+                case BoatFormSkinItem boatFormSkinItem:
+                    Visit(boatFormSkinItem);
+                    break;
+                default:
+                    throw new ArgumentException();
+            }
+        }
 
         public void Visit(HumanFormSkinItem humanFormSkinItem) =>
             _persistentData.PlayerData.OpenHumanFormSkin(humanFormSkinItem.SkinType);

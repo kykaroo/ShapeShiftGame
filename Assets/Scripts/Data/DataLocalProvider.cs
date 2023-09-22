@@ -9,7 +9,7 @@ namespace Data
         private const string FileName = "PlayerSave";
         private const string SaveFileExtension = ".json";
 
-        private IPersistentData _persistentData;
+        private readonly IPersistentData _persistentData;
 
         public DataLocalProvider(IPersistentData persistentData) => _persistentData = persistentData;
 

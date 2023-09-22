@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Data;
 using Shop.BoatFormSkins;
 using Shop.CarFormSkins;
@@ -15,7 +16,26 @@ namespace Shop
 
         public OpenSkinsChecker(IPersistentData persistentData) => _persistentData = persistentData;
         
-        public void Visit(ShopItem shopItem) => Visit((dynamic)shopItem);
+        public void Visit(ShopItem shopItem)
+        {
+            switch (shopItem)
+            {
+                case HumanFormSkinItem humanFormSkinItem:
+                    Visit(humanFormSkinItem);
+                    break;
+                case CarFormSkinItem carFormSkinItem:
+                    Visit(carFormSkinItem);
+                    break;
+                case HelicopterFormSkinItem helicopterFormSkinItem:
+                    Visit(helicopterFormSkinItem);
+                    break;
+                case BoatFormSkinItem boatFormSkinItem:
+                    Visit(boatFormSkinItem);
+                    break;
+                default:
+                    throw new ArgumentException();
+            }
+        }
 
         public void Visit(HumanFormSkinItem humanFormSkinItem) => 
             IsOpened = _persistentData.PlayerData.OpenHumanFormSkins.Contains(humanFormSkinItem.SkinType);
