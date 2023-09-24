@@ -1755,17 +1755,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 426465879}
   m_CullTransparentMesh: 0
---- !u!114 &435074873 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5465418010769599240, guid: 8e556e4433445284e8202e1a12e00a97, type: 3}
-  m_PrefabInstance: {fileID: 6018179894961541966}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &445695927 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5683985029142818180, guid: 712fd37645d17c7438017182cae98926, type: 3}
@@ -2943,6 +2932,17 @@ Transform:
   m_Father: {fileID: 331766586}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 36.874, y: -53.251, z: 0}
+--- !u!114 &980764510 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2128410159511867962, guid: 8e556e4433445284e8202e1a12e00a97, type: 3}
+  m_PrefabInstance: {fileID: 6018179894961541966}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &986902248
 GameObject:
   m_ObjectHideFlags: 0
@@ -3604,6 +3604,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1145354607}
   m_CullTransparentMesh: 0
+--- !u!114 &1205573162 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4521144488562287151, guid: 8e556e4433445284e8202e1a12e00a97, type: 3}
+  m_PrefabInstance: {fileID: 6018179894961541966}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1216175539
 GameObject:
   m_ObjectHideFlags: 0
@@ -4072,6 +4083,9 @@ MonoBehaviour:
   carFormFactory: {fileID: 11400000, guid: 156cb0374da590b4abf5502837be0068, type: 2}
   helicopterFormFactory: {fileID: 11400000, guid: 18f0f40ac8312294986850c4d86b026a, type: 2}
   boatFormFactory: {fileID: 11400000, guid: c5388c2537e86dd4d991bf04095b7021, type: 2}
+  playerProgressIndicator: {fileID: 1205573162}
+  aiProgressIndicators:
+  - {fileID: 980764510}
 --- !u!4 &1270349521
 Transform:
   m_ObjectHideFlags: 0
@@ -4453,28 +4467,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f57e2bc6030746bfb8da21f886fffb12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1353777553 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8310619264317830917, guid: 8e556e4433445284e8202e1a12e00a97, type: 3}
-  m_PrefabInstance: {fileID: 6018179894961541966}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1390446269 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5688363606570896497, guid: 8e556e4433445284e8202e1a12e00a97, type: 3}
-  m_PrefabInstance: {fileID: 6018179894961541966}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1530861012
 GameObject:
   m_ObjectHideFlags: 0
@@ -4757,17 +4749,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1782567042}
   m_CullTransparentMesh: 1
---- !u!114 &1825156395 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6425835499320083908, guid: 8e556e4433445284e8202e1a12e00a97, type: 3}
-  m_PrefabInstance: {fileID: 6018179894961541966}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1828601335
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5933,30 +5914,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5395229043172370783, guid: 8e556e4433445284e8202e1a12e00a97, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -0.11999512
+    - target: {fileID: 2264047164651144673, guid: 8e556e4433445284e8202e1a12e00a97, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6278615864321136507, guid: 8e556e4433445284e8202e1a12e00a97, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -0.11999512
+    - target: {fileID: 7773089458830433562, guid: 8e556e4433445284e8202e1a12e00a97, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8210345713461906070, guid: 8e556e4433445284e8202e1a12e00a97, type: 3}
-      propertyPath: carFormButton
-      value: 
-      objectReference: {fileID: 1825156395}
-    - target: {fileID: 8210345713461906070, guid: 8e556e4433445284e8202e1a12e00a97, type: 3}
-      propertyPath: boatFormButton
-      value: 
-      objectReference: {fileID: 435074873}
-    - target: {fileID: 8210345713461906070, guid: 8e556e4433445284e8202e1a12e00a97, type: 3}
-      propertyPath: humanFormButton
-      value: 
-      objectReference: {fileID: 1353777553}
-    - target: {fileID: 8210345713461906070, guid: 8e556e4433445284e8202e1a12e00a97, type: 3}
-      propertyPath: helicopterFormButton
-      value: 
-      objectReference: {fileID: 1390446269}
     - target: {fileID: 8258232404784595097, guid: 8e556e4433445284e8202e1a12e00a97, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

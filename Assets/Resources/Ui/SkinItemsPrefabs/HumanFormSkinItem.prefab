@@ -312,6 +312,7 @@ MonoBehaviour:
   contentImage: {fileID: 3371034494206752811}
   lockImage: {fileID: 8527356285245856737}
   selectionText: {fileID: 563683565321276203}
+  priceImage: {fileID: 6506445143853326691}
   priceText: {fileID: 4285905820264930242}
 --- !u!1 &6197055309785350772
 GameObject:

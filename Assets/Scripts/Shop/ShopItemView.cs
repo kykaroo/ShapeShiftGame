@@ -17,6 +17,7 @@ namespace Shop
         [SerializeField] private Image contentImage;
         [SerializeField] private Image lockImage;
         [SerializeField] private Image selectionText;
+        [SerializeField] private Image priceImage;
         [SerializeField] private TextMeshProUGUI priceText;
 
         private Image _backgroundImage;
@@ -57,14 +58,14 @@ namespace Shop
         {
             IsLock = true;
             lockImage.gameObject.SetActive(IsLock);
-            priceText.gameObject.SetActive(IsLock);
+            priceImage.gameObject.SetActive(IsLock);
         }
 
         public void Unlock()
         {
             IsLock = false;
             lockImage.gameObject.SetActive(IsLock);
-            priceText.gameObject.SetActive(IsLock);
+            priceImage.gameObject.SetActive(IsLock);
         }
 
         public void Select() => selectionText.gameObject.SetActive(true);

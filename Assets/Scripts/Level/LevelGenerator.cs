@@ -8,16 +8,21 @@ namespace Level
 {
     public class LevelGenerator
     {
-    
         private readonly Transform _player;
         private readonly LevelConfig _levelConfig;
         private readonly Ground _ground;
+        private float _levelStartZ;
+        private float _levelEndZ;
 
         private LinkedList<TileInfo> TileList => _ground.TileInfoList;
     
         private LinkedList<BackgroundInfo> BackgroundList => _ground.BackgroundTileList;
 
         public VictoryTrigger VictoryTrigger;
+
+        public float LevelStartZ => _levelStartZ;
+
+        public float LevelEndZ => _levelEndZ;
 
         public LevelGenerator(LevelConfig levelConfig, Ground ground)
         {
@@ -40,11 +45,18 @@ namespace Level
             }
 
             GenerateFinishTile();
+            GetLevelInfo();
 
             while (TileList.Last.Value.End.z > BackgroundList.Last.Value.EndPosition.z)
             {
                 GenerateBackground();
             }
+        }
+
+        private void GetLevelInfo()
+        {
+            _levelEndZ = TileList.Last.Value.FinishTileVictoryTrigger.transform.position.z;
+            _levelStartZ = 0;
         }
 
         private void GenerateFinishTile()

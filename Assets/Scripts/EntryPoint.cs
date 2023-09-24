@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Data;
 using FormsFactories;
@@ -11,6 +12,7 @@ using Shop.HelicopterFormSkins;
 using Shop.HumanFormSkins;
 using Ui;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EntryPoint : MonoBehaviour
 {
@@ -50,8 +52,14 @@ public class EntryPoint : MonoBehaviour
     [SerializeField] private CarFormFactory carFormFactory;
     [SerializeField] private HelicopterFormFactory helicopterFormFactory;
     [SerializeField] private BoatFormFactory boatFormFactory;
+
+    [Header("ProgressBar")] 
+    [SerializeField] private Slider playerProgressIndicator;
+    [SerializeField] private Slider[] aiProgressIndicators;
+    
     
     private IPersistentData _persistentPlayerData;
+    private LevelProgressBar.LevelProgressBar _levelProgressBar;
 
     private FormStateMachine.FormStateMachine _playerFormStateMachine;
     private HumanForm _playerHumanForm;
@@ -93,6 +101,9 @@ public class EntryPoint : MonoBehaviour
             enemyAis[i].Initialize(aiDifficulties[i], _formStateMachine[i]);
         }
 
+        _levelProgressBar = new();
+        _levelProgressBar.Initialize(playerProgressIndicator, aiProgressIndicators, playerTransform, aiTransforms);
+        
         RestartLevel();
     }
 
@@ -275,6 +286,7 @@ public class EntryPoint : MonoBehaviour
         _levelGenerator.ClearLevel();
         _levelGenerator.GenerateLevel();
         _levelGenerator.VictoryTrigger.OnLevelComplete += LevelComplete;
+        _levelProgressBar.SetLevelLenght(_levelGenerator.LevelStartZ, _levelGenerator.LevelEndZ);
         
         _playerFormStateMachine.SetState<NoneFormState>();
         playerPoofParticleSystem.Clear();
@@ -307,5 +319,13 @@ public class EntryPoint : MonoBehaviour
         victoryCamera.SetActive(true);
         formChangeUi.gameObject.SetActive(false);
         victoryUi.gameObject.SetActive(true);
+    }
+
+    private void Update()
+    {
+        if (formChangeUi.gameObject.activeSelf)
+        {
+            _levelProgressBar.UpdateData();
+        }
     }
 }
