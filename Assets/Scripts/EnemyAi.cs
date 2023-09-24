@@ -34,7 +34,7 @@ public class EnemyAi : MonoBehaviour
                 break;
             case AiDifficulty.Medium:
                 _successRate = 0.5f;
-                _maxReactionTime = 0.75f;
+                _minReactionTime = 0.75f;
                 _maxReactionTime = 2;
                 break;
             case AiDifficulty.Hard:

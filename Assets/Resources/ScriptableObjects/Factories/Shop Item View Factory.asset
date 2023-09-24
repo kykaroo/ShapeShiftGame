@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 855fd6231abf443fb3a32cb786f17f6b, type: 3}
   m_Name: Shop Item View Factory
   m_EditorClassIdentifier: 
-  humanFormSkinItemPrefab: {fileID: 4314239663506606848, guid: 55603d9e4bb4b2d44a35c77465769fd0, type: 3}
-  carFormSkinItemPrefab: {fileID: 6249533726823639880, guid: bce8852c3ba763740a085843fbbbf365, type: 3}
-  helicopterFormSkinItemPrefab: {fileID: 5622743345633899464, guid: dfbd6e66f266cfb4e852561336d0edc5, type: 3}
-  boatFormSkinItemPrefab: {fileID: 2977464263368455090, guid: c18ebf05b709d8b418caa982a51ca3bf, type: 3}
+  humanFormSkinItemPrefab: {fileID: 2438347719979871626, guid: 98c020b8d2b80b941a442fb8798cedb5, type: 3}
+  carFormSkinItemPrefab: {fileID: 1600161055695514775, guid: 08ee65fac54263446ad461f818c85b26, type: 3}
+  helicopterFormSkinItemPrefab: {fileID: 2752687505732876500, guid: dfbd6e66f266cfb4e852561336d0edc5, type: 3}
+  boatFormSkinItemPrefab: {fileID: 7220840560806527681, guid: c18ebf05b709d8b418caa982a51ca3bf, type: 3}

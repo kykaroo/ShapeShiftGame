@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &568934486303413598
+--- !u!1001 &4026827563873435933
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -94,7 +94,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2953010913783480576, guid: 98c020b8d2b80b941a442fb8798cedb5, type: 3}
       propertyPath: m_Name
-      value: HelicopterFormSkinItem Variant
+      value: CarFormSkinItem Variant
       objectReference: {fileID: 0}
     - target: {fileID: 3747765943295165175, guid: 98c020b8d2b80b941a442fb8798cedb5, type: 3}
       propertyPath: m_SizeDelta.x
@@ -102,7 +102,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3747765943295165175, guid: 98c020b8d2b80b941a442fb8798cedb5, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 170
+      value: 130
+      objectReference: {fileID: 0}
+    - target: {fileID: 3747765943295165175, guid: 98c020b8d2b80b941a442fb8798cedb5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

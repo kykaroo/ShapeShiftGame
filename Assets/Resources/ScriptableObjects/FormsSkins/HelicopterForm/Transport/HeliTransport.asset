@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <GameModel>k__BackingField: {fileID: 4303778209515384205, guid: 894d95bac1ce5604bada80433ced58b4, type: 3}
   <ShopModel>k__BackingField: {fileID: 1466695618858832611, guid: c3ec78250a41117478b79d189098eafd, type: 3}
-  <Image>k__BackingField: {fileID: 21300000, guid: 53702ee5899eaa24ba91513e6d53aee9, type: 3}
+  <Image>k__BackingField: {fileID: 21300000, guid: 923bba18a024b404da2e62a128dd7c2a, type: 3}
   <Price>k__BackingField: 200
   <SkinType>k__BackingField: 2
