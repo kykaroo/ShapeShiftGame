@@ -92,7 +92,7 @@ public class EntryPoint : MonoBehaviour
             CreateAiForms(i);
             enemyAis[i].Initialize(aiDifficulties[i], _formStateMachine[i]);
         }
-        
+
         RestartLevel();
     }
 
@@ -217,6 +217,7 @@ public class EntryPoint : MonoBehaviour
         for (var i = 0; i < aiDifficulties.Length; i++)
         {
             aiDifficulties[i] = difficulty;
+            enemyAis[i].SetDifficulty(difficulty);
         }
     }
 

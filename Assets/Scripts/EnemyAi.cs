@@ -1,33 +1,57 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using FormStateMachine;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EnemyAi : MonoBehaviour
 {
-    private AiDifficulty _difficulty;
     private float _successRate;
     private FormStateMachine.FormStateMachine _formStateMachine;
     private List<IFormState> _allFormStates;
     private Zone _match;
-    
+    private float _minReactionTime;
+    private float _maxReactionTime;
+
     public void Initialize(AiDifficulty difficulty, FormStateMachine.FormStateMachine formStateMachine)
     {
-        _difficulty = difficulty;
         _formStateMachine = formStateMachine;
         _allFormStates = _formStateMachine.GetStates().Values.Where(f => f.GetFormName() != null).ToList();
-
-        _successRate = _difficulty switch
-        {
-            AiDifficulty.Easy => 0.25f,
-            AiDifficulty.Medium => 0.5f,
-            AiDifficulty.Hard => 0.75f,
-            AiDifficulty.Insane => 1f,
-            _ => _successRate
-        };
+        
+        SetDifficulty(difficulty);
     }
-    
+
+    public void SetDifficulty(AiDifficulty difficulty)
+    {
+        switch (difficulty)
+        {
+            case AiDifficulty.Easy:
+                _successRate = 0.25f;
+                _minReactionTime = 1;
+                _maxReactionTime = 3;
+                break;
+            case AiDifficulty.Medium:
+                _successRate = 0.5f;
+                _maxReactionTime = 0.75f;
+                _maxReactionTime = 2;
+                break;
+            case AiDifficulty.Hard:
+                _successRate = 0.75f;
+                _minReactionTime = 0.25f;
+                _maxReactionTime = 1.5f;
+                break;
+            case AiDifficulty.Insane:
+                _successRate = 1f;
+                _minReactionTime = 0;
+                _maxReactionTime = 0.5f;
+                break;
+            default:
+                throw new ArgumentException(nameof(difficulty));
+        }
+    }
+
     private void ChangeForm()
     {
         var random = Random.Range(0f, 1f);
@@ -47,7 +71,7 @@ public class EnemyAi : MonoBehaviour
         }
         
         ChangeToRandomForm();
-        StartCoroutine(RetryFormChange(Random.Range(1f, 3f)));
+        StartCoroutine(RetryFormChange(Random.Range(_minReactionTime, _maxReactionTime)));
     }
 
     private void ChangeToRandomForm()
@@ -66,6 +90,6 @@ public class EnemyAi : MonoBehaviour
     {
         StopAllCoroutines();
         _match = match;
-        StartCoroutine(RetryFormChange(Random.Range(0f, 1f)));
+        StartCoroutine(RetryFormChange(Random.Range(_minReactionTime, _maxReactionTime)));
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Shop.ShopModelView
 {
@@ -7,17 +6,12 @@ namespace Shop.ShopModelView
     {
         [SerializeField] private Rotator rotator;
         [SerializeField] private Camera modelViewCamera;
+        [SerializeField] private float scrollAmount;
 
         public float maxCameraSize;
         public float minCameraSize;
 
         private GameObject _currentModel;
-        private float _originalCameraSize;
-
-        private void Awake()
-        {
-            _originalCameraSize = modelViewCamera.orthographicSize;
-        }
 
         public void InstantiateModel(GameObject model)
         {
@@ -34,12 +28,12 @@ namespace Shop.ShopModelView
         {
             if (Input.mouseScrollDelta.y > 0 && modelViewCamera.orthographicSize < maxCameraSize)
             {
-                modelViewCamera.orthographicSize += 0.1f;
+                modelViewCamera.orthographicSize += scrollAmount;
             }
 
             if (Input.mouseScrollDelta.y < 0 && modelViewCamera.orthographicSize > minCameraSize)
             {
-                modelViewCamera.orthographicSize -= 0.1f;
+                modelViewCamera.orthographicSize -= scrollAmount;
             }
         }
     }

@@ -17,6 +17,8 @@ namespace Ui
         public event Action OnShopButtonClick;
         public event Action<int> OnDifficultyChanged;
 
+        public TMP_Dropdown AIDifficultyDropdown => aiDifficultyDropdown;
+
         private void StartButtonClick() => OnStartButtonClick?.Invoke();
         private void ShopButtonClick() => OnShopButtonClick?.Invoke();
         
@@ -32,6 +34,7 @@ namespace Ui
             }
             aiDifficultyDropdown.AddOptions(difficulties);
             aiDifficultyDropdown.onValueChanged.AddListener((change) => OnDifficultyChanged?.Invoke(change));
+            aiDifficultyDropdown.value = 1;
         }
     }
 }

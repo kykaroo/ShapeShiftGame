@@ -67,7 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9394bb7d6984affa20c5cf4694912c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseSpeed: 14
+  baseSpeed: 10
   _collider: {fileID: 4344549412603602455}
   maxHeightSpeedMultiplier: 1.25
   flyHeight: 10

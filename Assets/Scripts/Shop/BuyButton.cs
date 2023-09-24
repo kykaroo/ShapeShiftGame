@@ -11,8 +11,6 @@ namespace Shop
         [SerializeField] private TextMeshProUGUI text;
         [SerializeField] private Color lockColor;
         [SerializeField] private Color unlockColor;
-        [SerializeField] private float lockAnimationDuration = 0.4f;
-        [SerializeField] private float lockAnimationStrength = 2f;
 
         private bool _isLock;
 
