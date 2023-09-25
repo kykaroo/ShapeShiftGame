@@ -72,6 +72,12 @@ namespace Level
             var nextTile = _levelConfig.LevelTilesList[Random.Range(0, _levelConfig.LevelTilesList.Length)];
             var tileInfo = Object.Instantiate(nextTile, Vector3.zero, Quaternion.identity);
             var tileInfoStartPosition = TileList.Last.Value.End;
+            
+            if (nextTile.waterEndRamp != null && TileList.Last.Value.waterEndRamp != null)
+            {
+                Object.Destroy(TileList.Last.Value.waterEndRamp);
+            }
+            
             TileList.AddLast(tileInfo);
             tileInfo.ConnectStartToCurrentEnd = tileInfoStartPosition;
         }

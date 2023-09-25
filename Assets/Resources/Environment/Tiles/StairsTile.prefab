@@ -430,9 +430,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2979d3a2edab4447a0a97349fd3c1ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileStart: {fileID: 5408697704383312312}
+  tileEnd: {fileID: 3924201034790739059}
   finishTileVictoryTrigger: {fileID: 0}
-  start: {fileID: 5408697704383312312}
-  end: {fileID: 3924201034790739059}
+  waterEndRamp: {fileID: 0}
 --- !u!1 &7017254883913862760
 GameObject:
   m_ObjectHideFlags: 0

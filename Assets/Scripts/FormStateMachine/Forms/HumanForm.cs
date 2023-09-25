@@ -7,8 +7,6 @@ namespace FormStateMachine.Forms
         [SerializeField] private float baseSpeed;
         [SerializeField] private BoxCollider _collider;
 
-        public BoxCollider Collider => _collider;
-
         private bool _applyGravity;
         private float _maxSpeed;
         
@@ -56,7 +54,7 @@ namespace FormStateMachine.Forms
             
             if (Ground.SurfaceCollision(_collider.bounds, transformRotation, Ground.WaterMask))
             {
-                _maxSpeed = baseSpeed * 0.1f;
+                _maxSpeed = baseSpeed * 0.5f;
             }
 
             if (Ground.SurfaceCollision(_collider.bounds, transformRotation, Ground.AllEnvironment))
@@ -67,7 +65,7 @@ namespace FormStateMachine.Forms
 
         private void SpeedLimit()
         {
-            Vector3 forwardVelocity = new Vector3(0, 0, playerBody.velocity.z);
+            var forwardVelocity = new Vector3(0, 0, playerBody.velocity.z);
             if (!(forwardVelocity.magnitude > _maxSpeed)) return;
             
             var velocity = playerBody.velocity;

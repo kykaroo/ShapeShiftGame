@@ -68,7 +68,7 @@ namespace FormStateMachine.Forms
 
         private void SpeedLimit()
         {
-            Vector3 forwardVelocity = new Vector3(0, 0, playerBody.velocity.z);
+            var forwardVelocity = new Vector3(0, 0, playerBody.velocity.z);
             if (!(forwardVelocity.magnitude > _maxSpeed)) return;
             
             var velocity = playerBody.velocity;

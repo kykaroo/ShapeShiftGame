@@ -55,7 +55,7 @@ namespace FormStateMachine.Forms
             if (Ground.SurfaceCollision(_collider.bounds, playerBody.transform.rotation, 
                     Ground.StairsSlopeMask + Ground.WaterMask))
             {
-                _maxSpeed = baseSpeed * 0.1f;
+                _maxSpeed = baseSpeed * 0.3f;
             }
 
             if (Ground.SurfaceCollision(_collider.bounds, playerBody.transform.rotation, Ground.AllEnvironment))
@@ -66,7 +66,7 @@ namespace FormStateMachine.Forms
 
         private void SpeedLimit()
         {
-            Vector3 forwardVelocity = new Vector3(0, 0, playerBody.velocity.z);
+            var forwardVelocity = new Vector3(0, 0, playerBody.velocity.z);
             if (!(forwardVelocity.magnitude > _maxSpeed)) return;
 
             var velocity = playerBody.velocity;

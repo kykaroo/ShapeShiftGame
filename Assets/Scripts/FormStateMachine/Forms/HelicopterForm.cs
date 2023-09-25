@@ -95,14 +95,14 @@ namespace FormStateMachine.Forms
 
         private void HorizontalSpeedLimit()
         {
-            Vector3 forwardVelocity = new Vector3(0, 0, playerBody.velocity.z);
+            var forwardVelocity = new Vector3(0, 0, playerBody.velocity.z);
             if (!(forwardVelocity.magnitude > _maxSpeed)) return;
 
-            var velocity = playerBody.velocity;
+            var playerVelocity = playerBody.velocity;
             
-            velocity = new(velocity.x, velocity.y,
+            playerVelocity = new(playerVelocity.x, playerVelocity.y,
                 forwardVelocity.z * 0.9f);
-            playerBody.velocity = velocity;
+            playerBody.velocity = playerVelocity;
         }
     }
 }

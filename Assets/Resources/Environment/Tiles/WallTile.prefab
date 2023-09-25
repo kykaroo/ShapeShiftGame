@@ -326,9 +326,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2979d3a2edab4447a0a97349fd3c1ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileStart: {fileID: 1121014030578163522}
+  tileEnd: {fileID: 1854549366331896946}
   finishTileVictoryTrigger: {fileID: 0}
-  start: {fileID: 1121014030578163522}
-  end: {fileID: 1854549366331896946}
+  waterEndRamp: {fileID: 0}
 --- !u!1 &3619136722520204015
 GameObject:
   m_ObjectHideFlags: 0
@@ -427,9 +428,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2979d3a2edab4447a0a97349fd3c1ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileStart: {fileID: 0}
+  tileEnd: {fileID: 0}
   finishTileVictoryTrigger: {fileID: 0}
-  start: {fileID: 0}
-  end: {fileID: 0}
+  waterEndRamp: {fileID: 0}
 --- !u!65 &1998156244935294806
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1099,7 +1101,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 173095176654411130, guid: b1175cc5bbb11b648af5926d9432b494, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 11.29
+      value: 6.2
       objectReference: {fileID: 0}
     - target: {fileID: 173095176654411130, guid: b1175cc5bbb11b648af5926d9432b494, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1261,7 +1263,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8052032556279169171, guid: f2a9dda008c91584fb0e9dfb0dbb7ed3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.51
+      value: -13.2
       objectReference: {fileID: 0}
     - target: {fileID: 8052032556279169171, guid: f2a9dda008c91584fb0e9dfb0dbb7ed3, type: 3}
       propertyPath: m_LocalRotation.w
