@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Helicopter Form Factory
   m_EditorClassIdentifier: 
   scout: {fileID: -2453123810681978188, guid: 91bb2ffc09defb34fbacc7ea420b959e, type: 3}
-  transport: {fileID: -2453123810681978188, guid: 894d95bac1ce5604bada80433ced58b4, type: 3}
-  attack: {fileID: -2453123810681978188, guid: 1bf16f9fbf86ba24780505b93c0fe76c, type: 3}
+  transport: {fileID: 4328960217795301512, guid: f143e39caf73c5843abe1e0eaf9f5ef6, type: 3}
+  attack: {fileID: 8466847647257260118, guid: 22f924f2d2b7ea944a57737534713e5b, type: 3}

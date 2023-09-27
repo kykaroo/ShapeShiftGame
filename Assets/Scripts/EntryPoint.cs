@@ -32,6 +32,7 @@ public class EntryPoint : MonoBehaviour
     [SerializeField] private LayerMask balloonsMask;
     [SerializeField] private LayerMask stairsSlopeMask;
     [SerializeField] private LayerMask groundMask;
+    [SerializeField] private LayerMask underwaterGroundMask;
     [Header("Change form effect")]
     [SerializeField] private ParticleSystem playerPoofParticleSystem;
     [SerializeField] private ParticleSystem[] aiPoofParticleSystems;
@@ -87,7 +88,7 @@ public class EntryPoint : MonoBehaviour
         PrepareGameObjects();
         
         
-        _ground = new(allEnvironment, waterMask, balloonsMask, stairsSlopeMask, groundMask);
+        _ground = new(allEnvironment, waterMask, balloonsMask, stairsSlopeMask, groundMask, underwaterGroundMask);
         _levelGenerator = new(levelConfig, _ground);
         _gravityForce = Gravity * gravityMultiplier;
         

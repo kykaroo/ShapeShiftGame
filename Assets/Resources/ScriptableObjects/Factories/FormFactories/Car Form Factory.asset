@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Car Form Factory
   m_EditorClassIdentifier: 
   white: {fileID: 6690160063586351658, guid: 5d0692bf9ec356b4793806e23d6e946b, type: 3}
-  red: {fileID: 6690160063586351658, guid: 72a5469e602b579478347f03d9848b17, type: 3}
-  blue: {fileID: 6690160063586351658, guid: 6bf6985507de048439cb955e49d72742, type: 3}
+  red: {fileID: 9089819705463670732, guid: 0deacdf80cc895c4898ec2ebd406069e, type: 3}
+  blue: {fileID: 253483568281711546, guid: c44c8dcd945e8d44ab6a99acfb31b2ac, type: 3}

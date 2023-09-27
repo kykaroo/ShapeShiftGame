@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Boat Form Factory
   m_EditorClassIdentifier: 
   boat1: {fileID: -8438333300642622930, guid: 494731c8ca8e0dd479f7759ad15e58ef, type: 3}
-  boat2: {fileID: -8438333300642622930, guid: 1f5e290ed6e06a8428742390909ccc86, type: 3}
+  boat2: {fileID: 592133313946811957, guid: e1a0add51c2d86645b3d78c889a66669, type: 3}

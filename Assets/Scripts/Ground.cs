@@ -13,19 +13,22 @@ public class Ground
     public LayerMask StairsSlopeMask { get; }
 
     public LayerMask GroundMask { get; }
+    
+    public LayerMask UnderwaterGroundMask { get; }
 
     public LinkedList<TileInfo> TileInfoList { get; } = new();
     
     public LinkedList<BackgroundInfo> BackgroundTileList { get; } = new();
 
     public Ground(LayerMask allEnvironment, LayerMask waterMask, LayerMask balloonsMask, LayerMask stairsSlopeMask, 
-        LayerMask groundMask)
+        LayerMask groundMask, LayerMask underwaterGroundMask)
     {
         AllEnvironment = allEnvironment;
         WaterMask = waterMask;
         BalloonsMask = balloonsMask;
         StairsSlopeMask = stairsSlopeMask;
         GroundMask = groundMask;
+        UnderwaterGroundMask = underwaterGroundMask;
     }
 
 

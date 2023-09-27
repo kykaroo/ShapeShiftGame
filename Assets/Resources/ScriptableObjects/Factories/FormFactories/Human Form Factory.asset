@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Human Form Factory
   m_EditorClassIdentifier: 
   white: {fileID: -1581437348753860742, guid: f3f9cd3a441c4484c81cc142e51a4c61, type: 3}
-  red: {fileID: -1581437348753860742, guid: 13b2eccee3c93bc45baea8517f47f2e6, type: 3}
-  yellow: {fileID: -1581437348753860742, guid: 5caca13577c996c4ca96f9ac89811f15, type: 3}
+  red: {fileID: 2309882933521963413, guid: 18b1ecd47c70f4941a336f408df9b337, type: 3}
+  yellow: {fileID: 885986363954507006, guid: c93bb820c56ea3c4f8bc38dd2fd64710, type: 3}
