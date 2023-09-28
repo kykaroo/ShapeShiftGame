@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Audio;
 using Data;
 using FormsFactories;
 using FormStateMachine.Forms;
@@ -53,12 +54,16 @@ public class EntryPoint : MonoBehaviour
     [SerializeField] private CarFormFactory carFormFactory;
     [SerializeField] private HelicopterFormFactory helicopterFormFactory;
     [SerializeField] private BoatFormFactory boatFormFactory;
-
     [Header("ProgressBar")] 
     [SerializeField] private Slider playerProgressIndicator;
     [SerializeField] private Slider[] aiProgressIndicators;
-    
-    
+    [Header("Audio")] 
+    [SerializeField] private Sound[] musicSounds;
+    [SerializeField] private Sound[] sfxSounds;
+    [SerializeField] private AudioSource musicSource;
+    [SerializeField] private AudioSource sfxSource;
+
+    private AudioManager _audioManager;
     private IPersistentData _persistentPlayerData;
     private LevelProgressBar.LevelProgressBar _levelProgressBar;
 
@@ -86,8 +91,9 @@ public class EntryPoint : MonoBehaviour
         SpawnPlayerForms();
         InitializeLists();
         PrepareGameObjects();
-        
-        
+
+        _audioManager = new(musicSounds, sfxSounds, musicSource, sfxSource);
+
         _ground = new(allEnvironment, waterMask, balloonsMask, stairsSlopeMask, groundMask, underwaterGroundMask);
         _levelGenerator = new(levelConfig, _ground);
         _gravityForce = Gravity * gravityMultiplier;
@@ -193,6 +199,7 @@ public class EntryPoint : MonoBehaviour
     {
         startUi.OnStartButtonClick += OnStartGame;
         startUi.OnShopButtonClick += OpenShop;
+        startUi.OnNextTrackButtonClicked += SetNextMusicTrack;
 
         formChangeUi.OnHumanFormButtonClick += () => _playerFormStateMachine.SetState<HumanFormState>();
         formChangeUi.OnCarFormButtonClick += () => _playerFormStateMachine.SetState<CarFormState>();
@@ -203,6 +210,11 @@ public class EntryPoint : MonoBehaviour
 
         shopUi.OnBackButtonClick += CloseShop;
         startUi.OnDifficultyChanged += ChangeDifficulty;
+    }
+
+    private void SetNextMusicTrack()
+    {
+        startUi.UpdateCurrentTrack(_audioManager.PlayAllMusic());
     }
 
     private void ChangeDifficulty(int value)
@@ -327,6 +339,11 @@ public class EntryPoint : MonoBehaviour
         if (formChangeUi.gameObject.activeSelf)
         {
             _levelProgressBar.UpdateData();
+        }
+
+        if (!_audioManager.IsMusicPlaying())
+        {
+            startUi.UpdateCurrentTrack(_audioManager.PlayAllMusic());
         }
     }
 }
