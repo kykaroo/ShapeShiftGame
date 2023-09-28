@@ -27,6 +27,7 @@ public class EntryPoint : MonoBehaviour
     [SerializeField] private VictoryUi victoryUi;
     [SerializeField] private Shop.Shop shopUi;
     [SerializeField] private LevelConfig levelConfig;
+    [SerializeField] private OptionsUi optionsUi;
     [Header("Ground masks")]
     [SerializeField] private LayerMask allEnvironment;
     [SerializeField] private LayerMask waterMask;
@@ -62,9 +63,8 @@ public class EntryPoint : MonoBehaviour
     [SerializeField] private Sound[] sfxSounds;
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioSource sfxSource;
-
-    private AudioManager _audioManager;
-    private IPersistentData _persistentPlayerData;
+    
+    private IPersistentPlayerData _persistentPlayerData;
     private LevelProgressBar.LevelProgressBar _levelProgressBar;
 
     private FormStateMachine.FormStateMachine _playerFormStateMachine;
@@ -83,6 +83,10 @@ public class EntryPoint : MonoBehaviour
     private LevelGenerator _levelGenerator;
     private const float Gravity = 9.81f;
     private float _gravityForce;
+    
+    private AudioManager _audioManager;
+    private float _musicVolume;
+    private float _sfxVolume;
 
 
     private void Start()
@@ -91,8 +95,9 @@ public class EntryPoint : MonoBehaviour
         SpawnPlayerForms();
         InitializeLists();
         PrepareGameObjects();
-
-        _audioManager = new(musicSounds, sfxSounds, musicSource, sfxSource);
+        
+        _audioManager = new(_persistentPlayerData, musicSounds, sfxSounds, musicSource, sfxSource);
+        optionsUi.Initialize(_persistentPlayerData);
 
         _ground = new(allEnvironment, waterMask, balloonsMask, stairsSlopeMask, groundMask, underwaterGroundMask);
         _levelGenerator = new(levelConfig, _ground);
@@ -117,10 +122,10 @@ public class EntryPoint : MonoBehaviour
     private void SpawnPlayerForms()
     {
         var spawnPointPosition = playerStartPosition.position;
-        _playerHumanForm = humanFormFactory.Get(_persistentPlayerData.PlayerData.SelectedHumanFormSkin, spawnPointPosition, playerTransform);
-        _playerCarForm = carFormFactory.Get(_persistentPlayerData.PlayerData.SelectedCarFormSkin, spawnPointPosition, playerTransform);
-        _playerHelicopterForm = helicopterFormFactory.Get(_persistentPlayerData.PlayerData.SelectedHelicopterFormSkin, spawnPointPosition, playerTransform);
-        _playerBoatForm = boatFormFactory.Get(_persistentPlayerData.PlayerData.SelectedBoatFormSkin, spawnPointPosition, playerTransform);
+        _playerHumanForm = humanFormFactory.Get(_persistentPlayerData.PlayerGameData.SelectedHumanFormSkin, spawnPointPosition, playerTransform);
+        _playerCarForm = carFormFactory.Get(_persistentPlayerData.PlayerGameData.SelectedCarFormSkin, spawnPointPosition, playerTransform);
+        _playerHelicopterForm = helicopterFormFactory.Get(_persistentPlayerData.PlayerGameData.SelectedHelicopterFormSkin, spawnPointPosition, playerTransform);
+        _playerBoatForm = boatFormFactory.Get(_persistentPlayerData.PlayerGameData.SelectedBoatFormSkin, spawnPointPosition, playerTransform);
     }
 
     private void PrepareGameObjects()
@@ -131,6 +136,7 @@ public class EntryPoint : MonoBehaviour
         startUi.gameObject.SetActive(false); 
         victoryUi.gameObject.SetActive(false); 
         shopUi.gameObject.SetActive(false);
+        optionsUi.gameObject.SetActive(false);
     }
 
     private void InitializeLists()
@@ -199,7 +205,7 @@ public class EntryPoint : MonoBehaviour
     {
         startUi.OnStartButtonClick += OnStartGame;
         startUi.OnShopButtonClick += OpenShop;
-        startUi.OnNextTrackButtonClicked += SetNextMusicTrack;
+        startUi.OnOptionsButtonClicked += OpenOptionsWindow;
 
         formChangeUi.OnHumanFormButtonClick += () => _playerFormStateMachine.SetState<HumanFormState>();
         formChangeUi.OnCarFormButtonClick += () => _playerFormStateMachine.SetState<CarFormState>();
@@ -210,11 +216,53 @@ public class EntryPoint : MonoBehaviour
 
         shopUi.OnBackButtonClick += CloseShop;
         startUi.OnDifficultyChanged += ChangeDifficulty;
+
+        optionsUi.OnMusicSliderValueChanged += ChangeMusicVolume;
+        optionsUi.OnSfxSliderValueChanged += ChangeSfxVolume;
+        optionsUi.OnMusicMuteButtonClick += ToggleMusicMute;
+        optionsUi.OnSfxMuteButtonClick += ToggleSfxMute;
+        optionsUi.OnNextTrackButtonClicked += SetNextMusicTrack;
+        optionsUi.OnBackButtonClick += CloseOptionsWindow;
+    }
+
+    private void ToggleSfxMute()
+    {
+        _audioManager.MuteSfx();
+        optionsUi.UpdateSfxMuteIcon(_persistentPlayerData);
+    }
+
+    private void ToggleMusicMute()
+    {
+        _audioManager.MuteMusic();
+        optionsUi.UpdateMusicMuteIcon(_persistentPlayerData);
+    }
+
+    private void CloseOptionsWindow()
+    {
+        _audioManager.SaveSettings();
+        optionsUi.gameObject.SetActive(false);
+        startUi.gameObject.SetActive(true);
+    }
+    
+    private void OpenOptionsWindow()
+    {
+        optionsUi.gameObject.SetActive(true);
+        startUi.gameObject.SetActive(false);
+    }
+
+    private void ChangeSfxVolume(float newValue)
+    {
+        _audioManager.ChangeSfxVolume(newValue);
+    }
+
+    private void ChangeMusicVolume(float newValue)
+    {
+        _audioManager.ChangeMusicVolume(newValue);
     }
 
     private void SetNextMusicTrack()
     {
-        startUi.UpdateCurrentTrack(_audioManager.PlayAllMusic());
+        optionsUi.UpdateCurrentTrack(_audioManager.PlayAllMusic());
     }
 
     private void ChangeDifficulty(int value)
@@ -343,7 +391,7 @@ public class EntryPoint : MonoBehaviour
 
         if (!_audioManager.IsMusicPlaying())
         {
-            startUi.UpdateCurrentTrack(_audioManager.PlayAllMusic());
+            optionsUi.UpdateCurrentTrack(_audioManager.PlayAllMusic());
         }
     }
 }

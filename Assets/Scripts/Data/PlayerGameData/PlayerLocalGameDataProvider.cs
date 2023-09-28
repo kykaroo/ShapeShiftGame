@@ -2,23 +2,23 @@
 using Newtonsoft.Json;
 using UnityEngine;
 
-namespace Data
+namespace Data.PlayerGameData
 {
-    public class DataLocalProvider : IDataProvider
+    public class PlayerLocalGameDataProvider : IDataProvider
     {
         private const string FileName = "PlayerSave";
         private const string SaveFileExtension = ".json";
 
-        private readonly IPersistentData _persistentData;
+        private readonly IPersistentPlayerData _persistentPlayerData;
 
-        public DataLocalProvider(IPersistentData persistentData) => _persistentData = persistentData;
+        public PlayerLocalGameDataProvider(IPersistentPlayerData persistentPlayerData) => _persistentPlayerData = persistentPlayerData;
 
         private string SavePath => Application.persistentDataPath;
         private string FullPath => Path.Combine(SavePath, $"{FileName}{SaveFileExtension}");
             
         public void Save()
         {
-            File.WriteAllText(FullPath, JsonConvert.SerializeObject(_persistentData.PlayerData, Formatting.Indented, new JsonSerializerSettings
+            File.WriteAllText(FullPath, JsonConvert.SerializeObject(_persistentPlayerData.PlayerGameData, Formatting.Indented, new JsonSerializerSettings
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             }));
@@ -31,7 +31,7 @@ namespace Data
                 return false;
             }
 
-            _persistentData.PlayerData = JsonConvert.DeserializeObject<PlayerData>(File.ReadAllText(FullPath));
+            _persistentPlayerData.PlayerGameData = JsonConvert.DeserializeObject<PlayerGameData>(File.ReadAllText(FullPath));
             return true;
         }
 

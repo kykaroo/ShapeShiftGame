@@ -6,9 +6,9 @@ using Shop.CarFormSkins;
 using Shop.HelicopterFormSkins;
 using Shop.HumanFormSkins;
 
-namespace Data
+namespace Data.PlayerGameData
 {
-    public class PlayerData
+    public class PlayerGameData
     {
         private HumanFormSkins _selectedHumanFormSkin;
         private CarFormSkins _selectedCarFormSkin;
@@ -22,7 +22,7 @@ namespace Data
 
         private int _money;
 
-        public PlayerData()
+        public PlayerGameData()
         {
             _money = 999999;
             _selectedHumanFormSkin = HumanFormSkins.White;
@@ -37,7 +37,7 @@ namespace Data
         }
 
         [JsonConstructor]
-        public PlayerData(int money, HumanFormSkins selectedHumanFormSkin, CarFormSkins selectedCarFormSkin,
+        public PlayerGameData(int money, HumanFormSkins selectedHumanFormSkin, CarFormSkins selectedCarFormSkin,
             HelicopterFormSkins selectedHelicopterFormSkin, BoatFormSkins selectedBoatFormSkin,
             List<HumanFormSkins> openHumanFormSkins, List<CarFormSkins> openCarFormSkins,
             List<HelicopterFormSkins> openHelicopterFormSkins, List<BoatFormSkins> openBoatFormSkins)

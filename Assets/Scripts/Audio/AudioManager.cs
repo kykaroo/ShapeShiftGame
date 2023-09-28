@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Data;
+using Data.PlayerOptionsData;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -15,14 +17,30 @@ namespace Audio
         private List<Sound> _musicPlaylist;
         private AudioClip _previousMusicClip;
         private Sound _musicToPlay;
-            
-        public AudioManager(Sound[] musicSounds, Sound[] sfxSounds, AudioSource musicSource, AudioSource sfxSource)
+        private readonly IDataProvider _dataProvider;
+        private readonly IPersistentPlayerData _persistentPlayerData;
+
+        public AudioManager(IPersistentPlayerData persistentPlayerData, Sound[] musicSounds, Sound[] sfxSounds, AudioSource musicSource, AudioSource sfxSource)
         {
+            _dataProvider = new PlayerPrefsOptionsDataProvider(persistentPlayerData);
+            _persistentPlayerData = persistentPlayerData;
+            LoadData();
+            
             _musicSounds = musicSounds;
             _sfxSounds = sfxSounds;
             _musicSource = musicSource;
             _sfxSource = sfxSource;
+            _musicSource.volume = _persistentPlayerData.PlayerOptionsData.MusicVolume;
+            _sfxSource.volume = _persistentPlayerData.PlayerOptionsData.SfxVolume;
             ResetPlaylist(_musicSounds);
+        }
+
+        private void LoadData()
+        {
+            if (_dataProvider.TryLoad() == false)
+            {
+                _persistentPlayerData.PlayerOptionsData = new();
+            }
         }
 
         private void ResetPlaylist(IEnumerable<Sound> musicSounds)
@@ -70,6 +88,49 @@ namespace Audio
         public bool IsMusicPlaying()
         {
             return _musicSource.isPlaying;
+        }
+
+        public void ChangeMusicVolume(float newValue)
+        {
+            _persistentPlayerData.PlayerOptionsData.MusicVolume = newValue;
+            _musicSource.volume = newValue;
+        }
+
+        public void ChangeSfxVolume(float newValue)
+        {
+            _persistentPlayerData.PlayerOptionsData.SfxVolume = newValue;
+            _sfxSource.volume = newValue;
+        }
+
+        public void MuteMusic()
+        {
+            if (_persistentPlayerData.PlayerOptionsData.MuteMusic)
+            {
+                _musicSource.mute = false;
+                _persistentPlayerData.PlayerOptionsData.MuteMusic = false;
+                return;
+            }
+
+            _musicSource.mute = true;
+            _persistentPlayerData.PlayerOptionsData.MuteMusic = true;
+        }
+
+        public void MuteSfx()
+        {
+            if (_persistentPlayerData.PlayerOptionsData.MuteSfx)
+            {
+                _sfxSource.mute = false;
+                _persistentPlayerData.PlayerOptionsData.MuteSfx = false;
+                return;
+            }
+
+            _sfxSource.mute = true;
+            _persistentPlayerData.PlayerOptionsData.MuteSfx = true;
+        }
+
+        public void SaveSettings()
+        {
+            _dataProvider.Save();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Data;
+using Data.PlayerGameData;
 using Shop;
 using UnityEngine;
 using Wallet;
@@ -9,12 +10,12 @@ public class ShopBootstrap : MonoBehaviour
     [SerializeField] private WalletView walletView;
 
     private IDataProvider _dataProvider;
-    private IPersistentData _persistentPlayerData;
+    private IPersistentPlayerData _persistentPlayerData;
     private Wallet.Wallet _wallet;
 
     public IDataProvider DataProvider => _dataProvider;
 
-    public IPersistentData PersistentPlayerData => _persistentPlayerData;
+    public IPersistentPlayerData PersistentPlayerData => _persistentPlayerData;
 
     public void Awake()
     {
@@ -40,8 +41,8 @@ public class ShopBootstrap : MonoBehaviour
 
     private void InitializeData()
     {
-        _persistentPlayerData = new PersistentData();
-        _dataProvider = new PlayerPrefsProvider(_persistentPlayerData);
+        _persistentPlayerData = new PersistentPlayerData();
+        _dataProvider = new PlayerPrefsGameDataProvider(_persistentPlayerData);
 
         LoadData();
     }
@@ -50,7 +51,7 @@ public class ShopBootstrap : MonoBehaviour
     {
         if (_dataProvider.TryLoad() == false)
         {
-            _persistentPlayerData.PlayerData = new();
+            _persistentPlayerData.PlayerGameData = new();
         }
 
         InitializeWallet();

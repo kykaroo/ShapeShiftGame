@@ -7,9 +7,9 @@ namespace Wallet
     {
         public event Action<int> CoinsChanged;
 
-        private IPersistentData _persistentData;
+        private IPersistentPlayerData _persistentPlayerData;
 
-        public Wallet(IPersistentData persistentData) => _persistentData = persistentData;
+        public Wallet(IPersistentPlayerData persistentPlayerData) => _persistentPlayerData = persistentPlayerData;
 
         public void AddCoins(int coins)
         {
@@ -18,11 +18,11 @@ namespace Wallet
                 throw new ArgumentException(nameof(coins));
             }
 
-            _persistentData.PlayerData.Money += coins;
-            CoinsChanged?.Invoke(_persistentData.PlayerData.Money);
+            _persistentPlayerData.PlayerGameData.Money += coins;
+            CoinsChanged?.Invoke(_persistentPlayerData.PlayerGameData.Money);
         }
 
-        public int GetCurrentCoins() => _persistentData.PlayerData.Money;
+        public int GetCurrentCoins() => _persistentPlayerData.PlayerGameData.Money;
 
         public bool IsEnough(int coins)
         {
@@ -31,7 +31,7 @@ namespace Wallet
                 throw new ArgumentException(nameof(coins));
             }
 
-            return _persistentData.PlayerData.Money >= coins;
+            return _persistentPlayerData.PlayerGameData.Money >= coins;
         }
 
         public void Spend(int coins)
@@ -41,8 +41,8 @@ namespace Wallet
                 throw new ArgumentException(nameof(coins));
             }
 
-            _persistentData.PlayerData.Money -= coins;
-            CoinsChanged?.Invoke(_persistentData.PlayerData.Money);
+            _persistentPlayerData.PlayerGameData.Money -= coins;
+            CoinsChanged?.Invoke(_persistentPlayerData.PlayerGameData.Money);
         }
     }
 }

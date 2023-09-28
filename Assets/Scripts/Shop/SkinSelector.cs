@@ -9,10 +9,10 @@ namespace Shop
 {
     public class SkinSelector : IShopItemVisitor
     {
-        private IPersistentData _persistentData;
+        private IPersistentPlayerData _persistentPlayerData;
         
 
-        public SkinSelector(IPersistentData persistentData) => _persistentData = persistentData;
+        public SkinSelector(IPersistentPlayerData persistentPlayerData) => _persistentPlayerData = persistentPlayerData;
         
         public void Visit(ShopItem shopItem)
         {
@@ -36,15 +36,15 @@ namespace Shop
         }
 
         public void Visit(HumanFormSkinItem humanFormSkinItem) => 
-            _persistentData.PlayerData.SelectedHumanFormSkin = humanFormSkinItem.SkinType;
+            _persistentPlayerData.PlayerGameData.SelectedHumanFormSkin = humanFormSkinItem.SkinType;
 
         public void Visit(CarFormSkinItem carFormSkinItem) =>
-            _persistentData.PlayerData.SelectedCarFormSkin = carFormSkinItem.SkinType;
+            _persistentPlayerData.PlayerGameData.SelectedCarFormSkin = carFormSkinItem.SkinType;
 
         public void Visit(HelicopterFormSkinItem helicopterFormSkinItem) =>
-            _persistentData.PlayerData.SelectedHelicopterFormSkin = helicopterFormSkinItem.SkinType;
+            _persistentPlayerData.PlayerGameData.SelectedHelicopterFormSkin = helicopterFormSkinItem.SkinType;
 
         public void Visit(BoatFormSkinItem boatFormSkinItem) =>
-            _persistentData.PlayerData.SelectedBoatFormSkin = boatFormSkinItem.SkinType;
+            _persistentPlayerData.PlayerGameData.SelectedBoatFormSkin = boatFormSkinItem.SkinType;
     }
 }
