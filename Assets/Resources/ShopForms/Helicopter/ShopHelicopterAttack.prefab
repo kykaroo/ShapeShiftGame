@@ -8,9 +8,37 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 874191887429623525, guid: 22f924f2d2b7ea944a57737534713e5b, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1397088633477243536, guid: 22f924f2d2b7ea944a57737534713e5b, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 1427252464479526767, guid: 22f924f2d2b7ea944a57737534713e5b, type: 3}
       propertyPath: m_Name
       value: ShopHelicopterAttack
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427252464479526767, guid: 22f924f2d2b7ea944a57737534713e5b, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2110478910290267426, guid: 22f924f2d2b7ea944a57737534713e5b, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3335229474580373618, guid: 22f924f2d2b7ea944a57737534713e5b, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5859266928631620088, guid: 22f924f2d2b7ea944a57737534713e5b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 5859266928631620088, guid: 22f924f2d2b7ea944a57737534713e5b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8466847647257260118, guid: 22f924f2d2b7ea944a57737534713e5b, type: 3}
       propertyPath: _collider

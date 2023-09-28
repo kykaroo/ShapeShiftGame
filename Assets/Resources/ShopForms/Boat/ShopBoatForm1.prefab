@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 344921951703098229, guid: 494731c8ca8e0dd479f7759ad15e58ef, type: 3}
       propertyPath: m_Name
-      value: BoatForm1 Variant
+      value: ShopBoatForm1
       objectReference: {fileID: 0}
     - target: {fileID: 344921951703098229, guid: 494731c8ca8e0dd479f7759ad15e58ef, type: 3}
       propertyPath: m_Layer

@@ -8,9 +8,37 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1946595213537751404, guid: f143e39caf73c5843abe1e0eaf9f5ef6, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2745093689454722714, guid: f143e39caf73c5843abe1e0eaf9f5ef6, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3524624244442548036, guid: f143e39caf73c5843abe1e0eaf9f5ef6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 3524624244442548036, guid: f143e39caf73c5843abe1e0eaf9f5ef6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5381832905192163622, guid: f143e39caf73c5843abe1e0eaf9f5ef6, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5463221903750624884, guid: f143e39caf73c5843abe1e0eaf9f5ef6, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 6511459589147869105, guid: f143e39caf73c5843abe1e0eaf9f5ef6, type: 3}
       propertyPath: m_Name
       value: ShopHelicopterTransport
+      objectReference: {fileID: 0}
+    - target: {fileID: 6511459589147869105, guid: f143e39caf73c5843abe1e0eaf9f5ef6, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 8279229432208406118, guid: f143e39caf73c5843abe1e0eaf9f5ef6, type: 3}
       propertyPath: m_RootOrder

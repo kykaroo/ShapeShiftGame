@@ -12,13 +12,37 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShopBoatForm2
       objectReference: {fileID: 0}
+    - target: {fileID: 440158962925358958, guid: e1a0add51c2d86645b3d78c889a66669, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 592133313946811957, guid: e1a0add51c2d86645b3d78c889a66669, type: 3}
       propertyPath: _collider
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1042103576772204322, guid: e1a0add51c2d86645b3d78c889a66669, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1042103576772204322, guid: e1a0add51c2d86645b3d78c889a66669, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1042103576772204322, guid: e1a0add51c2d86645b3d78c889a66669, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1042103576772204322, guid: e1a0add51c2d86645b3d78c889a66669, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7242836927753759276, guid: e1a0add51c2d86645b3d78c889a66669, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 8657322003310075049, guid: e1a0add51c2d86645b3d78c889a66669, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8657322003310075049, guid: e1a0add51c2d86645b3d78c889a66669, type: 3}
       propertyPath: m_LocalPosition.x

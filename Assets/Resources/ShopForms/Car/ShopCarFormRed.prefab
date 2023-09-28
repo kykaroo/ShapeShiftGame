@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 452418477091805560, guid: 0deacdf80cc895c4898ec2ebd406069e, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 616381826882223161, guid: 0deacdf80cc895c4898ec2ebd406069e, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 1570952162755564935, guid: 0deacdf80cc895c4898ec2ebd406069e, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -52,9 +60,49 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2229251402158228163, guid: 0deacdf80cc895c4898ec2ebd406069e, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4159606921315894044, guid: 0deacdf80cc895c4898ec2ebd406069e, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5959851586903036868, guid: 0deacdf80cc895c4898ec2ebd406069e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 5959851586903036868, guid: 0deacdf80cc895c4898ec2ebd406069e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5959851586903036868, guid: 0deacdf80cc895c4898ec2ebd406069e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5959851586903036868, guid: 0deacdf80cc895c4898ec2ebd406069e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5959851586903036868, guid: 0deacdf80cc895c4898ec2ebd406069e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5959851586903036868, guid: 0deacdf80cc895c4898ec2ebd406069e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7569202187685686583, guid: 0deacdf80cc895c4898ec2ebd406069e, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 8680707102074368889, guid: 0deacdf80cc895c4898ec2ebd406069e, type: 3}
       propertyPath: m_Name
       value: ShopCarFormRed
+      objectReference: {fileID: 0}
+    - target: {fileID: 8680707102074368889, guid: 0deacdf80cc895c4898ec2ebd406069e, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 9089819705463670732, guid: 0deacdf80cc895c4898ec2ebd406069e, type: 3}
       propertyPath: _collider

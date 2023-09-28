@@ -294,7 +294,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6905426390614599702, guid: f3f9cd3a441c4484c81cc142e51a4c61, type: 3}
       propertyPath: m_Name
-      value: HumanFormWhite Variant
+      value: ShopHumanFormWhite
       objectReference: {fileID: 0}
     - target: {fileID: 6905426390614599702, guid: f3f9cd3a441c4484c81cc142e51a4c61, type: 3}
       propertyPath: m_Layer
