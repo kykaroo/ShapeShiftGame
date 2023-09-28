@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44d23a8472284ab199904c9f4d3b5e20, type: 3}
   m_Name: HeliTransport
   m_EditorClassIdentifier: 
-  <GameModel>k__BackingField: {fileID: 4303778209515384205, guid: 894d95bac1ce5604bada80433ced58b4, type: 3}
-  <ShopModel>k__BackingField: {fileID: 1466695618858832611, guid: c3ec78250a41117478b79d189098eafd, type: 3}
+  <GameModel>k__BackingField: {fileID: 6511459589147869105, guid: f143e39caf73c5843abe1e0eaf9f5ef6, type: 3}
+  <ShopModel>k__BackingField: {fileID: 5150751112957021956, guid: c3ec78250a41117478b79d189098eafd, type: 3}
   <Image>k__BackingField: {fileID: 21300000, guid: 923bba18a024b404da2e62a128dd7c2a, type: 3}
   <Price>k__BackingField: 200
   <SkinType>k__BackingField: 2

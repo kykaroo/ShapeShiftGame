@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0bf08c55fe4e79a88ad488b84fc87a, type: 3}
   m_Name: CarBlue
   m_EditorClassIdentifier: 
-  <GameModel>k__BackingField: {fileID: 6522811914732031647, guid: 6bf6985507de048439cb955e49d72742, type: 3}
-  <ShopModel>k__BackingField: {fileID: 6094880150164660251, guid: 49b997db9c9ca904a9de61a0873c90f1, type: 3}
+  <GameModel>k__BackingField: {fileID: 421396863947376399, guid: c44c8dcd945e8d44ab6a99acfb31b2ac, type: 3}
+  <ShopModel>k__BackingField: {fileID: 8990162964386962338, guid: 0893005830db12442be5cd1837cd6319, type: 3}
   <Image>k__BackingField: {fileID: 21300000, guid: 50afb695de24b91428996db7f9a5e048, type: 3}
   <Price>k__BackingField: 200
   <SkinType>k__BackingField: 2

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d9b3556ddb74627871fe8969e2e5979, type: 3}
   m_Name: Boat2
   m_EditorClassIdentifier: 
-  <GameModel>k__BackingField: {fileID: 344921951703098229, guid: 1f5e290ed6e06a8428742390909ccc86, type: 3}
-  <ShopModel>k__BackingField: {fileID: 3072726440277645623, guid: cbf1491c19e37344cb0fe506c644d33f, type: 3}
+  <GameModel>k__BackingField: {fileID: 440158962925358958, guid: e1a0add51c2d86645b3d78c889a66669, type: 3}
+  <ShopModel>k__BackingField: {fileID: 4020028643776497667, guid: cbf1491c19e37344cb0fe506c644d33f, type: 3}
   <Image>k__BackingField: {fileID: 21300000, guid: e4da08f1e540a4a47afdf754bedd5af9, type: 3}
   <Price>k__BackingField: 200
   <SkinType>k__BackingField: 1

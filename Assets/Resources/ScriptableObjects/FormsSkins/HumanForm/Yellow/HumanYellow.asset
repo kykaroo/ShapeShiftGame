@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b5e9d355f0e488c93b5d49bf7c27435, type: 3}
   m_Name: HumanYellow
   m_EditorClassIdentifier: 
-  <GameModel>k__BackingField: {fileID: 6905426390614599702, guid: 5caca13577c996c4ca96f9ac89811f15, type: 3}
-  <ShopModel>k__BackingField: {fileID: 1899444938161043485, guid: ab36cabe2d7ad94488e0bad952d1a543, type: 3}
+  <GameModel>k__BackingField: {fileID: 4148725980608091026, guid: c93bb820c56ea3c4f8bc38dd2fd64710, type: 3}
+  <ShopModel>k__BackingField: {fileID: 8314533102567125770, guid: ab36cabe2d7ad94488e0bad952d1a543, type: 3}
   <Image>k__BackingField: {fileID: 21300000, guid: 73d2848a317dccc468c2ee6010894aaa, type: 3}
   <Price>k__BackingField: 200
   <SkinType>k__BackingField: 2

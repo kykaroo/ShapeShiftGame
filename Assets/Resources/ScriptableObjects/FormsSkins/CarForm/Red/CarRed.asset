@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0bf08c55fe4e79a88ad488b84fc87a, type: 3}
   m_Name: CarRed
   m_EditorClassIdentifier: 
-  <GameModel>k__BackingField: {fileID: 6522811914732031647, guid: 72a5469e602b579478347f03d9848b17, type: 3}
-  <ShopModel>k__BackingField: {fileID: 2480062906401204488, guid: fce4dbd98f80cb0449e462402db9b3c3, type: 3}
+  <GameModel>k__BackingField: {fileID: 8680707102074368889, guid: 0deacdf80cc895c4898ec2ebd406069e, type: 3}
+  <ShopModel>k__BackingField: {fileID: 116216655446563665, guid: 5718b9c73e223234f8bb57151c04432a, type: 3}
   <Image>k__BackingField: {fileID: 21300000, guid: 903e3fd5360d079459b30a1be1c4a9f3, type: 3}
   <Price>k__BackingField: 300
   <SkinType>k__BackingField: 1
