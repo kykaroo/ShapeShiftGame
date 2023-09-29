@@ -879,8 +879,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -27.572, y: -57.564}
-  m_SizeDelta: {x: 662.3904, y: 115.1284}
+  m_AnchoredPosition: {x: -36, y: -57.564}
+  m_SizeDelta: {x: 645.53, y: 115.1284}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &174838716
 GameObject:
@@ -895,7 +895,7 @@ GameObject:
   - component: {fileID: 174838719}
   - component: {fileID: 174838718}
   m_Layer: 0
-  m_Name: Popup00_WhiteCustom
+  m_Name: OptionsPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5749,8 +5749,6 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: a2ab8c822074bdb49bd8425c4e3c1576, type: 3}
   - name: Theme7
     clip: {fileID: 8300000, guid: b76dee63927eec549ab421da21568d8c, type: 3}
-  - name: Theme8
-    clip: {fileID: 8300000, guid: b76dee63927eec549ab421da21568d8c, type: 3}
   sfxSounds: []
   musicSource: {fileID: 401921372}
   sfxSource: {fileID: 1139577154}
@@ -6471,7 +6469,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0.378, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7113,7 +7111,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.378
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -7415,8 +7413,8 @@ RectTransform:
   m_Father: {fileID: 1765210867}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: 0.378, y: 0}
+  m_AnchorMax: {x: 0.378, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0.48953247, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -8364,7 +8362,7 @@ GameObject:
   - component: {fileID: 2037621201}
   - component: {fileID: 2037621200}
   m_Layer: 0
-  m_Name: TopFrame_White
+  m_Name: TopFrame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
