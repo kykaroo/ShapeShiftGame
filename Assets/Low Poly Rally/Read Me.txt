@@ -1,0 +1,20 @@
+Hello and thank you for purchasing Low Poly Rally Package.
+
+If models are rendering in pink color?
+- Make sure you have connected UniversalRenderPipelineAsset.
+- The asset is located in the Settings folder.
+
+There are 70 prefabs.
+
+Models have separate parts for animation.
+
+Texture is 512*512 png
+
+Update 1.2
+- Pack updated to Universal Render Pipeline.
+- Example Scenes have realtime directional light and baked indirect.
+- Fixed issues with the tires.
+
+
+For questions you can contact me at:
+a3deve@gmail.com

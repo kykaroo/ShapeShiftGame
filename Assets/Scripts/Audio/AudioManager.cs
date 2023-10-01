@@ -4,6 +4,7 @@ using System.Linq;
 using Data;
 using Data.PlayerOptionsData;
 using UnityEngine;
+using UnityEngine.Pool;
 using Random = UnityEngine.Random;
 
 namespace Audio
@@ -19,6 +20,13 @@ namespace Audio
         private Sound _musicToPlay;
         private readonly IDataProvider _dataProvider;
         private readonly IPersistentPlayerData _persistentPlayerData;
+        private IObjectPool<AudioSource> _audioSourcesPool;
+        private Transform _audioSourceParent;
+
+        public float Interval = 1;
+        public float Timer;
+
+        public event Action<string> OnNewTrackPlay;
 
         public AudioManager(IPersistentPlayerData persistentPlayerData, Sound[] musicSounds, Sound[] sfxSounds, AudioSource musicSource, AudioSource sfxSource)
         {
@@ -33,6 +41,7 @@ namespace Audio
             _musicSource.volume = _persistentPlayerData.PlayerOptionsData.MusicVolume;
             _sfxSource.volume = _persistentPlayerData.PlayerOptionsData.SfxVolume;
             ResetPlaylist(_musicSounds);
+            Timer = Interval;
         }
 
         private void LoadData()
@@ -85,11 +94,6 @@ namespace Audio
             return _musicToPlay.name;
         }
 
-        public bool IsMusicPlaying()
-        {
-            return _musicSource.isPlaying;
-        }
-
         public void ChangeMusicVolume(float newValue)
         {
             _persistentPlayerData.PlayerOptionsData.MusicVolume = newValue;
@@ -131,6 +135,18 @@ namespace Audio
         public void SaveSettings()
         {
             _dataProvider.Save();
+        }
+
+        public void Update()
+        {
+            if (_musicSource.isPlaying) return;
+
+            Timer += Time.deltaTime;
+
+            if (!(Timer >= Interval)) return;
+            
+            OnNewTrackPlay?.Invoke(PlayAllMusic());
+            Timer = 0;
         }
     }
 }

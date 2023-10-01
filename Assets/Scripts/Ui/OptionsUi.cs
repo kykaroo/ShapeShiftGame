@@ -41,8 +41,8 @@ namespace Ui
         public void Initialize(IPersistentPlayerData persistentPlayerData)
         {
             nextTrackButton.onClick.AddListener(NextTrackButtonClick);
-            musicVolumeSlider.value = persistentPlayerData.PlayerOptionsData.MusicVolume;
-            sfxVolumeSlider.value = persistentPlayerData.PlayerOptionsData.SfxVolume;
+            MusicSliderValueChanged(persistentPlayerData.PlayerOptionsData.MusicVolume);
+            SfxSliderValueChanged(persistentPlayerData.PlayerOptionsData.SfxVolume);
         }
         
         private void MusicSliderValueChanged(float value)

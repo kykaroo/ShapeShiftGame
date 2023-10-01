@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Audio;
 using Data;
@@ -97,6 +96,7 @@ public class EntryPoint : MonoBehaviour
         PrepareGameObjects();
         
         _audioManager = new(_persistentPlayerData, musicSounds, sfxSounds, musicSource, sfxSource);
+        _audioManager.OnNewTrackPlay += (songName) => optionsUi.UpdateCurrentTrack(songName);
         optionsUi.Initialize(_persistentPlayerData);
 
         _ground = new(allEnvironment, waterMask, balloonsMask, stairsSlopeMask, groundMask, underwaterGroundMask);
@@ -388,10 +388,7 @@ public class EntryPoint : MonoBehaviour
         {
             _levelProgressBar.UpdateData();
         }
-
-        if (!_audioManager.IsMusicPlaying())
-        {
-            optionsUi.UpdateCurrentTrack(_audioManager.PlayAllMusic());
-        }
+        
+        _audioManager.Update();
     }
 }
