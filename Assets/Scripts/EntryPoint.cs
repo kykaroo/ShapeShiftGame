@@ -322,7 +322,7 @@ public class EntryPoint : MonoBehaviour
         for (var i = 0; i < aiNumber; i++)
         {
             _aiHumanFormList.Add(humanFormFactory.Get(HumanFormSkins.White, aiStartPositions[i].position, aiTransforms[i]));
-            _aiCarFormsList.Add(carFormFactory.Get(CarFormSkins.White, aiStartPositions[i].position, aiTransforms[i]));
+            _aiCarFormsList.Add(carFormFactory.Get(CarFormSkins.SportWhite, aiStartPositions[i].position, aiTransforms[i]));
             _aiHelicopterFormsList.Add(helicopterFormFactory.Get(HelicopterFormSkins.Scout, aiStartPositions[i].position, aiTransforms[i]));
             _aiBoatFormsList.Add(boatFormFactory.Get(BoatFormSkins.Boat1, aiStartPositions[i].position, aiTransforms[i]));
         }

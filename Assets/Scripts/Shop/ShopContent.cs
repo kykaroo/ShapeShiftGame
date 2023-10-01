@@ -36,7 +36,8 @@ namespace Shop
             
             var carFormSkinsDuplicates = carFormSkinItems.GroupBy(item => item.SkinType)
                 .Where(array => array.Count() > 1);
-            if (carFormSkinsDuplicates.Any())
+            var formSkinsDuplicates = carFormSkinsDuplicates.ToList();  
+            if (formSkinsDuplicates.Any())
             {
                 throw new InvalidOperationException(nameof(carFormSkinItems));
             }

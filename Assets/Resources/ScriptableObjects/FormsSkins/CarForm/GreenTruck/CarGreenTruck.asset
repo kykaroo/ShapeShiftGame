@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac0bf08c55fe4e79a88ad488b84fc87a, type: 3}
+  m_Name: CarGreenTruck
+  m_EditorClassIdentifier: 
+  <GameModel>k__BackingField: {fileID: 8271320010855343308, guid: c60ff3fdd267a36419f14d1a2093c580, type: 3}
+  <ShopModel>k__BackingField: {fileID: 6470232061992886664, guid: 0542ba384e7d7384ca797ea47d58a9de, type: 3}
+  <Image>k__BackingField: {fileID: 21300000, guid: 2cb0d1ac1d780fd4297109ae6d53f78c, type: 3}
+  <Price>k__BackingField: 500
+  <SkinType>k__BackingField: 9

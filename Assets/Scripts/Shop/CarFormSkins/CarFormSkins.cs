@@ -2,8 +2,15 @@
 {
     public enum CarFormSkins
     {
-        White,
-        Red,
-        Blue
+        Blue,
+        Green,
+        GreenTruck,
+        Police,
+        Purple,
+        Silver,
+        SportBlue,
+        SportRed,
+        SportWhite,
+        Yellow
     }
 }
