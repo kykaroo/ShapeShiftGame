@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1346306244749494365, guid: c60ff3fdd267a36419f14d1a2093c580, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1775587982988012444, guid: c60ff3fdd267a36419f14d1a2093c580, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 2268851105388282418, guid: c60ff3fdd267a36419f14d1a2093c580, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -26,7 +34,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2268851105388282418, guid: c60ff3fdd267a36419f14d1a2093c580, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.49999994
       objectReference: {fileID: 0}
     - target: {fileID: 2268851105388282418, guid: c60ff3fdd267a36419f14d1a2093c580, type: 3}
       propertyPath: m_LocalRotation.x
@@ -34,7 +42,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2268851105388282418, guid: c60ff3fdd267a36419f14d1a2093c580, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.86602545
       objectReference: {fileID: 0}
     - target: {fileID: 2268851105388282418, guid: c60ff3fdd267a36419f14d1a2093c580, type: 3}
       propertyPath: m_LocalRotation.z
@@ -46,15 +54,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2268851105388282418, guid: c60ff3fdd267a36419f14d1a2093c580, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 2268851105388282418, guid: c60ff3fdd267a36419f14d1a2093c580, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4806826425511179841, guid: c60ff3fdd267a36419f14d1a2093c580, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6371847889216183643, guid: c60ff3fdd267a36419f14d1a2093c580, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8202274448879282778, guid: c60ff3fdd267a36419f14d1a2093c580, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 8271320010855343308, guid: c60ff3fdd267a36419f14d1a2093c580, type: 3}
       propertyPath: m_Name
-      value: CarFormYellow
+      value: ShopCarFormYellow
+      objectReference: {fileID: 0}
+    - target: {fileID: 8271320010855343308, guid: c60ff3fdd267a36419f14d1a2093c580, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6089914037731792758, guid: c60ff3fdd267a36419f14d1a2093c580, type: 3}

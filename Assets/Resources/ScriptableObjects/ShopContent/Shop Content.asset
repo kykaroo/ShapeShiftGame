@@ -20,6 +20,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d1ec87c2ee3635a4aaf755a8261c900b, type: 2}
   - {fileID: 11400000, guid: defd0b36355b5214da4ee86dac1f0f91, type: 2}
   - {fileID: 11400000, guid: 320062700df398d43b2efa02d5f745ba, type: 2}
+  - {fileID: 11400000, guid: 3af0a10f94877a94fbe692ab48715d32, type: 2}
+  - {fileID: 11400000, guid: 0426404ba154cfc4d878f54fbe6317ee, type: 2}
+  - {fileID: 11400000, guid: e9f57392403376540999f008036d9597, type: 2}
+  - {fileID: 11400000, guid: cfadac24486fdec41881911af363ef36, type: 2}
+  - {fileID: 11400000, guid: c6b3d0101a2196b4094160358ed840e7, type: 2}
+  - {fileID: 11400000, guid: 7a02adb2801001b429531a40f472c920, type: 2}
+  - {fileID: 11400000, guid: 21014abb2f3117045b429e99c3c57626, type: 2}
   helicopterFormSkinItems:
   - {fileID: 11400000, guid: e6e24141429fcdc48855ac45f020f078, type: 2}
   - {fileID: 11400000, guid: 602e7b2ddf2b59340a8eabc8bee58f68, type: 2}

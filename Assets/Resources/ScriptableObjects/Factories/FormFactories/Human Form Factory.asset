@@ -15,3 +15,5 @@ MonoBehaviour:
   white: {fileID: -1581437348753860742, guid: f3f9cd3a441c4484c81cc142e51a4c61, type: 3}
   red: {fileID: 2309882933521963413, guid: 18b1ecd47c70f4941a336f408df9b337, type: 3}
   yellow: {fileID: 885986363954507006, guid: c93bb820c56ea3c4f8bc38dd2fd64710, type: 3}
+  knight: {fileID: 2515314035485169728, guid: 898ff539bc9368a47a9ebbcfa2830c3f, type: 3}
+  bananaMan: {fileID: 8936948110100615253, guid: 5d494adab4bd2344b8b067f15a492a9a, type: 3}

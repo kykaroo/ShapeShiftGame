@@ -98,7 +98,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8680707102074368889, guid: 0deacdf80cc895c4898ec2ebd406069e, type: 3}
       propertyPath: m_Name
-      value: ShopCarFormRed
+      value: ShopCarFormSportRed
       objectReference: {fileID: 0}
     - target: {fileID: 8680707102074368889, guid: 0deacdf80cc895c4898ec2ebd406069e, type: 3}
       propertyPath: m_Layer

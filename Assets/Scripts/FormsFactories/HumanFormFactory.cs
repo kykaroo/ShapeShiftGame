@@ -11,6 +11,8 @@ namespace FormsFactories
         [SerializeField] private HumanForm white;
         [SerializeField] private HumanForm red;
         [SerializeField] private HumanForm yellow;
+        [SerializeField] private HumanForm knight;
+        [SerializeField] private HumanForm bananaMan;
 
         public HumanForm Get(HumanFormSkins skinType, Vector3 spawnPosition, Transform parent)
         {
@@ -25,6 +27,8 @@ namespace FormsFactories
                 HumanFormSkins.White => white,
                 HumanFormSkins.Red => red,
                 HumanFormSkins.Yellow => yellow,
+                HumanFormSkins.Knight => knight,
+                HumanFormSkins.BananaMan => bananaMan,
                 _ => throw new ArgumentOutOfRangeException(nameof(skinType), skinType, null)
             };
         }

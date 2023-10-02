@@ -807,6 +807,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4926558031157634725}
+  - component: {fileID: 7090687270934491636}
   m_Layer: 0
   m_Name: Meshtint Free Knight
   m_TagString: Untagged
@@ -831,9 +832,30 @@ Transform:
   - {fileID: 981108812458103518}
   - {fileID: 3466078033941833559}
   - {fileID: 3804535539046900835}
-  m_Father: {fileID: 6153156268152450297}
+  m_Father: {fileID: 2976211099089946528}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &7090687270934491636
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7214459685606776953}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: bc473f4455b612047a5e28363969c3c8, type: 3}
+  m_Controller: {fileID: 9100000, guid: 64923a404c311e6458adb5feca7336d2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8180647145836169936
 GameObject:
   m_ObjectHideFlags: 0
@@ -1077,11 +1099,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6905426390614599702, guid: f3f9cd3a441c4484c81cc142e51a4c61, type: 3}
       propertyPath: m_Name
-      value: HumanFormWhite Variant
+      value: HumanFormKnight
       objectReference: {fileID: 0}
     - target: {fileID: 7036887526921767066, guid: f3f9cd3a441c4484c81cc142e51a4c61, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7036887526921767066, guid: f3f9cd3a441c4484c81cc142e51a4c61, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1132,7 +1154,7 @@ PrefabInstance:
       addedObject: {fileID: 4926558031157634725}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3f9cd3a441c4484c81cc142e51a4c61, type: 3}
---- !u!4 &6153156268152450297 stripped
+--- !u!4 &2976211099089946528 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7036887526921767066, guid: f3f9cd3a441c4484c81cc142e51a4c61, type: 3}
   m_PrefabInstance: {fileID: 5252793475729477434}

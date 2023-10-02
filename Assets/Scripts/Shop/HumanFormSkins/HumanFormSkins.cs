@@ -4,6 +4,8 @@
     {
         White,
         Red,
-        Yellow
+        Yellow,
+        Knight,
+        BananaMan
     }
 }

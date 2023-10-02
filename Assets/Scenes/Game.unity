@@ -752,7 +752,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 242.18, y: -84.375}
+  m_AnchoredPosition: {x: 242.18, y: -93.892}
   m_SizeDelta: {x: 456.3578, y: 144.80768}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &105862463
@@ -3640,7 +3640,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 119.93, y: 43}
+  m_AnchoredPosition: {x: 119.93, y: 47}
   m_SizeDelta: {x: 211.8656, y: 60.64789}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &864669191
@@ -7518,6 +7518,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2751247679325778549, guid: 1ea08d5bef016ee43b8ef20f607045b3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2948298554011426202, guid: 1ea08d5bef016ee43b8ef20f607045b3, type: 3}
       propertyPath: optionsButton
       value: 
@@ -7529,6 +7533,14 @@ PrefabInstance:
     - target: {fileID: 2948298554011426202, guid: 1ea08d5bef016ee43b8ef20f607045b3, type: 3}
       propertyPath: currentTrackText
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4931625112674008260, guid: 1ea08d5bef016ee43b8ef20f607045b3, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 179
+      objectReference: {fileID: 0}
+    - target: {fileID: 4931625112674008260, guid: 1ea08d5bef016ee43b8ef20f607045b3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -87.604
       objectReference: {fileID: 0}
     - target: {fileID: 5918124539197124388, guid: 1ea08d5bef016ee43b8ef20f607045b3, type: 3}
       propertyPath: m_AnchorMax.x
@@ -7544,11 +7556,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5918124539197124388, guid: 1ea08d5bef016ee43b8ef20f607045b3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -73
+      value: -88
       objectReference: {fileID: 0}
     - target: {fileID: 5918124539197124388, guid: 1ea08d5bef016ee43b8ef20f607045b3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -73
+      value: -87.604
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9013,6 +9025,10 @@ PrefabInstance:
     - target: {fileID: 5568522208913623302, guid: 8e556e4433445284e8202e1a12e00a97, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5830683454956150136, guid: 8e556e4433445284e8202e1a12e00a97, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7094550779870939293, guid: 8e556e4433445284e8202e1a12e00a97, type: 3}
       propertyPath: m_AnchorMax.y

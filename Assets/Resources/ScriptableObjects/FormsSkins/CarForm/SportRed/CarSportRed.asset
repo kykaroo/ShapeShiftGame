@@ -16,4 +16,4 @@ MonoBehaviour:
   <ShopModel>k__BackingField: {fileID: 116216655446563665, guid: 5718b9c73e223234f8bb57151c04432a, type: 3}
   <Image>k__BackingField: {fileID: 21300000, guid: 903e3fd5360d079459b30a1be1c4a9f3, type: 3}
   <Price>k__BackingField: 300
-  <SkinType>k__BackingField: 1
+  <SkinType>k__BackingField: 7

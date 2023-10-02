@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b5e9d355f0e488c93b5d49bf7c27435, type: 3}
+  m_Name: Knight
+  m_EditorClassIdentifier: 
+  <GameModel>k__BackingField: {fileID: 1671023902713227052, guid: 898ff539bc9368a47a9ebbcfa2830c3f, type: 3}
+  <ShopModel>k__BackingField: {fileID: 4980461255556049203, guid: 1c0c0dc118e6e7340bbde02fc4b45f43, type: 3}
+  <Image>k__BackingField: {fileID: 21300000, guid: 73d2848a317dccc468c2ee6010894aaa, type: 3}
+  <Price>k__BackingField: 500
+  <SkinType>k__BackingField: 3

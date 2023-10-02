@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 421396863947376399, guid: c44c8dcd945e8d44ab6a99acfb31b2ac, type: 3}
       propertyPath: m_Name
-      value: ShopCarFormBlue
+      value: ShopCarFormSportBlue
       objectReference: {fileID: 0}
     - target: {fileID: 421396863947376399, guid: c44c8dcd945e8d44ab6a99acfb31b2ac, type: 3}
       propertyPath: m_Layer
