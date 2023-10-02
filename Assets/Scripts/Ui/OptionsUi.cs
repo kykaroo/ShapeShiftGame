@@ -35,14 +35,18 @@ namespace Ui
         public event Action OnMusicMuteButtonClick;
         public event Action OnSfxMuteButtonClick;
         public event Action OnNextTrackButtonClicked;
-        
+
+        private IPersistentPlayerData _persistentPlayerData;
         private void NextTrackButtonClick() => OnNextTrackButtonClicked?.Invoke();
 
         public void Initialize(IPersistentPlayerData persistentPlayerData)
         {
             nextTrackButton.onClick.AddListener(NextTrackButtonClick);
+            _persistentPlayerData = persistentPlayerData;
             MusicSliderValueChanged(persistentPlayerData.PlayerOptionsData.MusicVolume);
             SfxSliderValueChanged(persistentPlayerData.PlayerOptionsData.SfxVolume);
+            UpdateMusicMuteIcon();
+            UpdateSfxMuteIcon();
         }
         
         private void MusicSliderValueChanged(float value)
@@ -77,9 +81,9 @@ namespace Ui
             OnMusicMuteButtonClick?.Invoke();
         }
 
-        public void UpdateMusicMuteIcon(IPersistentPlayerData persistentPlayerData)
+        public void UpdateMusicMuteIcon()
         {
-            if (persistentPlayerData.PlayerOptionsData.MuteMusic)
+            if (_persistentPlayerData.PlayerOptionsData.MuteMusic)
             {
                 musicMuteButtonImage.sprite = musicMuteOffSprite;
                 return;
@@ -93,9 +97,9 @@ namespace Ui
             OnSfxMuteButtonClick?.Invoke();
         }
 
-        public void UpdateSfxMuteIcon(IPersistentPlayerData persistentPlayerData)
+        public void UpdateSfxMuteIcon()
         {
-            if (persistentPlayerData.PlayerOptionsData.MuteSfx)
+            if (_persistentPlayerData.PlayerOptionsData.MuteSfx)
             {
                 sfxMuteButtonImage.sprite = sfxMuteOffSprite;
                 return;

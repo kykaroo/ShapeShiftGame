@@ -227,14 +227,14 @@ public class EntryPoint : MonoBehaviour
 
     private void ToggleSfxMute()
     {
-        _audioManager.MuteSfx();
-        optionsUi.UpdateSfxMuteIcon(_persistentPlayerData);
+        _audioManager.ToggleSfx();
+        optionsUi.UpdateSfxMuteIcon();
     }
 
     private void ToggleMusicMute()
     {
-        _audioManager.MuteMusic();
-        optionsUi.UpdateMusicMuteIcon(_persistentPlayerData);
+        _audioManager.ToggleMusic();
+        optionsUi.UpdateMusicMuteIcon();
     }
 
     private void CloseOptionsWindow()

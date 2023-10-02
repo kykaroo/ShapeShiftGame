@@ -34,12 +34,16 @@ namespace Audio
             _persistentPlayerData = persistentPlayerData;
             LoadData();
             
-            _musicSounds = musicSounds;
-            _sfxSounds = sfxSounds;
             _musicSource = musicSource;
-            _sfxSource = sfxSource;
+            _musicSounds = musicSounds;
             _musicSource.volume = _persistentPlayerData.PlayerOptionsData.MusicVolume;
+            _musicSource.mute = _persistentPlayerData.PlayerOptionsData.MuteMusic;
+            
+            _sfxSource = sfxSource;
+            _sfxSounds = sfxSounds;
             _sfxSource.volume = _persistentPlayerData.PlayerOptionsData.SfxVolume;
+            _sfxSource.mute = _persistentPlayerData.PlayerOptionsData.MuteSfx;
+            
             ResetPlaylist(_musicSounds);
             Timer = Interval;
         }
@@ -106,7 +110,7 @@ namespace Audio
             _sfxSource.volume = newValue;
         }
 
-        public void MuteMusic()
+        public void ToggleMusic()
         {
             if (_persistentPlayerData.PlayerOptionsData.MuteMusic)
             {
@@ -119,7 +123,7 @@ namespace Audio
             _persistentPlayerData.PlayerOptionsData.MuteMusic = true;
         }
 
-        public void MuteSfx()
+        public void ToggleSfx()
         {
             if (_persistentPlayerData.PlayerOptionsData.MuteSfx)
             {
