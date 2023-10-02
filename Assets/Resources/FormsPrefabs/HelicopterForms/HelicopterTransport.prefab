@@ -198,7 +198,7 @@ Transform:
   - {fileID: 4913894375074140334}
   - {fileID: 7697671477743793300}
   - {fileID: 2222503878280714260}
-  m_Father: {fileID: 8279229432208406118}
+  m_Father: {fileID: 2235532155011898843}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &5795023668064636666
@@ -316,14 +316,14 @@ PrefabInstance:
     - target: {fileID: -2453123810681978188, guid: 91bb2ffc09defb34fbacc7ea420b959e, type: 3}
       propertyPath: animator
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5795023668064636666}
     - target: {fileID: 4303778209515384205, guid: 91bb2ffc09defb34fbacc7ea420b959e, type: 3}
       propertyPath: m_Name
-      value: HelicopterTransport Variant
+      value: HelicopterTransport
       objectReference: {fileID: 0}
     - target: {fileID: 9142723010911899623, guid: 91bb2ffc09defb34fbacc7ea420b959e, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9142723010911899623, guid: 91bb2ffc09defb34fbacc7ea420b959e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -374,7 +374,7 @@ PrefabInstance:
       addedObject: {fileID: 3524624244442548036}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91bb2ffc09defb34fbacc7ea420b959e, type: 3}
---- !u!4 &8279229432208406118 stripped
+--- !u!4 &2235532155011898843 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9142723010911899623, guid: 91bb2ffc09defb34fbacc7ea420b959e, type: 3}
   m_PrefabInstance: {fileID: 7054693678434161212}

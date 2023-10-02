@@ -31,6 +31,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e6e24141429fcdc48855ac45f020f078, type: 2}
   - {fileID: 11400000, guid: 602e7b2ddf2b59340a8eabc8bee58f68, type: 2}
   - {fileID: 11400000, guid: 91b5c638b06f6774e9c98a65a4b625e4, type: 2}
+  - {fileID: 11400000, guid: 4a91302c80e426441ba856939dd0f48e, type: 2}
   boatFormSkinItems:
   - {fileID: 11400000, guid: e647bd8f9f94e174cac9c130b8d66ee2, type: 2}
   - {fileID: 11400000, guid: e190e6fd770f9084ba6d6f8e4eb4eb47, type: 2}

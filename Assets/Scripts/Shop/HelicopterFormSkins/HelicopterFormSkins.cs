@@ -4,6 +4,7 @@
     {
         Scout,
         Attack,
-        Transport
+        Transport,
+        Normal
     }
 }
