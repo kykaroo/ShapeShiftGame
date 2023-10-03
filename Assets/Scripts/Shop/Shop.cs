@@ -15,6 +15,7 @@ namespace Shop
         [SerializeField] private ShopPanel shopPanel;
         [SerializeField] private ShopContent contentItems;
         [SerializeField] private Button backButton;
+        [SerializeField] private Button fortuneWheelButton;
         [SerializeField] private BuyButton buyButton;
         [SerializeField] private Button selectionButton;
         [SerializeField] private Button clearSaveButton;
@@ -32,13 +33,18 @@ namespace Shop
         private Wallet.Wallet _wallet;
         private ShopItemView _previewedItem;
 
+        public SkinUnlocker SkinUnlocker => _skinUnlocker;
+
+        public IDataProvider DataProvider => _dataProvider;
+
+        public OpenSkinsChecker OpenSkinsChecker => _openSkinsChecker;
+
         public event Action OnBackButtonClick;
         public event Action OnDeleteSaveButtonClick;
+        public event Action OnFortuneWheelButtonClick;
         
-        private void BackButtonClick()
-        {
-            OnBackButtonClick?.Invoke();
-        }
+        private void BackButtonClick() => OnBackButtonClick?.Invoke();
+        private void FortuneWheelButtonClick() => OnFortuneWheelButtonClick?.Invoke();
 
         private void Awake()
         {
@@ -48,8 +54,9 @@ namespace Shop
             boatFormSkinsButton.Click += OnBoatFormSkinsButtonClick;
             backButton.onClick.AddListener(BackButtonClick);
             buyButton.Click += OnBuyButtonClick;
-            clearSaveButton.onClick.AddListener(DeleteSave);
+            clearSaveButton.onClick.AddListener(DeleteGameSave);
             selectionButton.onClick.AddListener(OnSelectionButtonClick);
+            fortuneWheelButton.onClick.AddListener(FortuneWheelButtonClick);
         }
 
         public void Initialize(IDataProvider dataProvider, Wallet.Wallet wallet, OpenSkinsChecker openSkinsChecker,
@@ -180,7 +187,7 @@ namespace Shop
             ShowSelectedText();
         }
         
-        private void DeleteSave()
+        private void DeleteGameSave()
         {
             _dataProvider.DeleteSave();
             OnDeleteSaveButtonClick?.Invoke();

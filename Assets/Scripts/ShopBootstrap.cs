@@ -1,5 +1,5 @@
-﻿using Data;
-using Data.PlayerGameData;
+﻿using System;
+using Data;
 using Shop;
 using UnityEngine;
 using Wallet;
@@ -13,14 +13,15 @@ public class ShopBootstrap : MonoBehaviour
     private IPersistentPlayerData _persistentPlayerData;
     private Wallet.Wallet _wallet;
 
-    public IDataProvider DataProvider => _dataProvider;
+    public Wallet.Wallet Wallet => _wallet;
 
-    public IPersistentPlayerData PersistentPlayerData => _persistentPlayerData;
-
-    public void Awake()
+    public void Initialize(IPersistentPlayerData persistentPlayerData, IDataProvider dataProvider)
     {
-        InitializeData();
-        shop.OnDeleteSaveButtonClick += LoadData;
+        _persistentPlayerData = persistentPlayerData;
+        _dataProvider = dataProvider;
+        
+        InitializeWallet();
+        InitializeShop();
     }
 
     private void InitializeShop()
@@ -37,24 +38,5 @@ public class ShopBootstrap : MonoBehaviour
     {
         _wallet = new(_persistentPlayerData);
         walletView.Initialize(_wallet);
-    }
-
-    private void InitializeData()
-    {
-        _persistentPlayerData = new PersistentPlayerData();
-        _dataProvider = new PlayerPrefsGameDataProvider(_persistentPlayerData);
-
-        LoadData();
-    }
-
-    private void LoadData()
-    {
-        if (_dataProvider.TryLoad() == false)
-        {
-            _persistentPlayerData.PlayerGameData = new();
-        }
-
-        InitializeWallet();
-        InitializeShop();
     }
 }

@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using Audio;
 using Data;
+using Data.PlayerGameData;
+using Data.PlayerOptionsData;
 using FormsFactories;
 using FormStateMachine.Forms;
 using FormStateMachine.States;
@@ -27,6 +29,7 @@ public class EntryPoint : MonoBehaviour
     [SerializeField] private Shop.Shop shopUi;
     [SerializeField] private LevelConfig levelConfig;
     [SerializeField] private OptionsUi optionsUi;
+    [SerializeField] private FortuneWheelUi fortuneWheelUi;
     [Header("Ground masks")]
     [SerializeField] private LayerMask allEnvironment;
     [SerializeField] private LayerMask waterMask;
@@ -64,6 +67,9 @@ public class EntryPoint : MonoBehaviour
     [SerializeField] private AudioSource sfxSource;
     
     private IPersistentPlayerData _persistentPlayerData;
+    private IPersistentPlayerData _persistentOptionsPlayerData;
+    private IDataProvider _gameDataProvider;
+    private IDataProvider _optionsDataProvider;
     private LevelProgressBar.LevelProgressBar _levelProgressBar;
 
     private FormStateMachine.FormStateMachine _playerFormStateMachine;
@@ -90,13 +96,15 @@ public class EntryPoint : MonoBehaviour
 
     private void Start()
     {
-        _persistentPlayerData = shopBootstrap.PersistentPlayerData;
+        LoadData();
+
+        shopBootstrap.Initialize(_persistentPlayerData, _gameDataProvider);
+
         SpawnPlayerForms();
         InitializeLists();
         PrepareGameObjects();
-        
-        _audioManager = new(_persistentPlayerData, musicSounds, sfxSounds, musicSource, sfxSource);
-        _audioManager.OnNewTrackPlay += (songName) => optionsUi.UpdateCurrentTrack(songName);
+        InitializeAudio();
+
         optionsUi.Initialize(_persistentPlayerData);
 
         _ground = new(allEnvironment, waterMask, balloonsMask, stairsSlopeMask, groundMask, underwaterGroundMask);
@@ -106,17 +114,50 @@ public class EntryPoint : MonoBehaviour
         CreatePlayerForms();
         CreateForms();
         AddButtonListeners();
+        InitializeAi();
+        InitializeProgressBar();
 
+        fortuneWheelUi.WheelManager.Initialize(_gameDataProvider, shopBootstrap.Wallet, shopUi);
+        
+        RestartLevel();
+    }
+
+    private void InitializeAi()
+    {
         for (var i = 0; i < aiNumber; i++)
         {
             CreateAiForms(i);
             enemyAis[i].Initialize(aiDifficulties[i], _formStateMachine[i]);
         }
+    }
 
+    private void InitializeProgressBar()
+    {
         _levelProgressBar = new();
         _levelProgressBar.Initialize(playerProgressIndicator, aiProgressIndicators, playerTransform, aiTransforms);
-        
-        RestartLevel();
+    }
+
+    private void InitializeAudio()
+    {
+        _audioManager = new(_persistentPlayerData, musicSounds, sfxSounds, musicSource, sfxSource);
+        _audioManager.OnNewTrackPlay += (songName) => optionsUi.UpdateCurrentTrack(songName);
+    }
+
+    private void LoadData()
+    {
+        _persistentPlayerData = new PersistentPlayerData();
+        _gameDataProvider = new PlayerPrefsGameDataProvider(_persistentPlayerData);
+        _optionsDataProvider = new PlayerPrefsOptionsDataProvider(_persistentPlayerData);
+
+        if (_gameDataProvider.TryLoad() == false)
+        {
+            _persistentPlayerData.PlayerGameData = new();
+        }
+
+        if (_optionsDataProvider.TryLoad() == false)
+        {
+            _persistentPlayerData.PlayerOptionsData = new();
+        }
     }
 
     private void SpawnPlayerForms()
@@ -137,6 +178,7 @@ public class EntryPoint : MonoBehaviour
         victoryUi.gameObject.SetActive(false); 
         shopUi.gameObject.SetActive(false);
         optionsUi.gameObject.SetActive(false);
+        fortuneWheelUi.gameObject.SetActive(false);
     }
 
     private void InitializeLists()
@@ -215,6 +257,9 @@ public class EntryPoint : MonoBehaviour
         victoryUi.OnPlayAgainButtonClick += RestartLevel;
 
         shopUi.OnBackButtonClick += CloseShop;
+        shopUi.OnFortuneWheelButtonClick += OpenFortuneWheelWindow;
+        shopUi.OnDeleteSaveButtonClick += LoadData;
+        
         startUi.OnDifficultyChanged += ChangeDifficulty;
 
         optionsUi.OnMusicSliderValueChanged += ChangeMusicVolume;
@@ -223,6 +268,20 @@ public class EntryPoint : MonoBehaviour
         optionsUi.OnSfxMuteButtonClick += ToggleSfxMute;
         optionsUi.OnNextTrackButtonClicked += SetNextMusicTrack;
         optionsUi.OnBackButtonClick += CloseOptionsWindow;
+
+        fortuneWheelUi.OnBackButtonClick += CloseFortuneWheelWindow;
+    }
+
+    private void OpenFortuneWheelWindow()
+    {
+        shopUi.gameObject.SetActive(false);
+        fortuneWheelUi.gameObject.SetActive(true);
+    }
+
+    private void CloseFortuneWheelWindow()
+    {
+        fortuneWheelUi.gameObject.SetActive(false);
+        shopUi.gameObject.SetActive(true);
     }
 
     private void ToggleSfxMute()
