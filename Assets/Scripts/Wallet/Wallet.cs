@@ -44,5 +44,11 @@ namespace Wallet
             _persistentPlayerData.PlayerGameData.Money -= coins;
             CoinsChanged?.Invoke(_persistentPlayerData.PlayerGameData.Money);
         }
+
+        public void SetValue(int coins)
+        {
+            _persistentPlayerData.PlayerGameData.Money = coins;
+            CoinsChanged?.Invoke(_persistentPlayerData.PlayerGameData.Money);
+        }
     }
 }

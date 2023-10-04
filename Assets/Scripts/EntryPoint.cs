@@ -65,6 +65,8 @@ public class EntryPoint : MonoBehaviour
     [SerializeField] private Sound[] sfxSounds;
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioSource sfxSource;
+    [Header("Debug")]
+    [SerializeField] private DebugModeManager debugModeManager;
     
     private IPersistentPlayerData _persistentPlayerData;
     private IPersistentPlayerData _persistentOptionsPlayerData;
@@ -96,7 +98,7 @@ public class EntryPoint : MonoBehaviour
 
     private void Start()
     {
-        LoadData();
+        LoadGameData();
 
         shopBootstrap.Initialize(_persistentPlayerData, _gameDataProvider);
 
@@ -118,8 +120,10 @@ public class EntryPoint : MonoBehaviour
         InitializeProgressBar();
 
         fortuneWheelUi.WheelManager.Initialize(_gameDataProvider, shopBootstrap.Wallet, shopUi);
-        
+
         RestartLevel();
+        
+        debugModeManager.Initialize(shopBootstrap.Wallet);
     }
 
     private void InitializeAi()
@@ -143,7 +147,7 @@ public class EntryPoint : MonoBehaviour
         _audioManager.OnNewTrackPlay += (songName) => optionsUi.UpdateCurrentTrack(songName);
     }
 
-    private void LoadData()
+    private void LoadGameData()
     {
         _persistentPlayerData = new PersistentPlayerData();
         _gameDataProvider = new PlayerPrefsGameDataProvider(_persistentPlayerData);
@@ -258,7 +262,7 @@ public class EntryPoint : MonoBehaviour
 
         shopUi.OnBackButtonClick += CloseShop;
         shopUi.OnFortuneWheelButtonClick += OpenFortuneWheelWindow;
-        shopUi.OnDeleteSaveButtonClick += LoadData;
+        shopUi.OnDeleteSaveButtonClick += CreateNewGameData;
         
         startUi.OnDifficultyChanged += ChangeDifficulty;
 
@@ -270,6 +274,12 @@ public class EntryPoint : MonoBehaviour
         optionsUi.OnBackButtonClick += CloseOptionsWindow;
 
         fortuneWheelUi.OnBackButtonClick += CloseFortuneWheelWindow;
+    }
+
+    private void CreateNewGameData()
+    {
+        _persistentPlayerData.PlayerGameData = new();
+        shopBootstrap.InitializeWindows();
     }
 
     private void OpenFortuneWheelWindow()

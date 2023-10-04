@@ -29,13 +29,12 @@ namespace Shop
         private OpenSkinsChecker _openSkinsChecker;
         private SelectedSkinChecker _selectedSkinChecker;
 
-        private IDataProvider _dataProvider;
+        private IDataProvider _gameDataProvider;
         private Wallet.Wallet _wallet;
         private ShopItemView _previewedItem;
 
         public SkinUnlocker SkinUnlocker => _skinUnlocker;
-
-        public IDataProvider DataProvider => _dataProvider;
+        
 
         public OpenSkinsChecker OpenSkinsChecker => _openSkinsChecker;
 
@@ -59,7 +58,7 @@ namespace Shop
             fortuneWheelButton.onClick.AddListener(FortuneWheelButtonClick);
         }
 
-        public void Initialize(IDataProvider dataProvider, Wallet.Wallet wallet, OpenSkinsChecker openSkinsChecker,
+        public void Initialize(IDataProvider gameDataProvider, Wallet.Wallet wallet, OpenSkinsChecker openSkinsChecker,
             SelectedSkinChecker selectedSkinChecker, SkinSelector skinSelector, SkinUnlocker skinUnlocker)
         {
             _wallet = wallet;
@@ -67,12 +66,18 @@ namespace Shop
             _selectedSkinChecker = selectedSkinChecker;
             _skinSelector = skinSelector;
             _skinUnlocker = skinUnlocker;
-            _dataProvider = dataProvider;
+            _gameDataProvider = gameDataProvider;
             shopPanel.Initialize(openSkinsChecker, selectedSkinChecker);
             
             shopPanel.ItemViewClicked += OnItemViewClicked;
+            _wallet.CoinsChanged += SaveData;
             
             OnHumanFormSkinsButtonClick();
+        }
+
+        private void SaveData(int obj)
+        {
+            _gameDataProvider.Save();
         }
 
         private void OnItemViewClicked(ShopItemView item)
@@ -107,13 +112,13 @@ namespace Shop
             _skinUnlocker.Visit(_previewedItem.Item);
             SelectSkin();
             _previewedItem.Unlock();
-            _dataProvider.Save();
+            _gameDataProvider.Save();
         }
 
         private void OnSelectionButtonClick()
         {
             SelectSkin();
-            _dataProvider.Save();
+            _gameDataProvider.Save();
         }
         
         private void OnBoatFormSkinsButtonClick()
@@ -189,7 +194,7 @@ namespace Shop
         
         private void DeleteGameSave()
         {
-            _dataProvider.DeleteSave();
+            _gameDataProvider.DeleteSave();
             OnDeleteSaveButtonClick?.Invoke();
         }
 

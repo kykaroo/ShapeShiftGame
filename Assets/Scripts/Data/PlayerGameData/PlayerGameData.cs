@@ -24,7 +24,7 @@ namespace Data.PlayerGameData
 
         public PlayerGameData()
         {
-            _money = 999999;
+            _money = 0;
             _selectedHumanFormSkin = HumanFormSkins.White;
             _selectedCarFormSkin = CarFormSkins.SportWhite;
             _selectedHelicopterFormSkin = HelicopterFormSkins.Scout;
