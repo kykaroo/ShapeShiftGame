@@ -100,16 +100,16 @@ namespace FortuneWheel
             _currentLerpRotationTime = 0;
             _isWheelSpinning = true;
 
-            var randomNumber = Random.Range(1, wheelSectors.Sum(sector => sector.probability));
+            var randomNumber = Random.Range(1, wheelSectors.Sum(sector => sector.probabilityWeight));
             float cumulativeProbability = 0;
             var randomFinalAngle = _wheelSectorsAngles[0];
             
             _finalSector = wheelSectors[0];
 
             for (var i = 0; i < wheelSectors.Length; i++) {
-                cumulativeProbability += wheelSectors[i].probability;
+                cumulativeProbability += wheelSectors[i].probabilityWeight;
 
-                if (!(randomNumber <= cumulativeProbability)) continue;
+                if (randomNumber > cumulativeProbability) continue;
                 
                 randomFinalAngle = _wheelSectorsAngles[i];
                 _finalSector = wheelSectors[i];

@@ -14,8 +14,7 @@ namespace FortuneWheel
         public Sprite image;
         public TextMeshProUGUI rewardText;
         public string text;
-        [Tooltip("Вероятность обозначает")] 
-        public float probability;
+        public float probabilityWeight = 1;
         public RewardType rewardType;
         [Header("Item reward")]
         public ShopItem itemReward;

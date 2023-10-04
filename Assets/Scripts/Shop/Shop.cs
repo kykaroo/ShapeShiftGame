@@ -53,6 +53,7 @@ namespace Shop
             boatFormSkinsButton.Click += OnBoatFormSkinsButtonClick;
             backButton.onClick.AddListener(BackButtonClick);
             buyButton.Click += OnBuyButtonClick;
+            _wallet.CoinsChanged += _ => ShowBuyButton(_previewedItem.Price);
             clearSaveButton.onClick.AddListener(DeleteGameSave);
             selectionButton.onClick.AddListener(OnSelectionButtonClick);
             fortuneWheelButton.onClick.AddListener(FortuneWheelButtonClick);
@@ -68,7 +69,6 @@ namespace Shop
             _skinUnlocker = skinUnlocker;
             _gameDataProvider = gameDataProvider;
             shopPanel.Initialize(openSkinsChecker, selectedSkinChecker);
-            
             shopPanel.ItemViewClicked += OnItemViewClicked;
             _wallet.CoinsChanged += SaveData;
             
@@ -160,15 +160,27 @@ namespace Shop
 
             if (_wallet.IsEnough(price))
             {
-                buyButton.Unlock();
+                buyButton.SetAvailable();
             }
             else
             {
-                buyButton.Lock();
+                buyButton.SetNotAvailable();
             }
 
             HideSelectedText();
             HideSelectionButton();
+        }
+
+        private void UpdateButtonAvailability(int price)
+        {
+            if (_wallet.IsEnough(price))
+            {
+                buyButton.SetAvailable();
+            }
+            else
+            {
+                buyButton.SetNotAvailable();
+            }
         }
 
         private void ShowSelectionButton()

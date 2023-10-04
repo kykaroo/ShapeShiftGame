@@ -23,13 +23,13 @@ namespace Shop
 
         public void UpdateText(int price) => text.text = price.ToString();
 
-        public void Lock()
+        public void SetNotAvailable()
         {
             _isLock = true;
             text.color = lockColor;
         }
 
-        public void Unlock()
+        public void SetAvailable()
         {
             _isLock = false;
             text.color = unlockColor;
