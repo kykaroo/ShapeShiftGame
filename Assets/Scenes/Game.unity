@@ -14634,7 +14634,7 @@ MonoBehaviour:
   - rewardImage: {fileID: 3574601134791566636}
     image: {fileID: 21300000, guid: 23c072842158cce42a8181f599832727, type: 3}
     rewardText: {fileID: 651409883}
-    text: 300
+    text: SKIN
     probability: 20
     rewardType: 1
     rewardMoneyValue: 0
@@ -14697,7 +14697,7 @@ MonoBehaviour:
   - rewardImage: {fileID: 3574601106688601680}
     image: {fileID: 21300000, guid: 6c45e34ffafdaba43ad4a45c27f61db2, type: 3}
     rewardText: {fileID: 699255388}
-    text: CAR SKIN
+    text: SKIN
     probability: 100
     rewardType: 1
     rewardMoneyValue: 0

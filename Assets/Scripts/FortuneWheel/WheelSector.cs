@@ -17,8 +17,6 @@ namespace FortuneWheel
         [Tooltip("Вероятность обозначает")] 
         public float probability;
         public RewardType rewardType;
-        [Header("Money reward")]
-        public int rewardMoneyValue;
         [Header("Item reward")]
         public ShopItem itemReward;
         public int rewardMoneyValueIfItemOpened;

@@ -280,6 +280,7 @@ public class EntryPoint : MonoBehaviour
     {
         _persistentPlayerData.PlayerGameData = new();
         shopBootstrap.InitializeWindows();
+        fortuneWheelUi.WheelManager.InitializeWallet(shopBootstrap.Wallet);
     }
 
     private void OpenFortuneWheelWindow()

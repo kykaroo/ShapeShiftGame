@@ -39,9 +39,14 @@ namespace FortuneWheel
             _wallet = wallet;
             _shop = shop;
 
-            walletView.Initialize(wallet);
+            InitializeWallet(wallet);
 
             InitializeWheelsSectors();
+        }
+
+        public void InitializeWallet(Wallet.Wallet wallet)
+        {
+            walletView.Initialize(wallet);
         }
 
         private void InitializeWheelsSectors()
@@ -119,13 +124,13 @@ namespace FortuneWheel
             switch (_finalSector.rewardType)
             {
                 case RewardType.Money:
-                    _wallet.AddCoins(_finalSector.rewardMoneyValue);
+                    _wallet.AddCoins(int.Parse(_finalSector.text));
                     break;
                 case RewardType.Skin:
                     _shop.OpenSkinsChecker.Visit(_finalSector.itemReward);
                     if (_shop.OpenSkinsChecker.IsOpened)
                     { 
-                        _wallet.AddCoins(_finalSector.rewardMoneyValue);
+                        _wallet.AddCoins(_finalSector.rewardMoneyValueIfItemOpened);
                         return;   
                     }
                     _shop.SkinUnlocker.Visit(_finalSector.itemReward);
