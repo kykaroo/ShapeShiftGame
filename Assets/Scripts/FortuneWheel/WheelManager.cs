@@ -15,6 +15,7 @@ namespace FortuneWheel
         [SerializeField] private int fullTurnovers;
         [SerializeField] private WalletView walletView;
         [SerializeField] private WheelSector[] wheelSectors;
+        [SerializeField] private Timer timer;
 
         private float _currentRotation;
         private float _currentRotationSpeed;
@@ -27,17 +28,25 @@ namespace FortuneWheel
         private float _startAngle;
         private IDataProvider _gameDataProvider;
         private Shop.Shop _shop;
+        private IPersistentPlayerData _persistentPlayerData;
 
         private const float MaxLerpRotationTime = 4f;
 
         public event Action OnSpinStart;
         public event Action OnSpinEnd;
 
-        public void Initialize(IDataProvider gameDataProvider, Wallet.Wallet wallet, Shop.Shop shop)
+        public void Initialize(IDataProvider gameDataProvider, IPersistentPlayerData persistentPlayerData, Wallet.Wallet wallet, Shop.Shop shop)
         {
             _gameDataProvider = gameDataProvider;
+            _persistentPlayerData = persistentPlayerData;
             _wallet = wallet;
             _shop = shop;
+            timer.Initialize(_persistentPlayerData, _gameDataProvider);
+            
+            if (timer.CanClaimReward)
+            {
+                spinWheelButton.enabled = false;
+            }
 
             InitializeWallet(wallet);
 
@@ -61,7 +70,7 @@ namespace FortuneWheel
         private void Awake()
         {
             spinWheelButton.onClick.AddListener(ToggleWheelSpin);
-            
+
             _wheelSectorsAngles = new int[wheelSectors.Length];
             for (var i = 0; i < _wheelSectorsAngles.Length; i++)
             {
@@ -71,6 +80,7 @@ namespace FortuneWheel
 
         private void Update()
         {
+            UpdateTimer();
             if (!_isWheelSpinning) return;
 
             _currentLerpRotationTime += Time.deltaTime;
@@ -91,6 +101,11 @@ namespace FortuneWheel
                 var angle = Mathf.Lerp (_startAngle, _finalAngle, t);
                 wheel.transform.eulerAngles = new(0, 0, angle);	
             }
+        }
+
+        private void UpdateTimer()
+        {
+            spinWheelButton.enabled = timer.CanClaimReward;
         }
 
         private void ToggleWheelSpin()
@@ -138,7 +153,9 @@ namespace FortuneWheel
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            
+
+            _persistentPlayerData.PlayerGameData.LastClaimTime = DateTime.UtcNow;
+            timer.OnRewardEarned();
             _gameDataProvider.Save();
         }
     }

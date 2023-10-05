@@ -21,6 +21,8 @@ namespace Data.PlayerGameData
         private readonly List<BoatFormSkins> _openBoatFormSkins;
 
         private int _money;
+        
+        public DateTime? LastClaimTime { get; set; }
 
         public PlayerGameData()
         {

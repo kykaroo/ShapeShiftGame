@@ -8,6 +8,7 @@ public class DebugModeManager : MonoBehaviour
     [SerializeField] private Button setMoneyButton;
     [SerializeField] private TMP_InputField setMoneyInputField;
     [SerializeField] private Button applyInputFieldMoneyValueButton;
+    [SerializeField] private Button setSpinCooldown;
     
     private Wallet.Wallet _wallet;
 

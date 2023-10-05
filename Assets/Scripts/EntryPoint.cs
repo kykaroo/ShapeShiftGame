@@ -119,7 +119,7 @@ public class EntryPoint : MonoBehaviour
         InitializeAi();
         InitializeProgressBar();
 
-        fortuneWheelUi.WheelManager.Initialize(_gameDataProvider, shopBootstrap.Wallet, shopUi);
+        fortuneWheelUi.WheelManager.Initialize(_gameDataProvider, _persistentPlayerData, shopBootstrap.Wallet, shopUi);
 
         RestartLevel();
         
