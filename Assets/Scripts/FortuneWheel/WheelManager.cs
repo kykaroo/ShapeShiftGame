@@ -32,6 +32,8 @@ namespace FortuneWheel
 
         private const float MaxLerpRotationTime = 4f;
 
+        public Timer Timer => timer;
+
         public event Action OnSpinStart;
         public event Action OnSpinEnd;
 
@@ -153,8 +155,7 @@ namespace FortuneWheel
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-
-            _persistentPlayerData.PlayerGameData.LastClaimTime = DateTime.UtcNow;
+            
             timer.OnRewardEarned();
             _gameDataProvider.Save();
         }

@@ -123,7 +123,7 @@ public class EntryPoint : MonoBehaviour
 
         RestartLevel();
         
-        debugModeManager.Initialize(shopBootstrap.Wallet);
+        debugModeManager.Initialize(shopBootstrap.Wallet, fortuneWheelUi.WheelManager.Timer);
     }
 
     private void InitializeAi()

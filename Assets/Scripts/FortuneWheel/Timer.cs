@@ -46,6 +46,7 @@ namespace FortuneWheel
         {
             _currentTime = DateTime.UtcNow;
             UpdateRewardState();
+            Update1();
         }
 
         private void UpdateRewardState()
@@ -53,7 +54,10 @@ namespace FortuneWheel
             if (!_persistentPlayerData.PlayerGameData.LastClaimTime.HasValue) return;
             
             _currentFreeSpinCooldown = _cooldownExpireTime - _currentTime;
-            
+        }
+
+        private void Update1()
+        {
             if (_currentFreeSpinCooldown.TotalMilliseconds > 0)
             {
                 _canClaimReward = false;
@@ -61,7 +65,7 @@ namespace FortuneWheel
                 UpdateTimerValue();
                 return;
             }
-            
+
             _canClaimReward = true;
             texts.SetActive(!_canClaimReward);
         }
@@ -76,8 +80,26 @@ namespace FortuneWheel
 
         public void OnRewardEarned()
         {
+            _persistentPlayerData.PlayerGameData.LastClaimTime = _currentTime;
             _cooldownExpireTime = _persistentPlayerData.PlayerGameData.LastClaimTime.Value.Add(_freeSpinCooldown);
             UpdateRewardState();
+        }
+
+        public void SetCooldownTime(TimeSpan freeSpinCooldown)
+        {
+            _freeSpinCooldown = freeSpinCooldown;
+        }
+
+        public void SetCurrentCooldownTime(TimeSpan targetedCooldown)
+        {
+            if ((_currentFreeSpinCooldown - targetedCooldown).TotalMilliseconds < 0)
+            {
+                UpdateTimerValue();
+            }
+            
+            OnRewardEarned();
+            _currentFreeSpinCooldown = _currentFreeSpinCooldown.Subtract(_currentFreeSpinCooldown - targetedCooldown);
+            _cooldownExpireTime = _currentTime.Add(_currentFreeSpinCooldown);
         }
     }
 }
