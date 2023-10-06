@@ -26,7 +26,7 @@ public class EntryPoint : MonoBehaviour
     [SerializeField] private FormChangeUi formChangeUi;
     [SerializeField] private StartUi startUi;
     [SerializeField] private VictoryUi victoryUi;
-    [SerializeField] private Shop.Shop shopUi;
+    [SerializeField] private ShopUi shopUi;
     [SerializeField] private LevelConfig levelConfig;
     [SerializeField] private OptionsUi optionsUi;
     [SerializeField] private FortuneWheelUi fortuneWheelUi;
@@ -100,7 +100,7 @@ public class EntryPoint : MonoBehaviour
     {
         LoadGameData();
 
-        shopBootstrap.Initialize(_persistentPlayerData, _gameDataProvider);
+        shopBootstrap.Initialize(_persistentPlayerData, _gameDataProvider, shopUi);
 
         SpawnPlayerForms();
         InitializeLists();
@@ -257,6 +257,8 @@ public class EntryPoint : MonoBehaviour
         startUi.OnStartButtonClick += OnStartGame;
         startUi.OnShopButtonClick += OpenShop;
         startUi.OnOptionsButtonClicked += OpenOptionsWindow;
+        startUi.OnFortuneWheelButtonClick += OpenFortuneWheelWindow;
+        startUi.OnDifficultyChanged += ChangeDifficulty;
 
         formChangeUi.OnHumanFormButtonClick += () => _playerFormStateMachine.SetState<HumanFormState>();
         formChangeUi.OnCarFormButtonClick += () => _playerFormStateMachine.SetState<CarFormState>();
@@ -266,10 +268,7 @@ public class EntryPoint : MonoBehaviour
         victoryUi.OnPlayAgainButtonClick += RestartLevel;
 
         shopUi.OnBackButtonClick += CloseShop;
-        shopUi.OnFortuneWheelButtonClick += OpenFortuneWheelWindow;
         shopUi.OnDeleteSaveButtonClick += CreateNewGameData;
-        
-        startUi.OnDifficultyChanged += ChangeDifficulty;
 
         optionsUi.OnMusicSliderValueChanged += ChangeMusicVolume;
         optionsUi.OnSfxSliderValueChanged += ChangeSfxVolume;
@@ -292,14 +291,13 @@ public class EntryPoint : MonoBehaviour
     private void OpenFortuneWheelWindow()
     {
         startUi.gameObject.SetActive(false);
-        shopUi.gameObject.SetActive(false);
         fortuneWheelUi.gameObject.SetActive(true);
     }
 
     private void CloseFortuneWheelWindow()
     {
         fortuneWheelUi.gameObject.SetActive(false);
-        shopUi.gameObject.SetActive(true);
+        startUi.gameObject.SetActive(true);
     }
 
     private void ToggleSfxMute()

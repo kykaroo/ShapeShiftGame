@@ -13,13 +13,17 @@ namespace Ui
         [SerializeField] private Button shopButton;
         [SerializeField] private TMP_Dropdown aiDifficultyDropdown;
         [SerializeField] private Button optionsButton;
+        [SerializeField] private Button fortuneWheelButton;
         
         public event Action OnStartButtonClick;
         public event Action OnShopButtonClick;
         public event Action<int> OnDifficultyChanged;
         public event Action OnOptionsButtonClicked;
+        public event Action OnFortuneWheelButtonClick;
 
         public TMP_Dropdown AIDifficultyDropdown => aiDifficultyDropdown;
+        
+        private void FortuneWheelButtonClick() => OnFortuneWheelButtonClick?.Invoke();
 
         private void StartButtonClick() => OnStartButtonClick?.Invoke();
         private void ShopButtonClick() => OnShopButtonClick?.Invoke();
@@ -30,6 +34,7 @@ namespace Ui
             startButton.onClick.AddListener(StartButtonClick);
             shopButton.onClick.AddListener(ShopButtonClick);
             optionsButton.onClick.AddListener(OptionsButtonClick);
+            fortuneWheelButton.onClick.AddListener(FortuneWheelButtonClick);
 
             List<string> difficulties = new();
             foreach (var value in Enum.GetValues(typeof(AiDifficulty)))

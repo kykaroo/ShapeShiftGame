@@ -2,6 +2,7 @@
 using System.Linq;
 using Data;
 using TMPro;
+using Ui;
 using UnityEngine;
 using UnityEngine.UI;
 using Wallet;
@@ -31,7 +32,7 @@ namespace FortuneWheel
         private float _currentLerpRotationTime;
         private float _startAngle;
         private IDataProvider _gameDataProvider;
-        private Shop.Shop _shop;
+        private ShopUi _shopUi;
         private IPersistentPlayerData _persistentPlayerData;
         private bool _isFreeSpin;
 
@@ -42,12 +43,12 @@ namespace FortuneWheel
         public event Action OnSpinStart;
         public event Action OnSpinEnd;
 
-        public void Initialize(IDataProvider gameDataProvider, IPersistentPlayerData persistentPlayerData, Wallet.Wallet wallet, Shop.Shop shop)
+        public void Initialize(IDataProvider gameDataProvider, IPersistentPlayerData persistentPlayerData, Wallet.Wallet wallet, ShopUi shopUi)
         {
             _gameDataProvider = gameDataProvider;
             _persistentPlayerData = persistentPlayerData;
             _wallet = wallet;
-            _shop = shop;
+            _shopUi = shopUi;
             timer.Initialize(_persistentPlayerData, _gameDataProvider);
 
             InitializeWallet(wallet);
@@ -76,6 +77,7 @@ namespace FortuneWheel
             paidSpinPriceText.text = paidSpinPrice.ToString();
             timer.OnCanFreeSpinVariableChange += UpdateButtonsVisibility;
             timer.OnDebugTimerChange += UpdateButtonsVisibility;
+            paidSpinWheelButton.gameObject.SetActive(false); //Убрать строку для включения крутки за деньги
 
             _wheelSectorsAngles = new int[wheelSectors.Length];
             for (var i = 0; i < _wheelSectorsAngles.Length; i++)
@@ -128,12 +130,12 @@ namespace FortuneWheel
             if (_isWheelSpinning)
             {
                 freeSpinWheelButton.gameObject.SetActive(false);
-                paidSpinWheelButton.gameObject.SetActive(false);
+                // paidSpinWheelButton.gameObject.SetActive(false); //Раскоментировать для добаления круток зя деньги 
                 return;
             }
             
             freeSpinWheelButton.gameObject.SetActive(timer.CanClaimFreeReward);
-            paidSpinWheelButton.gameObject.SetActive(!timer.CanClaimFreeReward);
+            // paidSpinWheelButton.gameObject.SetActive(!timer.CanClaimFreeReward); //Раскоментировать для добаления круток зя деньги 
         }
 
         private void ToggleWheelSpin()
@@ -170,13 +172,13 @@ namespace FortuneWheel
                     _wallet.AddCoins(int.Parse(_finalSector.text));
                     break;
                 case RewardType.Skin:
-                    _shop.OpenSkinsChecker.Visit(_finalSector.itemReward);
-                    if (_shop.OpenSkinsChecker.IsOpened)
+                    _shopUi.OpenSkinsChecker.Visit(_finalSector.itemReward);
+                    if (_shopUi.OpenSkinsChecker.IsOpened)
                     { 
                         _wallet.AddCoins(_finalSector.rewardMoneyValueIfItemOpened);
                         break;   
                     }
-                    _shop.SkinUnlocker.Visit(_finalSector.itemReward);
+                    _shopUi.SkinUnlocker.Visit(_finalSector.itemReward);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

@@ -1,12 +1,13 @@
 ﻿using System;
 using Data;
+using Shop;
 using Shop.ShopModelView;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Shop
+namespace Ui
 {
-    public class Shop : MonoBehaviour
+    public class ShopUi : MonoBehaviour
     {
         [SerializeField] private ShopCategoryButton humanFormSkinsButton;
         [SerializeField] private ShopCategoryButton carFormSkinsButton;
@@ -15,7 +16,6 @@ namespace Shop
         [SerializeField] private ShopPanel shopPanel;
         [SerializeField] private ShopContent contentItems;
         [SerializeField] private Button backButton;
-        [SerializeField] private Button fortuneWheelButton;
         [SerializeField] private BuyButton buyButton;
         [SerializeField] private Button selectionButton;
         [SerializeField] private Button clearSaveButton;
@@ -40,10 +40,9 @@ namespace Shop
 
         public event Action OnBackButtonClick;
         public event Action OnDeleteSaveButtonClick;
-        public event Action OnFortuneWheelButtonClick;
-        
+
         private void BackButtonClick() => OnBackButtonClick?.Invoke();
-        private void FortuneWheelButtonClick() => OnFortuneWheelButtonClick?.Invoke();
+        
 
         private void Awake()
         {
@@ -56,7 +55,6 @@ namespace Shop
             _wallet.CoinsChanged += _ => ShowBuyButton(_previewedItem.Price);
             clearSaveButton.onClick.AddListener(DeleteGameSave);
             selectionButton.onClick.AddListener(OnSelectionButtonClick);
-            fortuneWheelButton.onClick.AddListener(FortuneWheelButtonClick);
         }
 
         public void Initialize(IDataProvider gameDataProvider, Wallet.Wallet wallet, OpenSkinsChecker openSkinsChecker,

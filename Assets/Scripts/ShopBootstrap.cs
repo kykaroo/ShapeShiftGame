@@ -1,12 +1,12 @@
-﻿using System;
-using Data;
+﻿using Data;
 using Shop;
+using Ui;
 using UnityEngine;
 using Wallet;
 
 public class ShopBootstrap : MonoBehaviour
 {
-    [SerializeField] private Shop.Shop shop;
+    private ShopUi _shopUi;
     [SerializeField] private WalletView walletView;
 
     private IDataProvider _gameDataProvider;
@@ -15,10 +15,11 @@ public class ShopBootstrap : MonoBehaviour
 
     public Wallet.Wallet Wallet => _wallet;
 
-    public void Initialize(IPersistentPlayerData persistentPlayerData, IDataProvider gameDataProvider)
+    public void Initialize(IPersistentPlayerData persistentPlayerData, IDataProvider gameDataProvider, ShopUi shopUi)
     {
         _persistentPlayerData = persistentPlayerData;
         _gameDataProvider = gameDataProvider;
+        _shopUi = shopUi;
         
         InitializeWindows();
     }
@@ -36,7 +37,7 @@ public class ShopBootstrap : MonoBehaviour
         var skinSelector = new SkinSelector(_persistentPlayerData);
         var skinUnlocker = new SkinUnlocker(_persistentPlayerData);
         
-        shop.Initialize(_gameDataProvider, _wallet, openSkinsChecker, selectedSkinChecker, skinSelector, skinUnlocker);
+        _shopUi.Initialize(_gameDataProvider, _wallet, openSkinsChecker, selectedSkinChecker, skinSelector, skinUnlocker);
     }
 
     private void InitializeWallet()
