@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Data;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Wallet;
@@ -10,12 +11,15 @@ namespace FortuneWheel
 {
     public class WheelManager : MonoBehaviour
     {
-        [SerializeField] private Button spinWheelButton;
+        [SerializeField] private Button freeSpinWheelButton;
+        [SerializeField] private Button paidSpinWheelButton;
+        [SerializeField] private TextMeshProUGUI paidSpinPriceText;
         [SerializeField] private Transform wheel;
         [SerializeField] private int fullTurnovers;
         [SerializeField] private WalletView walletView;
         [SerializeField] private WheelSector[] wheelSectors;
         [SerializeField] private Timer timer;
+        [SerializeField] private int paidSpinPrice;
 
         private float _currentRotation;
         private float _currentRotationSpeed;
@@ -29,6 +33,7 @@ namespace FortuneWheel
         private IDataProvider _gameDataProvider;
         private Shop.Shop _shop;
         private IPersistentPlayerData _persistentPlayerData;
+        private bool _isFreeSpin;
 
         private const float MaxLerpRotationTime = 4f;
 
@@ -44,15 +49,10 @@ namespace FortuneWheel
             _wallet = wallet;
             _shop = shop;
             timer.Initialize(_persistentPlayerData, _gameDataProvider);
-            
-            if (timer.CanClaimReward)
-            {
-                spinWheelButton.enabled = false;
-            }
 
             InitializeWallet(wallet);
-
             InitializeWheelsSectors();
+            UpdateButtonsVisibility();
         }
 
         public void InitializeWallet(Wallet.Wallet wallet)
@@ -71,7 +71,11 @@ namespace FortuneWheel
 
         private void Awake()
         {
-            spinWheelButton.onClick.AddListener(ToggleWheelSpin);
+            freeSpinWheelButton.onClick.AddListener(OnFreeSpinButtonClick);
+            paidSpinWheelButton.onClick.AddListener(OnPaidSpinButtonClick);
+            paidSpinPriceText.text = paidSpinPrice.ToString();
+            timer.OnCanFreeSpinVariableChange += UpdateButtonsVisibility;
+            timer.OnDebugTimerChange += UpdateButtonsVisibility;
 
             _wheelSectorsAngles = new int[wheelSectors.Length];
             for (var i = 0; i < _wheelSectorsAngles.Length; i++)
@@ -80,9 +84,23 @@ namespace FortuneWheel
             }
         }
 
+        private void OnFreeSpinButtonClick()
+        {
+            _isFreeSpin = true;
+            ToggleWheelSpin();
+        }
+
+        private void OnPaidSpinButtonClick()
+        {
+            if (!_wallet.IsEnough(paidSpinPrice)) return;
+            
+            _wallet.Spend(paidSpinPrice);
+            _isFreeSpin = false;
+            ToggleWheelSpin();
+        }
+
         private void Update()
         {
-            UpdateTimer();
             if (!_isWheelSpinning) return;
 
             _currentLerpRotationTime += Time.deltaTime;
@@ -94,7 +112,7 @@ namespace FortuneWheel
 
                 GetReward();
                 OnSpinEnd?.Invoke();
-                spinWheelButton.enabled = true;
+                freeSpinWheelButton.enabled = true;
             } else {
                 var t = _currentLerpRotationTime / MaxLerpRotationTime;
 
@@ -105,17 +123,25 @@ namespace FortuneWheel
             }
         }
 
-        private void UpdateTimer()
+        private void UpdateButtonsVisibility()
         {
-            spinWheelButton.enabled = timer.CanClaimReward;
+            if (_isWheelSpinning)
+            {
+                freeSpinWheelButton.gameObject.SetActive(false);
+                paidSpinWheelButton.gameObject.SetActive(false);
+                return;
+            }
+            
+            freeSpinWheelButton.gameObject.SetActive(timer.CanClaimFreeReward);
+            paidSpinWheelButton.gameObject.SetActive(!timer.CanClaimFreeReward);
         }
 
         private void ToggleWheelSpin()
         {
             OnSpinStart?.Invoke();
-            spinWheelButton.enabled = false;
             _currentLerpRotationTime = 0;
             _isWheelSpinning = true;
+            UpdateButtonsVisibility();
 
             var randomNumber = Random.Range(1, wheelSectors.Sum(sector => sector.probabilityWeight));
             float cumulativeProbability = 0;
@@ -148,7 +174,7 @@ namespace FortuneWheel
                     if (_shop.OpenSkinsChecker.IsOpened)
                     { 
                         _wallet.AddCoins(_finalSector.rewardMoneyValueIfItemOpened);
-                        return;   
+                        break;   
                     }
                     _shop.SkinUnlocker.Visit(_finalSector.itemReward);
                     break;
@@ -156,8 +182,19 @@ namespace FortuneWheel
                     throw new ArgumentOutOfRangeException();
             }
             
-            timer.OnRewardEarned();
+            if (_isFreeSpin)
+            { 
+                timer.OnRewardEarned();
+            }
+            
+            UpdateButtonsVisibility();
             _gameDataProvider.Save();
+        }
+
+        public void ChangePrice(int newPaidSpinPrice)
+        {
+            paidSpinPrice = newPaidSpinPrice;
+            paidSpinPriceText.text = paidSpinPrice.ToString();
         }
     }
 }

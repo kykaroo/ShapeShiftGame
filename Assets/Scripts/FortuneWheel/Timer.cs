@@ -16,13 +16,16 @@ namespace FortuneWheel
         
         private IPersistentPlayerData _persistentPlayerData;
         private IDataProvider _gameDataProvider;
-        private bool _canClaimReward;
+        private bool _canClaimFreeReward;
         private TimeSpan _currentFreeSpinCooldown;
         private TimeSpan _freeSpinCooldown;
         private DateTime _cooldownExpireTime;
         private DateTime _currentTime;
 
-        public bool CanClaimReward => _canClaimReward;
+        public bool CanClaimFreeReward => _canClaimFreeReward;
+
+        public event Action OnDebugTimerChange;
+        public event Action OnCanFreeSpinVariableChange;
 
         public void Initialize(IPersistentPlayerData persistentPlayerData, IDataProvider gameDataProvider)
         {
@@ -53,14 +56,25 @@ namespace FortuneWheel
         {
             if (_currentFreeSpinCooldown.TotalMilliseconds > 0)
             {
-                _canClaimReward = false;
-                texts.SetActive(!_canClaimReward);
+                if (_canClaimFreeReward)
+                {
+                    _canClaimFreeReward = false;
+                    OnCanFreeSpinVariableChange?.Invoke();
+                }
+                
+                texts.SetActive(!_canClaimFreeReward);
                 UpdateTimerValue();
                 return;
             }
 
-            _canClaimReward = true;
-            texts.SetActive(!_canClaimReward);
+            if (_canClaimFreeReward == false)
+            {
+                _canClaimFreeReward = true;
+                OnCanFreeSpinVariableChange?.Invoke();
+            }
+            
+            _canClaimFreeReward = true;
+            texts.SetActive(!_canClaimFreeReward);
         }
 
         private void UpdateTimerValue()
@@ -95,6 +109,8 @@ namespace FortuneWheel
             _cooldownExpireTime = _currentTime.Add(_currentFreeSpinCooldown);
             _persistentPlayerData.PlayerGameData.LastClaimTime = _currentTime.Subtract(_freeSpinCooldown - _currentFreeSpinCooldown);
             _gameDataProvider.Save();
+            UpdateTimerText();
+            OnDebugTimerChange?.Invoke();
         }
     }
 }

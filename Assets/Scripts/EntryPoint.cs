@@ -125,7 +125,7 @@ public class EntryPoint : MonoBehaviour
         
         debugModeManager.Initialize(shopBootstrap.Wallet, fortuneWheelUi.WheelManager.Timer);
 
-        if (fortuneWheelUi.WheelManager.Timer.CanClaimReward)
+        if (fortuneWheelUi.WheelManager.Timer.CanClaimFreeReward)
         {
             OpenFortuneWheelWindow();
         }
