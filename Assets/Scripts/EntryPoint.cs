@@ -124,6 +124,11 @@ public class EntryPoint : MonoBehaviour
         RestartLevel();
         
         debugModeManager.Initialize(shopBootstrap.Wallet, fortuneWheelUi.WheelManager.Timer);
+
+        if (fortuneWheelUi.WheelManager.Timer.CanClaimReward)
+        {
+            OpenFortuneWheelWindow();
+        }
     }
 
     private void InitializeAi()
@@ -281,10 +286,12 @@ public class EntryPoint : MonoBehaviour
         _persistentPlayerData.PlayerGameData = new();
         shopBootstrap.InitializeWindows();
         fortuneWheelUi.WheelManager.InitializeWallet(shopBootstrap.Wallet);
+        fortuneWheelUi.WheelManager.Timer.Initialize(_persistentPlayerData, _gameDataProvider);
     }
 
     private void OpenFortuneWheelWindow()
     {
+        startUi.gameObject.SetActive(false);
         shopUi.gameObject.SetActive(false);
         fortuneWheelUi.gameObject.SetActive(true);
     }
