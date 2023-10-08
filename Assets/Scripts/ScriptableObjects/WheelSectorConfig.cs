@@ -1,12 +1,13 @@
-﻿using Shop;
+﻿using FortuneWheel;
+using Shop;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FortuneWheel
+namespace ScriptableObjects
 {
     [CreateAssetMenu(menuName = "FortuneWheel/WheelSector", fileName = "Wheel Sector", order = 0)]
-    public class WheelSector : ScriptableObject
+    public class WheelSectorConfig : ScriptableObject
     {
         [Header("Reward player view")]
         public Sprite image;

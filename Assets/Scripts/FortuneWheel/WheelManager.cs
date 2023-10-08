@@ -2,6 +2,7 @@
 using System.Linq;
 using Data;
 using Data.PlayerGameData;
+using ScriptableObjects;
 using Ui;
 using UnityEngine;
 using Wallet;
@@ -18,7 +19,7 @@ namespace FortuneWheel
         private float _currentRotationSpeed;
         private bool _isWheelSpinning;
         private readonly Wallet.Wallet _wallet;
-        private WheelSector _finalSector;
+        private WheelSectorConfig _finalSectorConfig;
         private float _finalAngle;
         private int[] _wheelSectorsAngles;
         private float _currentLerpRotationTime;
@@ -123,7 +124,7 @@ namespace FortuneWheel
             float cumulativeProbability = 0;
             var randomFinalAngle = _wheelSectorsAngles[0];
             
-            _finalSector = _fortuneWheelUi.WheelSectors[0];
+            _finalSectorConfig = _fortuneWheelUi.WheelSectors[0];
 
             for (var i = 0; i < _fortuneWheelUi.WheelSectors.Length; i++) {
                 cumulativeProbability += _fortuneWheelUi.WheelSectors[i].probabilityWeight;
@@ -131,7 +132,7 @@ namespace FortuneWheel
                 if (randomNumber > cumulativeProbability) continue;
                 
                 randomFinalAngle = _wheelSectorsAngles[i];
-                _finalSector = _fortuneWheelUi.WheelSectors[i];
+                _finalSectorConfig = _fortuneWheelUi.WheelSectors[i];
                 break;
             }
             
@@ -140,19 +141,19 @@ namespace FortuneWheel
 
         private void GetReward()
         {
-            switch (_finalSector.rewardType)
+            switch (_finalSectorConfig.rewardType)
             {
                 case RewardType.Money:
-                    _wallet.AddCoins(_finalSector.moneyRewardValue);
+                    _wallet.AddCoins(_finalSectorConfig.moneyRewardValue);
                     break;
                 case RewardType.Skin:
-                    _shopUi.OpenSkinsChecker.Visit(_finalSector.itemReward);
+                    _shopUi.OpenSkinsChecker.Visit(_finalSectorConfig.itemReward);
                     if (_shopUi.OpenSkinsChecker.IsOpened)
                     { 
-                        _wallet.AddCoins(_finalSector.rewardMoneyValueIfItemOpened);
+                        _wallet.AddCoins(_finalSectorConfig.rewardMoneyValueIfItemOpened);
                         break;   
                     }
-                    _shopUi.SkinUnlocker.Visit(_finalSector.itemReward);
+                    _shopUi.SkinUnlocker.Visit(_finalSectorConfig.itemReward);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

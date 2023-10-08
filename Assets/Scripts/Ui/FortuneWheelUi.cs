@@ -1,5 +1,6 @@
 ﻿using System;
 using FortuneWheel;
+using ScriptableObjects;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,7 +15,7 @@ namespace Ui
         [SerializeField] private Button paidSpinWheelButton;
         [SerializeField] private WalletView walletView;
         [SerializeField] private TextMeshProUGUI paidSpinPriceText;
-        [SerializeField] private WheelSector[] wheelSectors;
+        [SerializeField] private WheelSectorConfig[] wheelSectors;
         [SerializeField] private Timer timer;
         [SerializeField] private Image[] rewardImages;
         [SerializeField] private TextMeshProUGUI[] rewardTexts;
@@ -27,7 +28,7 @@ namespace Ui
 
         public WalletView WalletView => walletView;
 
-        public WheelSector[] WheelSectors => wheelSectors;
+        public WheelSectorConfig[] WheelSectors => wheelSectors;
 
         public Timer Timer => timer;
 

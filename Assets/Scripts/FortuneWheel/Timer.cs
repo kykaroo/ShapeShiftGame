@@ -1,6 +1,7 @@
 ﻿using System;
 using Data;
 using Data.PlayerGameData;
+using ScriptableObjects;
 using TMPro;
 using UnityEngine;
 using Zenject;
@@ -11,10 +12,7 @@ namespace FortuneWheel
     {
         [SerializeField] private TextMeshProUGUI timer;
         [SerializeField] private GameObject texts;
-        [SerializeField] private int freeSpinDaysCooldown;
-        [SerializeField] private int freeSpinHoursCooldown;
-        [SerializeField] private int freeSpinMinutesCooldown;
-        [SerializeField] private int freeSpinSecondsCooldown;
+        [SerializeField] private SpinCooldownConfig spinCooldownConfig;
         
         private PersistentPlayerGameData _persistentPlayerData;
         private IDataProvider<PersistentPlayerGameData> _gameDataProvider;
@@ -34,7 +32,8 @@ namespace FortuneWheel
         {
             _persistentPlayerData = persistentPlayerGameData;
             _gameDataProvider = gameDataProvider;
-            _freeSpinCooldown = new(freeSpinDaysCooldown,freeSpinHoursCooldown,freeSpinMinutesCooldown,freeSpinSecondsCooldown);
+            _freeSpinCooldown = new(spinCooldownConfig.freeSpinDaysCooldown,spinCooldownConfig.freeSpinHoursCooldown,
+                spinCooldownConfig.freeSpinMinutesCooldown,spinCooldownConfig.freeSpinSecondsCooldown);
             
              _persistentPlayerData.LastClaimTime ??= DateTime.UtcNow.Subtract(_freeSpinCooldown);
              

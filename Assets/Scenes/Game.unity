@@ -1263,6 +1263,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FortuneWheelUi
       objectReference: {fileID: 0}
+    - target: {fileID: 1007522160223773159, guid: 467fec33313cbe246b4cd2cbb4baa18b, type: 3}
+      propertyPath: spinCooldownConfig
+      value: 
+      objectReference: {fileID: 11400000, guid: c8c9ccac7975ffb4981fa3849c0f29f7, type: 2}
     - target: {fileID: 2168113808633089444, guid: 467fec33313cbe246b4cd2cbb4baa18b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
