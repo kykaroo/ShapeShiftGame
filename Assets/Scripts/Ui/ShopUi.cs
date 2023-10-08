@@ -5,6 +5,7 @@ using Shop;
 using Shop.ShopModelView;
 using UnityEngine;
 using UnityEngine.UI;
+using Wallet;
 using Zenject;
 
 namespace Ui
@@ -24,6 +25,7 @@ namespace Ui
         [SerializeField] private Button clearSaveButton;
         [SerializeField] private Image selectedText;
         [SerializeField] private SkinPlacement skinPlacement;
+        [SerializeField] private WalletView walletView;
 
         private ShopCategoryButton _currentButtonSelect;
 
@@ -47,17 +49,17 @@ namespace Ui
         private void BackButtonClick() => OnBackButtonClick?.Invoke();
         
         [Inject]
-        public void Initialize(IDataProvider<PersistentPlayerGameData> gameDataProvider, Wallet wallet, OpenSkinsChecker openSkinsChecker,
-            SelectedSkinChecker selectedSkinChecker, SkinSelector skinSelector, SkinUnlocker skinUnlocker)
+        public void Initialize(IDataProvider<PersistentPlayerGameData> gameDataProvider, Wallet wallet, PersistentPlayerGameData persistentPlayerGameData)
         {
             _wallet = wallet;
-            _openSkinsChecker = openSkinsChecker;
-            _selectedSkinChecker = selectedSkinChecker;
-            _skinSelector = skinSelector;
-            _skinUnlocker = skinUnlocker;
+            _openSkinsChecker = new(persistentPlayerGameData);
+            _selectedSkinChecker = new(persistentPlayerGameData);
+            _skinSelector = new(persistentPlayerGameData);
+            _skinUnlocker = new(persistentPlayerGameData);
             _gameDataProvider = gameDataProvider;
+            walletView.Initialize(_wallet);
             
-            shopPanel.Initialize(openSkinsChecker, selectedSkinChecker);
+            shopPanel.Initialize(_openSkinsChecker, _selectedSkinChecker);
             shopPanel.ItemViewClicked += OnItemViewClicked;
             _wallet.CoinsChanged += SaveData;
             

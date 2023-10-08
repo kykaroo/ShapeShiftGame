@@ -123,6 +123,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &105862463 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2559726515169765676, guid: 46c08b7dd2f7a7a46865561f17dbb010, type: 3}
+  m_PrefabInstance: {fileID: 4046297771579136910}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f798fd86b3302a48a6cdec2ab38d16b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &223974226
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,8 +233,8 @@ RectTransform:
   - {fileID: 1828601336}
   - {fileID: 417228728}
   - {fileID: 1881241785}
-  - {fileID: 362469792}
   - {fileID: 3680923524604531990}
+  - {fileID: 362469792}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -237,6 +248,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 172802645010627548, guid: 6a5ca81ea551f284f89ffa4c51875cc3, type: 3}
   m_PrefabInstance: {fileID: 7958472236081661628}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &362469793 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3256158738034305937, guid: 6a5ca81ea551f284f89ffa4c51875cc3, type: 3}
+  m_PrefabInstance: {fileID: 7958472236081661628}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27a5e8699874404880bb016abd562905, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &417228728 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 901087890909654883, guid: 46c08b7dd2f7a7a46865561f17dbb010, type: 3}
@@ -359,6 +381,8 @@ MonoBehaviour:
   shopUi: {fileID: 417228729}
   optionsUi: {fileID: 1881241786}
   fortuneWheelUi: {fileID: 3680923524604531992}
+  debugUi: {fileID: 362469793}
+  timer: {fileID: 3680923520563470311}
   playerProgressIndicator: {fileID: 1114040582}
   aiProgressIndicators:
   - {fileID: 1005907781}
@@ -1013,6 +1037,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: deaea84a3a7c4794c80fc8d2a8702a06, type: 3}
+--- !u!114 &3680923520563470311 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1007522160223773159, guid: 467fec33313cbe246b4cd2cbb4baa18b, type: 3}
+  m_PrefabInstance: {fileID: 5795307600876179279}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa9546067fff4cce8079f7a2649be87a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &3680923524604531990 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2168113808633089444, guid: 467fec33313cbe246b4cd2cbb4baa18b, type: 3}
@@ -1153,6 +1188,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2667063203544761681, guid: 46c08b7dd2f7a7a46865561f17dbb010, type: 3}
+      propertyPath: walletView
+      value: 
+      objectReference: {fileID: 105862463}
     - target: {fileID: 2843514747634187766, guid: 46c08b7dd2f7a7a46865561f17dbb010, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1172,6 +1211,10 @@ PrefabInstance:
     - target: {fileID: 2843514747634187766, guid: 46c08b7dd2f7a7a46865561f17dbb010, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2990448504225593009, guid: 46c08b7dd2f7a7a46865561f17dbb010, type: 3}
+      propertyPath: m_Name
+      value: WalletView
       objectReference: {fileID: 0}
     - target: {fileID: 3827697694899153887, guid: 46c08b7dd2f7a7a46865561f17dbb010, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1873,10 +1916,6 @@ PrefabInstance:
     - target: {fileID: 1514324324754123623, guid: 6a5ca81ea551f284f89ffa4c51875cc3, type: 3}
       propertyPath: m_Name
       value: DebugUi
-      objectReference: {fileID: 0}
-    - target: {fileID: 1514324324754123623, guid: 6a5ca81ea551f284f89ffa4c51875cc3, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

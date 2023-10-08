@@ -663,13 +663,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 172802645010627548}
+  - component: {fileID: 3256158738034305937}
   m_Layer: 5
   m_Name: DebugUi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &172802645010627548
 RectTransform:
   m_ObjectHideFlags: 0
@@ -692,6 +693,28 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3256158738034305937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1514324324754123623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27a5e8699874404880bb016abd562905, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  setMoneyButton: {fileID: 26079332189797886}
+  setMoneyInputField: {fileID: 1827269583714962769}
+  applyInputFieldMoneyValueButton: {fileID: 7810647323317089538}
+  setSpinCooldownButtons: {fileID: 1949237971611144877}
+  setSpinCooldownButton: {fileID: 2901876813101371090}
+  setSpinCooldownInputField: {fileID: 7525210583054054221}
+  applyInputFieldSpinCooldownValueButton: {fileID: 8357026175533512150}
+  setSpinCurrentCooldownButton: {fileID: 6346597190309801557}
+  setSpinCurrentCooldownInputField: {fileID: 1921572682805941610}
+  applyInputFieldSpinCurrentCooldownValueButton: {fileID: 764257607594011936}
 --- !u!1 &1635084781529440244
 GameObject:
   m_ObjectHideFlags: 0

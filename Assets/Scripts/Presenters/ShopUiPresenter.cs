@@ -9,9 +9,6 @@ namespace Presenters
         private ShopUi _shopUi;
         private StartUi _startUi;
         private PersistentPlayerGameData _persistentPlayerGameData;
-        private FortuneWheelUi _fortuneWheelUi;
-        private IDataProvider<PersistentPlayerGameData> _gameDataProvider;
-        private Player _player;
 
         public ShopUiPresenter(ShopUi shopUi, StartUi startUi, PersistentPlayerGameData persistentPlayerGameData,
             FortuneWheelUi fortuneWheelUi, IDataProvider<PersistentPlayerGameData> gameDataProvider, Player player)
@@ -19,10 +16,7 @@ namespace Presenters
             _shopUi = shopUi;
             _startUi = startUi;
             _persistentPlayerGameData = persistentPlayerGameData;
-            _fortuneWheelUi = fortuneWheelUi;
-            _gameDataProvider = gameDataProvider;
-            _player = player;
-            
+
             _shopUi.OnDeleteSaveButtonClick += () => _persistentPlayerGameData = new();
             _shopUi.OnBackButtonClick += CloseShop;
         }
