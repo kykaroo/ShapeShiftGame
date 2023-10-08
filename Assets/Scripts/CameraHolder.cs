@@ -1,11 +1,36 @@
 ﻿using UnityEngine;
+using Zenject;
 
-public class CameraHolder : MonoBehaviour
+public class CameraHolder : ITickable
 {
-    [SerializeField] private Transform playerTransform;
+    private readonly Transform _cameraHolderGo;
+    private readonly Transform _playerTransform;
+    private readonly Camera _camera;
+    private readonly Transform _cameraGamePosition;
 
-    private void Update()
+    [Inject]
+    public CameraHolder(Transform cameraHolderGo, Transform playerTransform, Camera camera, Transform cameraGamePosition)
     {
-        transform.localEulerAngles = -playerTransform.eulerAngles;
+        _cameraHolderGo = cameraHolderGo;
+        _camera = camera;
+        _cameraGamePosition = cameraGamePosition;
+        _playerTransform = playerTransform;
+    }
+
+    public void Tick()
+    {
+        _cameraHolderGo.localEulerAngles = -_playerTransform.eulerAngles;
+    }
+
+    public void ReleaseCamera()
+    {
+        _cameraHolderGo.DetachChildren();
+    }
+
+    public void ResetCamera()
+    {
+        var cameraTransform = _camera.transform;
+        cameraTransform.SetParent(_cameraHolderGo, true);
+        cameraTransform.position = _cameraGamePosition.position;
     }
 }

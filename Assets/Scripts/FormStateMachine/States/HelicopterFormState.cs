@@ -10,7 +10,7 @@ namespace FormStateMachine.States
         private ParticleSystem _poofParticleSystem;
 
         public HelicopterFormState(HelicopterForm helicopterForm, Ground ground,
-            Rigidbody playerBody, ParticleSystem poofParticleSystem, float gravityForce)
+            Rigidbody playerBody, ParticleSystem poofParticleSystem)
         {
             _helicopterForm = helicopterForm;
             _helicopterForm.gameObject.SetActive(false);

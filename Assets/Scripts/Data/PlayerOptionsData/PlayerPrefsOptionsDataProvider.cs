@@ -3,31 +3,35 @@ using UnityEngine;
 
 namespace Data.PlayerOptionsData
 {
-    public class PlayerPrefsOptionsDataProvider : IDataProvider
+    public class PlayerPrefsOptionsDataProvider :  IDataProvider<PersistentPlayerOptionsData>
     {
         private const string FileName = "PlayerOptionsSave";
 
-        private readonly IPersistentPlayerData _persistentPlayerData;
-        
-        public PlayerPrefsOptionsDataProvider(IPersistentPlayerData persistentPlayerData) => _persistentPlayerData = persistentPlayerData;
-        
+        private PersistentPlayerOptionsData _persistentPlayerOptionsData;
+
         public void Save()
         {
-            PlayerPrefs.SetString(FileName, JsonConvert.SerializeObject(_persistentPlayerData.PlayerOptionsData, Formatting.Indented, new JsonSerializerSettings
+            PlayerPrefs.SetString(FileName, JsonConvert.SerializeObject(_persistentPlayerOptionsData, Formatting.Indented, new JsonSerializerSettings
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             }));
         }
 
-        public bool TryLoad()
+        public PersistentPlayerOptionsData GetData()
         {
-            if (IsDataAlreadyExists() == false)
+            if (_persistentPlayerOptionsData != null)
             {
-                return false;
+                return _persistentPlayerOptionsData;
             }
             
-            _persistentPlayerData.PlayerOptionsData = JsonConvert.DeserializeObject<PlayerOptionsData>(PlayerPrefs.GetString(FileName));
-            return true;
+            if (IsDataAlreadyExists() == false)
+            {
+                _persistentPlayerOptionsData = new();
+                return _persistentPlayerOptionsData;
+            }
+            
+            _persistentPlayerOptionsData = JsonConvert.DeserializeObject<PersistentPlayerOptionsData>(PlayerPrefs.GetString(FileName));
+            return _persistentPlayerOptionsData;
         }
 
         private bool IsDataAlreadyExists() => PlayerPrefs.HasKey(FileName);

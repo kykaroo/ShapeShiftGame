@@ -5,11 +5,12 @@ using Data;
 using Data.PlayerOptionsData;
 using UnityEngine;
 using UnityEngine.Pool;
+using Zenject;
 using Random = UnityEngine.Random;
 
 namespace Audio
 {
-    public class AudioManager
+    public class AudioManager : ITickable
     {
         private readonly Sound[] _musicSounds;
         private readonly Sound[] _sfxSounds;
@@ -18,8 +19,8 @@ namespace Audio
         private List<Sound> _musicPlaylist;
         private AudioClip _previousMusicClip;
         private Sound _musicToPlay;
-        private readonly IDataProvider _dataProvider;
-        private readonly IPersistentPlayerData _persistentPlayerData;
+        private readonly IDataProvider<PersistentPlayerOptionsData> _dataProvider;
+        private readonly PersistentPlayerOptionsData _persistentPlayerData;
         private IObjectPool<AudioSource> _audioSourcesPool;
         private Transform _audioSourceParent;
 
@@ -28,32 +29,25 @@ namespace Audio
 
         public event Action<string> OnNewTrackPlay;
 
-        public AudioManager(IPersistentPlayerData persistentPlayerData, Sound[] musicSounds, Sound[] sfxSounds, AudioSource musicSource, AudioSource sfxSource)
+        [Inject]
+        public AudioManager(PersistentPlayerOptionsData persistentPlayerData,
+            IDataProvider<PersistentPlayerOptionsData> dataProvider, Sound[] musicSounds, Sound[] sfxSounds)
         {
-            _dataProvider = new PlayerPrefsOptionsDataProvider(persistentPlayerData);
+            _dataProvider = dataProvider;
             _persistentPlayerData = persistentPlayerData;
-            LoadData();
-            
-            _musicSource = musicSource;
+
+            _musicSource = new GameObject("musicSource", typeof(AudioSource)).GetComponent<AudioSource>();
             _musicSounds = musicSounds;
-            _musicSource.volume = _persistentPlayerData.PlayerOptionsData.MusicVolume;
-            _musicSource.mute = _persistentPlayerData.PlayerOptionsData.MuteMusic;
-            
-            _sfxSource = sfxSource;
+            _musicSource.volume = _persistentPlayerData.MusicVolume;
+            _musicSource.mute = _persistentPlayerData.MuteMusic;
+
+            _sfxSource = new GameObject("sfxSource", typeof(AudioSource)).GetComponent<AudioSource>();
             _sfxSounds = sfxSounds;
-            _sfxSource.volume = _persistentPlayerData.PlayerOptionsData.SfxVolume;
-            _sfxSource.mute = _persistentPlayerData.PlayerOptionsData.MuteSfx;
+            _sfxSource.volume = _persistentPlayerData.SfxVolume;
+            _sfxSource.mute = _persistentPlayerData.MuteSfx;
             
             ResetPlaylist(_musicSounds);
             Timer = Interval;
-        }
-
-        private void LoadData()
-        {
-            if (_dataProvider.TryLoad() == false)
-            {
-                _persistentPlayerData.PlayerOptionsData = new();
-            }
         }
 
         private void ResetPlaylist(IEnumerable<Sound> musicSounds)
@@ -100,40 +94,40 @@ namespace Audio
 
         public void ChangeMusicVolume(float newValue)
         {
-            _persistentPlayerData.PlayerOptionsData.MusicVolume = newValue;
+            _persistentPlayerData.MusicVolume = newValue;
             _musicSource.volume = newValue;
         }
 
         public void ChangeSfxVolume(float newValue)
         {
-            _persistentPlayerData.PlayerOptionsData.SfxVolume = newValue;
+            _persistentPlayerData.SfxVolume = newValue;
             _sfxSource.volume = newValue;
         }
 
         public void ToggleMusic()
         {
-            if (_persistentPlayerData.PlayerOptionsData.MuteMusic)
+            if (_persistentPlayerData.MuteMusic)
             {
                 _musicSource.mute = false;
-                _persistentPlayerData.PlayerOptionsData.MuteMusic = false;
+                _persistentPlayerData.MuteMusic = false;
                 return;
             }
 
             _musicSource.mute = true;
-            _persistentPlayerData.PlayerOptionsData.MuteMusic = true;
+            _persistentPlayerData.MuteMusic = true;
         }
 
         public void ToggleSfx()
         {
-            if (_persistentPlayerData.PlayerOptionsData.MuteSfx)
+            if (_persistentPlayerData.MuteSfx)
             {
                 _sfxSource.mute = false;
-                _persistentPlayerData.PlayerOptionsData.MuteSfx = false;
+                _persistentPlayerData.MuteSfx = false;
                 return;
             }
 
             _sfxSource.mute = true;
-            _persistentPlayerData.PlayerOptionsData.MuteSfx = true;
+            _persistentPlayerData.MuteSfx = true;
         }
 
         public void SaveSettings()
@@ -141,7 +135,7 @@ namespace Audio
             _dataProvider.Save();
         }
 
-        public void Update()
+        public void Tick()
         {
             if (_musicSource.isPlaying) return;
 

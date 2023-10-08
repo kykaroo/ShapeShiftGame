@@ -1,9 +1,9 @@
 ﻿namespace Data
 {
-    public interface IDataProvider
+    public interface IDataProvider<T>
     {
         void Save();
-        bool TryLoad();
+        T GetData();
         void DeleteSave();
     }
 }

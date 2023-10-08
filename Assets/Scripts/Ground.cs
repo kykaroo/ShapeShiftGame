@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Ground
 {
+    private const float Gravity = 9.81f;
+    public float GravityForce { get; }
     public LayerMask AllEnvironment { get; }
 
     public LayerMask WaterMask { get; }
@@ -21,7 +23,7 @@ public class Ground
     public LinkedList<BackgroundInfo> BackgroundTileList { get; } = new();
 
     public Ground(LayerMask allEnvironment, LayerMask waterMask, LayerMask balloonsMask, LayerMask stairsSlopeMask, 
-        LayerMask groundMask, LayerMask underwaterGroundMask)
+        LayerMask groundMask, LayerMask underwaterGroundMask, float gravityForceMultiplier)
     {
         AllEnvironment = allEnvironment;
         WaterMask = waterMask;
@@ -29,9 +31,9 @@ public class Ground
         StairsSlopeMask = stairsSlopeMask;
         GroundMask = groundMask;
         UnderwaterGroundMask = underwaterGroundMask;
+        GravityForce = Gravity * gravityForceMultiplier;
     }
-
-
+    
     public Vector3 GetMoveDirection(Vector3 origin)
     {
         return Physics.Raycast(origin, 

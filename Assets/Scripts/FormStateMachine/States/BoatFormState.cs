@@ -10,7 +10,7 @@ namespace FormStateMachine.States
         private ParticleSystem _poofParticleSystem;
 
         public BoatFormState(BoatForm boatForm, Ground ground, Rigidbody playerBody,
-            ParticleSystem poofParticleSystem, float gravityForce)
+            ParticleSystem poofParticleSystem)
         {
             _boatForm = boatForm;
             _boatForm.gameObject.SetActive(false);
@@ -19,7 +19,6 @@ namespace FormStateMachine.States
 
             _boatForm.playerBody = playerBody;
             _boatForm.Ground = ground;
-            _boatForm.gravityForce = gravityForce;
         }
 
         protected override void OnEnter()

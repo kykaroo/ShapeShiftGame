@@ -1,5 +1,6 @@
 ﻿using System;
-using Data;
+using Data.PlayerGameData;
+using Zenject;
 
 namespace Wallet
 {
@@ -7,9 +8,10 @@ namespace Wallet
     {
         public event Action<int> CoinsChanged;
 
-        private IPersistentPlayerData _persistentPlayerData;
-
-        public Wallet(IPersistentPlayerData persistentPlayerData) => _persistentPlayerData = persistentPlayerData;
+        private readonly PersistentPlayerGameData _persistentPlayerGameData;
+        
+        [Inject]
+        public Wallet(PersistentPlayerGameData persistentPlayerGameData) => _persistentPlayerGameData = persistentPlayerGameData;
 
         public void AddCoins(int coins)
         {
@@ -18,11 +20,11 @@ namespace Wallet
                 throw new ArgumentException(nameof(coins));
             }
 
-            _persistentPlayerData.PlayerGameData.Money += coins;
-            CoinsChanged?.Invoke(_persistentPlayerData.PlayerGameData.Money);
+            _persistentPlayerGameData.Money += coins;
+            CoinsChanged?.Invoke(_persistentPlayerGameData.Money);
         }
 
-        public int GetCurrentCoins() => _persistentPlayerData.PlayerGameData.Money;
+        public int GetCurrentCoins() => _persistentPlayerGameData.Money;
 
         public bool IsEnough(int coins)
         {
@@ -31,7 +33,7 @@ namespace Wallet
                 throw new ArgumentException(nameof(coins));
             }
 
-            return _persistentPlayerData.PlayerGameData.Money >= coins;
+            return _persistentPlayerGameData.Money >= coins;
         }
 
         public void Spend(int coins)
@@ -41,14 +43,14 @@ namespace Wallet
                 throw new ArgumentException(nameof(coins));
             }
 
-            _persistentPlayerData.PlayerGameData.Money -= coins;
-            CoinsChanged?.Invoke(_persistentPlayerData.PlayerGameData.Money);
+            _persistentPlayerGameData.Money -= coins;
+            CoinsChanged?.Invoke(_persistentPlayerGameData.Money);
         }
 
         public void SetValue(int coins)
         {
-            _persistentPlayerData.PlayerGameData.Money = coins;
-            CoinsChanged?.Invoke(_persistentPlayerData.PlayerGameData.Money);
+            _persistentPlayerGameData.Money = coins;
+            CoinsChanged?.Invoke(_persistentPlayerGameData.Money);
         }
     }
 }

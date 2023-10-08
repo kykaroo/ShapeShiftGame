@@ -1,62 +1,61 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
+using Zenject;
 
 namespace LevelProgressBar
 {
-    public class LevelProgressBar
+    public class LevelProgressBar : ITickable
     {
-         private Slider _playerProgressIndicator;
-         private Slider[] _aiProgressIndicator;
-         private Transform _playerTransform;
-         private Transform[] _aiTransform;
-         private float _levelEndZ;
-         private float _levelStartZ;
-         private float _levelRemainDistance;
-         private float _levelLenght;
+        private readonly ProgressBarUi _progressBarUi;
+        private Player _player;
+        private EnemyHandler _enemyHandler;
+        private float _levelEndZ;
+        private float _levelStartZ;
+        private float _levelRemainDistance;
+        private float _levelLenght;
 
-         public void Initialize(Slider playerProgressIndicator, Slider[] aiProgressIndicator,
-             Transform playerTransform, Transform[] botsTransform)
-         {
-             _playerProgressIndicator = playerProgressIndicator;
-             _aiProgressIndicator = aiProgressIndicator;
-             _playerTransform = playerTransform;
-             _aiTransform = botsTransform;
-         }
-
-         public void SetLevelLenght(float levelStartZ, float levelEndZ)
-         {
-             var position = _playerTransform.position;
-             _levelRemainDistance = levelEndZ - position.z;
-             _levelEndZ = levelEndZ;
-             _levelStartZ = levelStartZ;
-             _levelLenght = levelEndZ - position.z;
-         }
-
-        public void UpdateData()
+        [Inject]
+        public LevelProgressBar(ProgressBarUi progressBarUi, Player player, EnemyHandler enemyHandler)
         {
-            if (_playerTransform.position.z <= _levelLenght && _playerTransform.position.z <= _levelEndZ)
-            {
-                var distance = 1 - GetRemainDistance(_playerTransform.position.z) / _levelLenght;
-                SetProgress(_playerProgressIndicator, distance);
-            }
-
-            for (var i = 0; i < _aiProgressIndicator.Length; i++)
-            {
-                if (!(_aiTransform[i].position.z <= _levelRemainDistance) ||
-                    !(_aiTransform[i].position.z <= _levelEndZ)) continue;
-                var distance = 1 - GetRemainDistance(_aiTransform[i].position.z) / _levelLenght;
-                SetProgress(_aiProgressIndicator[i], distance);
-            }
+            _progressBarUi = progressBarUi;
+            _player = player;
+            _enemyHandler = enemyHandler;
         }
-
-        private float GetRemainDistance(float playerZ)
+        public void SetLevelLenght(float levelStartZ, float levelEndZ)
         {
-            return _levelRemainDistance - playerZ - _levelStartZ;
+            var position = _player.PlayerBody.position;
+            // var position = _playerTransform.position;
+            _levelRemainDistance = levelEndZ - position.z;
+            _levelEndZ = levelEndZ;
+            _levelStartZ = levelStartZ;
+            _levelLenght = levelEndZ - position.z;
         }
-
-        static void SetProgress(Slider indicator ,float progress)
-        {
-            indicator.value = progress;
-        }
+        
+       private float GetRemainDistance(float playerZ)
+       {
+           return _levelRemainDistance - playerZ - _levelStartZ;
+       }
+       
+       static void SetProgress(Slider indicator ,float progress)
+       {
+           indicator.value = progress;
+       }
+       
+       public void Tick()
+       {
+           if (!_progressBarUi.PlayerProgressIndicator.gameObject.activeSelf) return;
+           
+           if (_player.PlayerBody.position.z <= _levelLenght && _player.PlayerBody.position.z <= _levelEndZ)
+           {
+               var distance = 1 - GetRemainDistance(_player.PlayerBody.position.z) / _levelLenght;
+               SetProgress(_progressBarUi.PlayerProgressIndicator, distance);
+           }
+           for (var i = 0; i < _progressBarUi.AiProgressIndicator.Length; i++)
+           {
+               if (!(_enemyHandler.AIBodies[i].position.z <= _levelRemainDistance) ||
+                   !(_enemyHandler.AIBodies[i].position.z <= _levelEndZ)) continue;
+               var distance = 1 - GetRemainDistance(_enemyHandler.AIBodies[i].position.z) / _levelLenght;
+               SetProgress(_progressBarUi.AiProgressIndicator[i], distance);
+           }
+       }
     }
 }

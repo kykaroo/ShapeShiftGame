@@ -10,7 +10,7 @@ namespace FormStateMachine.States
         private ParticleSystem _poofParticleSystem;
 
         public CarFormState(CarForm carForm, Ground ground, Rigidbody playerBody,
-            ParticleSystem poofParticleSystem, float gravityForce)
+            ParticleSystem poofParticleSystem)
         {
             _carForm = carForm;
             _carForm.gameObject.SetActive(false);
@@ -19,7 +19,6 @@ namespace FormStateMachine.States
             
             _carForm.playerBody = playerBody;
             _carForm.Ground = ground;
-            _carForm.gravityForce = gravityForce;
         }
 
         protected override void OnEnter()
