@@ -1,23 +1,24 @@
 using FortuneWheel;
 using Presenters;
+using Ui;
 using UnityEngine;
 using Zenject;
 
 public class EntryPoint : MonoBehaviour, IInitializable
 {
-    private WheelManager _wheelManager;
+    private FortuneWheelUi _fortuneWheelUi;
     private StartUiPresenter _startUiPresenter;
 
     [Inject]
-    public void Construct(WheelManager wheelManager, StartUiPresenter startUiPresenter)
+    public void Construct(FortuneWheelUi fortuneWheelUi, StartUiPresenter startUiPresenter)
     {
-        _wheelManager = wheelManager;
+        _fortuneWheelUi = fortuneWheelUi;
         _startUiPresenter = startUiPresenter;
     }
 
     public void Initialize()
     {
-        if (_wheelManager.Timer.CanClaimFreeReward)
+        if (_fortuneWheelUi.Timer.CanClaimFreeReward)
         {
             _startUiPresenter.OpenFortuneWheelWindow();
         }

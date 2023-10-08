@@ -41,7 +41,6 @@ namespace DependencyInjection
             Container.BindInterfacesAndSelfTo<Ground>().AsSingle().WithArguments(allEnvironment, waterMask, balloonsMask, stairsSlopeMask, groundMask, underwaterGroundMask);
 
             Container.BindInterfacesAndSelfTo<LevelConfig>().FromInstance(levelConfig).AsSingle();
-            Container.BindInterfacesAndSelfTo<WheelManager>().FromInstance(wheelManager).AsSingle();
             Container.BindInterfacesAndSelfTo<Transform>().FromInstance(playerStartTransform).AsSingle();
             Container.BindInterfacesAndSelfTo<float>().FromInstance(gravityMultiplier).AsSingle();
 

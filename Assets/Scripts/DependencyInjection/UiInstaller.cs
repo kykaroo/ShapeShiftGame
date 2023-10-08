@@ -1,4 +1,5 @@
 using Audio;
+using FortuneWheel;
 using Presenters;
 using Ui;
 using UnityEngine;
@@ -17,11 +18,9 @@ namespace DependencyInjection
         [SerializeField] private FortuneWheelUi fortuneWheelUi;
         [SerializeField] private Slider playerProgressIndicator;
         [SerializeField] private Slider[] aiProgressIndicators;
-        [SerializeField] private Transform playerStartPosition;
         [SerializeField] private Transform[] aiStartPositionTransform;
         [SerializeField] private Sound[] musicSounds; 
         [SerializeField] private Sound[] sfxSounds;
-        [SerializeField] private GameObjectContext playerPrefab;
 
         public override void InstallBindings()
         {
@@ -34,6 +33,7 @@ namespace DependencyInjection
             Container.BindInterfacesAndSelfTo<AudioManager>().AsSingle().WithArguments(musicSounds, sfxSounds).NonLazy();
             Container.BindInterfacesAndSelfTo<LevelProgressBar.LevelProgressBar>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<LevelProgressBar.ProgressBarUi>().AsSingle().WithArguments(playerProgressIndicator, aiProgressIndicators).NonLazy();
+            Container.BindInterfacesAndSelfTo<WheelManager>().AsSingle().NonLazy();
 
             Container.BindInterfacesAndSelfTo<FormChangeUi>().FromInstance(formChangeUi).AsSingle();
             Container.BindInterfacesAndSelfTo<StartUi>().FromInstance(startUi).AsSingle();
