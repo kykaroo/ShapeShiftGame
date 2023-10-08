@@ -263,6 +263,7 @@ MonoBehaviour:
   - {fileID: 3239772945111661186}
   - {fileID: 1425703956101262388}
   wheel: {fileID: 1019446699049709105}
+  fullTurnovers: 4
 --- !u!1 &605821854008631922
 GameObject:
   m_ObjectHideFlags: 0

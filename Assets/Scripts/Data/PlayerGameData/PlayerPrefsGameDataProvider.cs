@@ -22,6 +22,7 @@ namespace Data.PlayerGameData
         public void DeleteSave()
         {
             PlayerPrefs.DeleteKey(FileName);
+            _persistentPlayerGameData = null;
         }
 
         public PersistentPlayerGameData GetData()

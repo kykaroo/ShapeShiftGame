@@ -54,7 +54,7 @@ public class Player
         CreatePlayerForms();
     }
 
-    private void CreatePlayerForms()
+    public void CreatePlayerForms()
     {
         _playerFormStateMachine = new(new()
         {
