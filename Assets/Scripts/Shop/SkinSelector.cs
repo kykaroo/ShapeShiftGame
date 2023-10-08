@@ -1,5 +1,6 @@
 ﻿using System;
 using Data;
+using Data.PlayerGameData;
 using Shop.BoatFormSkins;
 using Shop.CarFormSkins;
 using Shop.HelicopterFormSkins;
@@ -9,10 +10,10 @@ namespace Shop
 {
     public class SkinSelector : IShopItemVisitor
     {
-        private IPersistentPlayerData _persistentPlayerData;
+        private PersistentPlayerGameData _persistentPlayerData;
         
 
-        public SkinSelector(IPersistentPlayerData persistentPlayerData) => _persistentPlayerData = persistentPlayerData;
+        public SkinSelector(PersistentPlayerGameData persistentPlayerData) => _persistentPlayerData = persistentPlayerData;
         
         public void Visit(ShopItem shopItem)
         {
@@ -36,15 +37,15 @@ namespace Shop
         }
 
         public void Visit(HumanFormSkinItem humanFormSkinItem) => 
-            _persistentPlayerData.PlayerGameData.SelectedHumanFormSkin = humanFormSkinItem.SkinType;
+            _persistentPlayerData.SelectedHumanFormSkin = humanFormSkinItem.SkinType;
 
         public void Visit(CarFormSkinItem carFormSkinItem) =>
-            _persistentPlayerData.PlayerGameData.SelectedCarFormSkin = carFormSkinItem.SkinType;
+            _persistentPlayerData.SelectedCarFormSkin = carFormSkinItem.SkinType;
 
         public void Visit(HelicopterFormSkinItem helicopterFormSkinItem) =>
-            _persistentPlayerData.PlayerGameData.SelectedHelicopterFormSkin = helicopterFormSkinItem.SkinType;
+            _persistentPlayerData.SelectedHelicopterFormSkin = helicopterFormSkinItem.SkinType;
 
         public void Visit(BoatFormSkinItem boatFormSkinItem) =>
-            _persistentPlayerData.PlayerGameData.SelectedBoatFormSkin = boatFormSkinItem.SkinType;
+            _persistentPlayerData.SelectedBoatFormSkin = boatFormSkinItem.SkinType;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Data;
+using Data.PlayerGameData;
 using Shop.BoatFormSkins;
 using Shop.CarFormSkins;
 using Shop.HelicopterFormSkins;
@@ -10,11 +11,11 @@ namespace Shop
 {
     public class OpenSkinsChecker : IShopItemVisitor
     {
-        private IPersistentPlayerData _persistentPlayerData;
+        private readonly PersistentPlayerGameData _persistentPlayerGameData;
         
         public bool IsOpened { get; private set; }
 
-        public OpenSkinsChecker(IPersistentPlayerData persistentPlayerData) => _persistentPlayerData = persistentPlayerData;
+        public OpenSkinsChecker(PersistentPlayerGameData persistentPlayerGameData) => _persistentPlayerGameData = persistentPlayerGameData;
         
         public void Visit(ShopItem shopItem)
         {
@@ -38,15 +39,15 @@ namespace Shop
         }
 
         public void Visit(HumanFormSkinItem humanFormSkinItem) => 
-            IsOpened = _persistentPlayerData.PlayerGameData.OpenHumanFormSkins.Contains(humanFormSkinItem.SkinType);
+            IsOpened = _persistentPlayerGameData.OpenHumanFormSkins.Contains(humanFormSkinItem.SkinType);
 
         public void Visit(CarFormSkinItem carFormSkinItem) =>
-            IsOpened = _persistentPlayerData.PlayerGameData.OpenCarFormSkins.Contains(carFormSkinItem.SkinType);
+            IsOpened = _persistentPlayerGameData.OpenCarFormSkins.Contains(carFormSkinItem.SkinType);
 
         public void Visit(HelicopterFormSkinItem helicopterFormSkinItem) =>
-            IsOpened = _persistentPlayerData.PlayerGameData.OpenHelicopterFormSkins.Contains(helicopterFormSkinItem.SkinType);
+            IsOpened = _persistentPlayerGameData.OpenHelicopterFormSkins.Contains(helicopterFormSkinItem.SkinType);
 
         public void Visit(BoatFormSkinItem boatFormSkinItem) =>
-            IsOpened = _persistentPlayerData.PlayerGameData.OpenBoatFormSkins.Contains(boatFormSkinItem.SkinType);
+            IsOpened = _persistentPlayerGameData.OpenBoatFormSkins.Contains(boatFormSkinItem.SkinType);
     }
 }

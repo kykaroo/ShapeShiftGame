@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using Zenject;
 
 namespace Wallet
 {
@@ -9,6 +10,7 @@ namespace Wallet
 
         private Wallet _wallet;
 
+        [Inject]
         public void Initialize(Wallet wallet)
         {
             _wallet = wallet;

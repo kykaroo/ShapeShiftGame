@@ -9,8 +9,8 @@ namespace Ui
     {
         [SerializeField] private Button backButton;
         [SerializeField] private WheelManager wheelManager;
-
-        public WheelManager WheelManager => wheelManager;
+        [SerializeField] private Button freeSpinWheelButton;
+        [SerializeField] private Button paidSpinWheelButton;
 
         public event Action OnBackButtonClick;
 
@@ -19,8 +19,23 @@ namespace Ui
         private void Awake()
         {
             backButton.onClick.AddListener(BackButtonClick);
-            wheelManager.OnSpinStart += () => backButton.enabled = false;
-            wheelManager.OnSpinEnd += () => backButton.enabled = true;
+            freeSpinWheelButton.onClick.AddListener(wheelManager.FreeSpinButtonClick);
+            // paidSpinWheelButton.onClick.AddListener(wheelManager.PaidSpinButtonClick); Раскомментировать для добавления круток а деньги 
+            wheelManager.OnChangeButtonVisibility += UpdateButtonsVisibility;
+            paidSpinWheelButton.gameObject.SetActive(false); //Убрать для добавления круток за деньги
+        }
+        
+        private void UpdateButtonsVisibility(bool isWheelSpinning, bool canClaimFreeReward)
+        {
+            if (isWheelSpinning)
+            {
+                freeSpinWheelButton.gameObject.SetActive(false);
+                // paidSpinWheelButton.gameObject.SetActive(false); Раскомментировать для добавления круток за деньги 
+                return;
+            }
+            
+            freeSpinWheelButton.gameObject.SetActive(canClaimFreeReward);
+            // paidSpinWheelButton.gameObject.SetActive(!timer.CanClaimFreeReward); Раскомментировать для добавления круток за деньги 
         }
     }
 }

@@ -2,6 +2,7 @@
 using PrefabInfo;
 using ScriptableObjects;
 using UnityEngine;
+using Zenject;
 using Random = UnityEngine.Random;
 
 namespace Level
@@ -13,6 +14,8 @@ namespace Level
         private readonly Ground _ground;
         private float _levelStartZ;
         private float _levelEndZ;
+        private Transform _playerStartPosition;
+        private Transform[] _aiStartPositions;
 
         private LinkedList<TileInfo> TileList => _ground.TileInfoList;
     
@@ -24,15 +27,22 @@ namespace Level
 
         public float LevelEndZ => _levelEndZ;
 
+        public Transform PlayerStartPosition => _playerStartPosition;
+
+        public Transform[] AIStartPositions => _aiStartPositions;
+
+        [Inject]
         public LevelGenerator(LevelConfig levelConfig, Ground ground)
         {
             _levelConfig = levelConfig;
             _ground = ground;
         }
-
+        
         public void GenerateLevel()
         {
             TileList.AddFirst(Object.Instantiate(_levelConfig.StartTile, Vector3.zero, Quaternion.identity));
+            _playerStartPosition = TileList.First.Value.PlayerStartPosition;
+            _aiStartPositions = TileList.First.Value.AIStartPositions;
             BackgroundList.AddFirst(Object.Instantiate(
                 _levelConfig.BackgroundTileList[Random.Range(0, _levelConfig.BackgroundTileList.Length)],
                 _levelConfig.BackgroundStartPosition, Quaternion.identity));

@@ -1,8 +1,10 @@
 ﻿using System;
 using Data;
+using Data.PlayerOptionsData;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Ui
 {
@@ -36,15 +38,16 @@ namespace Ui
         public event Action OnSfxMuteButtonClick;
         public event Action OnNextTrackButtonClicked;
 
-        private IPersistentPlayerData _persistentPlayerData;
+        private PersistentPlayerOptionsData _persistentPlayerData;
         private void NextTrackButtonClick() => OnNextTrackButtonClicked?.Invoke();
 
-        public void Initialize(IPersistentPlayerData persistentPlayerData)
+        [Inject]
+        public void Initialize(PersistentPlayerOptionsData persistentPlayerOptionsData)
         {
             nextTrackButton.onClick.AddListener(NextTrackButtonClick);
-            _persistentPlayerData = persistentPlayerData;
-            MusicSliderValueChanged(persistentPlayerData.PlayerOptionsData.MusicVolume);
-            SfxSliderValueChanged(persistentPlayerData.PlayerOptionsData.SfxVolume);
+            _persistentPlayerData = persistentPlayerOptionsData;
+            MusicSliderValueChanged(persistentPlayerOptionsData.MusicVolume);
+            SfxSliderValueChanged(persistentPlayerOptionsData.SfxVolume);
             UpdateMusicMuteIcon();
             UpdateSfxMuteIcon();
         }
@@ -83,7 +86,7 @@ namespace Ui
 
         public void UpdateMusicMuteIcon()
         {
-            if (_persistentPlayerData.PlayerOptionsData.MuteMusic)
+            if (_persistentPlayerData.MuteMusic)
             {
                 musicMuteButtonImage.sprite = musicMuteOffSprite;
                 return;
@@ -99,7 +102,7 @@ namespace Ui
 
         public void UpdateSfxMuteIcon()
         {
-            if (_persistentPlayerData.PlayerOptionsData.MuteSfx)
+            if (_persistentPlayerData.MuteSfx)
             {
                 sfxMuteButtonImage.sprite = sfxMuteOffSprite;
                 return;

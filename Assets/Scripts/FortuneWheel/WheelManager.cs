@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Linq;
 using Data;
+using Data.PlayerGameData;
 using TMPro;
 using Ui;
 using UnityEngine;
-using UnityEngine.UI;
 using Wallet;
+using Zenject;
 using Random = UnityEngine.Random;
 
 namespace FortuneWheel
 {
     public class WheelManager : MonoBehaviour
     {
-        [SerializeField] private Button freeSpinWheelButton;
-        [SerializeField] private Button paidSpinWheelButton;
         [SerializeField] private TextMeshProUGUI paidSpinPriceText;
         [SerializeField] private Transform wheel;
         [SerializeField] private int fullTurnovers;
@@ -31,34 +30,26 @@ namespace FortuneWheel
         private int[] _wheelSectorsAngles;
         private float _currentLerpRotationTime;
         private float _startAngle;
-        private IDataProvider _gameDataProvider;
+        private IDataProvider<PersistentPlayerGameData> _gameDataProvider;
         private ShopUi _shopUi;
-        private IPersistentPlayerData _persistentPlayerData;
         private bool _isFreeSpin;
 
         private const float MaxLerpRotationTime = 4f;
 
         public Timer Timer => timer;
 
-        public event Action OnSpinStart;
-        public event Action OnSpinEnd;
+        public event Action<bool, bool> OnChangeButtonVisibility;
 
-        public void Initialize(IDataProvider gameDataProvider, IPersistentPlayerData persistentPlayerData, Wallet.Wallet wallet, ShopUi shopUi)
+        [Inject]
+        public void Initialize(IDataProvider<PersistentPlayerGameData> gameDataProvider, Wallet.Wallet wallet, ShopUi shopUi)
         {
             _gameDataProvider = gameDataProvider;
-            _persistentPlayerData = persistentPlayerData;
             _wallet = wallet;
             _shopUi = shopUi;
-            timer.Initialize(_persistentPlayerData, _gameDataProvider);
 
-            InitializeWallet(wallet);
+            walletView.Initialize(wallet);
             InitializeWheelsSectors();
             UpdateButtonsVisibility();
-        }
-
-        public void InitializeWallet(Wallet.Wallet wallet)
-        {
-            walletView.Initialize(wallet);
         }
 
         private void InitializeWheelsSectors()
@@ -70,14 +61,14 @@ namespace FortuneWheel
             }
         }
 
+        private void UpdateButtonsVisibility() =>
+            OnChangeButtonVisibility?.Invoke(_isWheelSpinning, timer.CanClaimFreeReward);
+
         private void Awake()
         {
-            freeSpinWheelButton.onClick.AddListener(OnFreeSpinButtonClick);
-            paidSpinWheelButton.onClick.AddListener(OnPaidSpinButtonClick);
             paidSpinPriceText.text = paidSpinPrice.ToString();
             timer.OnCanFreeSpinVariableChange += UpdateButtonsVisibility;
             timer.OnDebugTimerChange += UpdateButtonsVisibility;
-            paidSpinWheelButton.gameObject.SetActive(false); //Убрать строку для включения крутки за деньги
 
             _wheelSectorsAngles = new int[wheelSectors.Length];
             for (var i = 0; i < _wheelSectorsAngles.Length; i++)
@@ -86,13 +77,13 @@ namespace FortuneWheel
             }
         }
 
-        private void OnFreeSpinButtonClick()
+        public void FreeSpinButtonClick()
         {
             _isFreeSpin = true;
             ToggleWheelSpin();
         }
 
-        private void OnPaidSpinButtonClick()
+        public void PaidSpinButtonClick()
         {
             if (!_wallet.IsEnough(paidSpinPrice)) return;
             
@@ -113,8 +104,8 @@ namespace FortuneWheel
                 _startAngle = _finalAngle % 360;
 
                 GetReward();
-                OnSpinEnd?.Invoke();
-                freeSpinWheelButton.enabled = true;
+                UpdateButtonsVisibility();
+                
             } else {
                 var t = _currentLerpRotationTime / MaxLerpRotationTime;
 
@@ -125,22 +116,8 @@ namespace FortuneWheel
             }
         }
 
-        private void UpdateButtonsVisibility()
-        {
-            if (_isWheelSpinning)
-            {
-                freeSpinWheelButton.gameObject.SetActive(false);
-                // paidSpinWheelButton.gameObject.SetActive(false); //Раскоментировать для добаления круток зя деньги 
-                return;
-            }
-            
-            freeSpinWheelButton.gameObject.SetActive(timer.CanClaimFreeReward);
-            // paidSpinWheelButton.gameObject.SetActive(!timer.CanClaimFreeReward); //Раскоментировать для добаления круток зя деньги 
-        }
-
         private void ToggleWheelSpin()
         {
-            OnSpinStart?.Invoke();
             _currentLerpRotationTime = 0;
             _isWheelSpinning = true;
             UpdateButtonsVisibility();

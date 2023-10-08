@@ -1,12 +1,15 @@
 ﻿using System;
 using Data;
+using Data.PlayerGameData;
 using Shop;
 using Shop.ShopModelView;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Ui
 {
+    using Wallet = Wallet.Wallet;
     public class ShopUi : MonoBehaviour
     {
         [SerializeField] private ShopCategoryButton humanFormSkinsButton;
@@ -29,8 +32,8 @@ namespace Ui
         private OpenSkinsChecker _openSkinsChecker;
         private SelectedSkinChecker _selectedSkinChecker;
 
-        private IDataProvider _gameDataProvider;
-        private Wallet.Wallet _wallet;
+        private IDataProvider<PersistentPlayerGameData> _gameDataProvider;
+        private Wallet _wallet;
         private ShopItemView _previewedItem;
 
         public SkinUnlocker SkinUnlocker => _skinUnlocker;
@@ -43,21 +46,8 @@ namespace Ui
 
         private void BackButtonClick() => OnBackButtonClick?.Invoke();
         
-
-        private void Awake()
-        {
-            humanFormSkinsButton.Click += OnHumanFormSkinsButtonClick;
-            carFormSkinsButton.Click += OnCarFormSkinsButtonClick;
-            helicopterFormSkinsButton.Click += OnHelicopterFormSkinsButtonClick;
-            boatFormSkinsButton.Click += OnBoatFormSkinsButtonClick;
-            backButton.onClick.AddListener(BackButtonClick);
-            buyButton.Click += OnBuyButtonClick;
-            _wallet.CoinsChanged += _ => ShowBuyButton(_previewedItem.Price);
-            clearSaveButton.onClick.AddListener(DeleteGameSave);
-            selectionButton.onClick.AddListener(OnSelectionButtonClick);
-        }
-
-        public void Initialize(IDataProvider gameDataProvider, Wallet.Wallet wallet, OpenSkinsChecker openSkinsChecker,
+        [Inject]
+        public void Initialize(IDataProvider<PersistentPlayerGameData> gameDataProvider, Wallet wallet, OpenSkinsChecker openSkinsChecker,
             SelectedSkinChecker selectedSkinChecker, SkinSelector skinSelector, SkinUnlocker skinUnlocker)
         {
             _wallet = wallet;
@@ -66,9 +56,21 @@ namespace Ui
             _skinSelector = skinSelector;
             _skinUnlocker = skinUnlocker;
             _gameDataProvider = gameDataProvider;
+            
             shopPanel.Initialize(openSkinsChecker, selectedSkinChecker);
             shopPanel.ItemViewClicked += OnItemViewClicked;
             _wallet.CoinsChanged += SaveData;
+            
+            humanFormSkinsButton.Click += OnHumanFormSkinsButtonClick;
+            carFormSkinsButton.Click += OnCarFormSkinsButtonClick;
+            helicopterFormSkinsButton.Click += OnHelicopterFormSkinsButtonClick;
+            boatFormSkinsButton.Click += OnBoatFormSkinsButtonClick;
+            buyButton.Click += OnBuyButtonClick;
+            _wallet.CoinsChanged += _ => ShowBuyButton(_previewedItem.Price);
+            
+            backButton.onClick.AddListener(BackButtonClick);
+            clearSaveButton.onClick.AddListener(DeleteGameSave);
+            selectionButton.onClick.AddListener(OnSelectionButtonClick);
             
             OnHumanFormSkinsButtonClick();
         }
