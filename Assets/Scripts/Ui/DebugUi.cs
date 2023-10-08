@@ -4,36 +4,32 @@ using FortuneWheel;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Zenject;
 
 namespace Ui
 {
     public class DebugUi : MonoBehaviour
     {
-        [SerializeField] private Transform debugUi;
         [Header("Money")]
         [SerializeField] private Button setMoneyButton;
         [SerializeField] private TMP_InputField setMoneyInputField;
         [SerializeField] private Button applyInputFieldMoneyValueButton;
         [Header("Fortune wheel")]
         [SerializeField] private Button setSpinCooldownButtons;
+        [Space]
         [SerializeField] private Button setSpinCooldownButton;
         [SerializeField] private TMP_InputField setSpinCooldownInputField;    
         [SerializeField] private Button applyInputFieldSpinCooldownValueButton;
+        [Space]
         [SerializeField] private Button setSpinCurrentCooldownButton;
         [SerializeField] private TMP_InputField setSpinCurrentCooldownInputField;    
         [SerializeField] private Button applyInputFieldSpinCurrentCooldownValueButton;
 
-    
-        private Wallet.Wallet _wallet;
-        private Timer _timer;
-
-        [Inject]
-        public void Initialize(Wallet.Wallet wallet, Timer timer)
+        public event Action<int> OnChangeMoneyButtonClick;
+        public event Action<TimeSpan> OnChangeCurrentSpinCooldownButtonClick;
+        public event Action<TimeSpan> OnChangeSpinCooldownButtonClick;
+        
+        public void Awake()
         {
-            _wallet = wallet;
-            _timer = timer;
-            
             setMoneyButton.onClick.AddListener(ToggleSetMoneyInputField);
             setSpinCooldownButtons.onClick.AddListener(ToggleSetSpinButtons);
             setSpinCooldownButton.onClick.AddListener(ToggleSetSpinCooldownInputField);
@@ -65,7 +61,7 @@ namespace Ui
         {
             var cooldownTime = setSpinCurrentCooldownInputField.text.Split(":");
             if (TryParseUserInput(cooldownTime, out var timeSpan)) return; //TODO Сделать вывод ошибки формата пользователю
-            _timer.SetCurrentCooldownTime(timeSpan);
+            OnChangeCurrentSpinCooldownButtonClick?.Invoke(timeSpan);
             applyInputFieldSpinCurrentCooldownValueButton.gameObject.SetActive(false);
             ToggleSetSpinCurrentCooldownInputField();
         }
@@ -87,7 +83,7 @@ namespace Ui
         {
             var cooldownTime = setSpinCooldownInputField.text.Split(":");
             if (TryParseUserInput(cooldownTime, out var timeSpan)) return; //TODO Сделать вывод ошибки формата пользователю
-            _timer.SetCooldownTime(timeSpan);
+            OnChangeSpinCooldownButtonClick?.Invoke(timeSpan);
             applyInputFieldSpinCooldownValueButton.gameObject.SetActive(false);
             ToggleSetSpinCooldownInputField();
         }
@@ -133,7 +129,7 @@ namespace Ui
 
         private void OnApplyInputFieldMoneyValueButton()
         {
-            _wallet.SetValue(int.Parse(setMoneyInputField.text));
+            OnChangeMoneyButtonClick?.Invoke(int.Parse(setMoneyInputField.text));
             applyInputFieldMoneyValueButton.gameObject.SetActive(false);
             ToggleSetMoneyInputField();
         }
@@ -151,16 +147,8 @@ namespace Ui
             applyInputFieldMoneyValueButton.gameObject.SetActive(true);
         }
 
-        public void Update()
+        public void PrepareButtons()
         {
-            if (!Input.GetKeyDown(KeyCode.P)) return;
-
-            if (debugUi.gameObject.activeSelf)
-            {
-                debugUi.gameObject.SetActive(false);
-                return;
-            }
-        
             setMoneyInputField.gameObject.SetActive(false);
             applyInputFieldMoneyValueButton.gameObject.SetActive(false);
             setSpinCooldownButton.gameObject.SetActive(false);
@@ -169,7 +157,6 @@ namespace Ui
             setSpinCurrentCooldownButton.gameObject.SetActive(false);
             setSpinCurrentCooldownInputField.gameObject.SetActive(false);
             applyInputFieldSpinCurrentCooldownValueButton.gameObject.SetActive(false);
-            debugUi.gameObject.SetActive(true);
         }
     }
 }

@@ -4,8 +4,8 @@ namespace Presenters
 {
     public class FortuneWheelUiPresenter
     {
-        private FortuneWheelUi _fortuneWheelUi;
-        private StartUi _startUi;
+        private readonly FortuneWheelUi _fortuneWheelUi;
+        private readonly StartUi _startUi;
 
         public FortuneWheelUiPresenter(FortuneWheelUi fortuneWheelUi, StartUi startUi)
         {

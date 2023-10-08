@@ -9,8 +9,7 @@ namespace Presenters
         private readonly Player _player;
         
         [Inject]
-        public FormChangeUiPresenter(FormChangeUi formChangeUi,
-            Player player)
+        public FormChangeUiPresenter(FormChangeUi formChangeUi, Player player)
         {
             _formChangeUi = formChangeUi;
             _player = player;

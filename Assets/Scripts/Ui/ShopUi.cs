@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using Data;
 using Data.PlayerGameData;
+using FormStateMachine;
 using Shop;
 using Shop.ShopModelView;
 using UnityEngine;
 using UnityEngine.UI;
+using Wallet;
 using Zenject;
 
 namespace Ui
@@ -24,6 +27,7 @@ namespace Ui
         [SerializeField] private Button clearSaveButton;
         [SerializeField] private Image selectedText;
         [SerializeField] private SkinPlacement skinPlacement;
+        [SerializeField] private WalletView walletView;
 
         private ShopCategoryButton _currentButtonSelect;
 
@@ -33,8 +37,10 @@ namespace Ui
         private SelectedSkinChecker _selectedSkinChecker;
 
         private IDataProvider<PersistentPlayerGameData> _gameDataProvider;
+        private PersistentPlayerGameData _persistentPlayerGameData;
         private Wallet _wallet;
         private ShopItemView _previewedItem;
+        private Dictionary<IFormState, bool> _skinChanges;
 
         public SkinUnlocker SkinUnlocker => _skinUnlocker;
         
@@ -42,22 +48,19 @@ namespace Ui
         public OpenSkinsChecker OpenSkinsChecker => _openSkinsChecker;
 
         public event Action OnBackButtonClick;
-        public event Action OnDeleteSaveButtonClick;
 
         private void BackButtonClick() => OnBackButtonClick?.Invoke();
         
         [Inject]
-        public void Initialize(IDataProvider<PersistentPlayerGameData> gameDataProvider, Wallet wallet, OpenSkinsChecker openSkinsChecker,
-            SelectedSkinChecker selectedSkinChecker, SkinSelector skinSelector, SkinUnlocker skinUnlocker)
+        public void Initialize(IDataProvider<PersistentPlayerGameData> gameDataProvider, Wallet wallet, PersistentPlayerGameData persistentPlayerGameData)
         {
             _wallet = wallet;
-            _openSkinsChecker = openSkinsChecker;
-            _selectedSkinChecker = selectedSkinChecker;
-            _skinSelector = skinSelector;
-            _skinUnlocker = skinUnlocker;
             _gameDataProvider = gameDataProvider;
-            
-            shopPanel.Initialize(openSkinsChecker, selectedSkinChecker);
+            _persistentPlayerGameData = persistentPlayerGameData;
+            walletView.Initialize(_wallet);
+            InitializeCheckers(_persistentPlayerGameData);
+
+            shopPanel.Initialize(_openSkinsChecker, _selectedSkinChecker);
             shopPanel.ItemViewClicked += OnItemViewClicked;
             _wallet.CoinsChanged += SaveData;
             
@@ -65,6 +68,7 @@ namespace Ui
             carFormSkinsButton.Click += OnCarFormSkinsButtonClick;
             helicopterFormSkinsButton.Click += OnHelicopterFormSkinsButtonClick;
             boatFormSkinsButton.Click += OnBoatFormSkinsButtonClick;
+            
             buyButton.Click += OnBuyButtonClick;
             _wallet.CoinsChanged += _ => ShowBuyButton(_previewedItem.Price);
             
@@ -73,6 +77,14 @@ namespace Ui
             selectionButton.onClick.AddListener(OnSelectionButtonClick);
             
             OnHumanFormSkinsButtonClick();
+        }
+
+        private void InitializeCheckers(PersistentPlayerGameData persistentPlayerGameData)
+        {
+            _openSkinsChecker = new(persistentPlayerGameData);
+            _selectedSkinChecker = new(persistentPlayerGameData);
+            _skinSelector = new(persistentPlayerGameData);
+            _skinUnlocker = new(persistentPlayerGameData);
         }
 
         private void SaveData(int obj)
@@ -207,7 +219,9 @@ namespace Ui
         private void DeleteGameSave()
         {
             _gameDataProvider.DeleteSave();
-            OnDeleteSaveButtonClick?.Invoke();
+            _gameDataProvider.GetData();
+            _wallet.UpdateCoinsView();
+            InitializeCheckers(_persistentPlayerGameData);
         }
 
         private void HideSelectionButton() => selectionButton.gameObject.SetActive(false);

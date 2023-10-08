@@ -6,24 +6,21 @@ namespace Presenters
 {
     public class ShopUiPresenter
     {
-        private ShopUi _shopUi;
-        private StartUi _startUi;
+        private readonly ShopUi _shopUi;
+        private readonly StartUi _startUi;
         private PersistentPlayerGameData _persistentPlayerGameData;
-        private FortuneWheelUi _fortuneWheelUi;
-        private IDataProvider<PersistentPlayerGameData> _gameDataProvider;
         private Player _player;
+        private IDataProvider<PersistentPlayerGameData> _playerGameDataProvider;
 
-        public ShopUiPresenter(ShopUi shopUi, StartUi startUi, PersistentPlayerGameData persistentPlayerGameData,
-            FortuneWheelUi fortuneWheelUi, IDataProvider<PersistentPlayerGameData> gameDataProvider, Player player)
+        public ShopUiPresenter(ShopUi shopUi, StartUi startUi, PersistentPlayerGameData persistentPlayerGameData, 
+            Player player, IDataProvider<PersistentPlayerGameData> playerGameDataProvider)
         {
             _shopUi = shopUi;
             _startUi = startUi;
             _persistentPlayerGameData = persistentPlayerGameData;
-            _fortuneWheelUi = fortuneWheelUi;
-            _gameDataProvider = gameDataProvider;
             _player = player;
+            _playerGameDataProvider = playerGameDataProvider;
             
-            _shopUi.OnDeleteSaveButtonClick += () => _persistentPlayerGameData = new();
             _shopUi.OnBackButtonClick += CloseShop;
         }
 
@@ -32,7 +29,12 @@ namespace Presenters
             _shopUi.gameObject.SetActive(false);
             _startUi.gameObject.SetActive(true);
         
-            //TODO проверка на изменение скинов
+            _player.SpawnHumanForm();
+            _player.SpawnCarForm();
+            _player.SpawnHelicopterForm();
+            _player.SpawnBoatForm();
+            
+            _player.CreatePlayerForms();
         }
     }
 }

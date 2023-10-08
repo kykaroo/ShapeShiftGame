@@ -16,6 +16,8 @@ namespace DependencyInjection
         [SerializeField] private ShopUi shopUi;
         [SerializeField] private OptionsUi optionsUi;
         [SerializeField] private FortuneWheelUi fortuneWheelUi;
+        [SerializeField] private DebugUi debugUi;
+        [SerializeField] private Timer timer;
         [SerializeField] private Slider playerProgressIndicator;
         [SerializeField] private Slider[] aiProgressIndicators;
         [SerializeField] private Transform[] aiStartPositionTransform;
@@ -30,10 +32,13 @@ namespace DependencyInjection
             Container.BindInterfacesAndSelfTo<FormChangeUiPresenter>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<ShopUiPresenter>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<FortuneWheelUiPresenter>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<DebugUiPresenter>().AsSingle().NonLazy();
+            
             Container.BindInterfacesAndSelfTo<AudioManager>().AsSingle().WithArguments(musicSounds, sfxSounds).NonLazy();
             Container.BindInterfacesAndSelfTo<LevelProgressBar.LevelProgressBar>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<LevelProgressBar.ProgressBarUi>().AsSingle().WithArguments(playerProgressIndicator, aiProgressIndicators).NonLazy();
             Container.BindInterfacesAndSelfTo<WheelManager>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<DebugManager>().AsSingle().NonLazy();
 
             Container.BindInterfacesAndSelfTo<FormChangeUi>().FromInstance(formChangeUi).AsSingle();
             Container.BindInterfacesAndSelfTo<StartUi>().FromInstance(startUi).AsSingle();
@@ -44,6 +49,8 @@ namespace DependencyInjection
             Container.BindInterfacesAndSelfTo<Slider>().FromInstance(playerProgressIndicator).AsSingle();
             Container.BindInterfacesAndSelfTo<Slider[]>().FromInstance(aiProgressIndicators).AsSingle();
             Container.BindInterfacesAndSelfTo<Transform[]>().FromInstance(aiStartPositionTransform).AsSingle();
+            Container.BindInterfacesAndSelfTo<DebugUi>().FromInstance(debugUi).AsSingle();
+            Container.BindInterfacesAndSelfTo<Timer>().FromInstance(timer).AsSingle();
         }
     }
 }
