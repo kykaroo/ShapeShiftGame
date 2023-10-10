@@ -11,7 +11,7 @@ namespace PrefabInfo
         [SerializeField] private Transform playerStartPosition;
         [SerializeField] private Transform[] aiStartPositions;
         [Header("Finish tile only")]
-        [SerializeField] private VictoryTrigger finishTileVictoryTrigger;
+        [SerializeField] private LevelEndTrigger finishTileLevelEndTrigger;
         [Header("Water tile only")]
         public GameObject waterEndRamp;
 
@@ -21,7 +21,7 @@ namespace PrefabInfo
 
         public Transform[] AIStartPositions => aiStartPositions;
 
-        public VictoryTrigger FinishTileVictoryTrigger => finishTileVictoryTrigger;
+        public LevelEndTrigger FinishTileLevelEndTrigger => finishTileLevelEndTrigger;
 
         public Vector3 ConnectStartToCurrentEnd
         {

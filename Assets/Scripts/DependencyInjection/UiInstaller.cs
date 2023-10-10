@@ -17,6 +17,7 @@ namespace DependencyInjection
         [SerializeField] private OptionsUi optionsUi;
         [SerializeField] private FortuneWheelUi fortuneWheelUi;
         [SerializeField] private DebugUi debugUi;
+        [SerializeField] private DefeatUi defeatUi;
         [SerializeField] private Timer timer;
         [SerializeField] private Slider playerProgressIndicator;
         [SerializeField] private Slider[] aiProgressIndicators;
@@ -46,6 +47,7 @@ namespace DependencyInjection
             Container.BindInterfacesAndSelfTo<ShopUi>().FromInstance(shopUi).AsSingle();
             Container.BindInterfacesAndSelfTo<OptionsUi>().FromInstance(optionsUi).AsSingle();
             Container.BindInterfacesAndSelfTo<FortuneWheelUi>().FromInstance(fortuneWheelUi).AsSingle();
+            Container.BindInterfacesAndSelfTo<DefeatUi>().FromInstance(defeatUi).AsSingle();
             Container.BindInterfacesAndSelfTo<Slider>().FromInstance(playerProgressIndicator).AsSingle();
             Container.BindInterfacesAndSelfTo<Slider[]>().FromInstance(aiProgressIndicators).AsSingle();
             Container.BindInterfacesAndSelfTo<Transform[]>().FromInstance(aiStartPositionTransform).AsSingle();

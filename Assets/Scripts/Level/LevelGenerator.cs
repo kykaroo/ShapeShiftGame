@@ -21,7 +21,7 @@ namespace Level
     
         private LinkedList<BackgroundInfo> BackgroundList => _ground.BackgroundTileList;
 
-        public VictoryTrigger VictoryTrigger;
+        public LevelEndTrigger LevelEndTrigger;
 
         public float LevelStartZ => _levelStartZ;
 
@@ -65,7 +65,7 @@ namespace Level
 
         private void GetLevelInfo()
         {
-            _levelEndZ = TileList.Last.Value.FinishTileVictoryTrigger.transform.position.z;
+            _levelEndZ = TileList.Last.Value.FinishTileLevelEndTrigger.transform.position.z;
             _levelStartZ = 0;
         }
 
@@ -74,7 +74,7 @@ namespace Level
             var tileInfoStartPosition = TileList.Last.Value.End;
             TileList.AddLast(Object.Instantiate(_levelConfig.FinishTile, Vector3.zero, Quaternion.identity));
             TileList.Last.Value.ConnectStartToCurrentEnd = tileInfoStartPosition;
-            VictoryTrigger = TileList.Last.Value.FinishTileVictoryTrigger;
+            LevelEndTrigger = TileList.Last.Value.FinishTileLevelEndTrigger;
         }
     
         private void GenerateTile()

@@ -426,7 +426,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileStart: {fileID: 976415875563721873}
   tileEnd: {fileID: 9114980006483313204}
-  finishTileVictoryTrigger: {fileID: 6125183691349838934}
+  playerStartPosition: {fileID: 0}
+  aiStartPositions: []
+  finishTileLevelEndTrigger: {fileID: 6125183691349838934}
   waterEndRamp: {fileID: 0}
 --- !u!1 &6892045977660932172
 GameObject:
@@ -535,7 +537,7 @@ GameObject:
   - component: {fileID: 4811038052013913677}
   - component: {fileID: 6125183691349838934}
   m_Layer: 7
-  m_Name: VictoryTrigger
+  m_Name: LevelEndTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
