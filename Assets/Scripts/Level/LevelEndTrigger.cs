@@ -5,16 +5,22 @@ namespace Level
 {
     public class LevelEndTrigger : MonoBehaviour
     {
-        public event Action OnLevelComplete;
-        public event Action OnLevelFailed;
+        private bool _isLevelComplete;
+        
+        public event Action<bool> OnLevelComplete;
         private void OnTriggerEnter(Collider other)
         {
+            if (_isLevelComplete) return;
+
+            _isLevelComplete = true;
+                
             if (other.transform.root.TryGetComponent<EnemyAi>(out var enemyAi))
             {
-                OnLevelFailed?.Invoke();
+                OnLevelComplete?.Invoke(false);
+                return;
             }
             
-            OnLevelComplete?.Invoke();
+            OnLevelComplete?.Invoke(true);
         }
     }
 }

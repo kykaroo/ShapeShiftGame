@@ -40,8 +40,6 @@ namespace Presenters
             _levelGenerator.ClearLevel();
             _levelGenerator.GenerateLevel();
             _levelGenerator.LevelEndTrigger.OnLevelComplete += LevelComplete;
-            _levelGenerator.LevelEndTrigger.OnLevelFailed += LevelDefeat;
-            _levelProgressBar.SetLevelLenght(_levelGenerator.LevelStartZ, _levelGenerator.LevelEndZ);
         
             _player.SetNoneFormState();
             _player.ClearPoofParticleSystem();
@@ -52,8 +50,9 @@ namespace Presenters
             }
 
             _player.MoveToStartPosition();
-
             _enemyHandler.RestartAllBots();
+            
+            _levelProgressBar.SetLevelLenght(_levelGenerator.LevelStartZ, _levelGenerator.LevelEndZ);
 
             _formChangeUi.gameObject.SetActive(false);
             _victoryUi.gameObject.SetActive(false);
@@ -69,11 +68,18 @@ namespace Presenters
             _defeatUi.gameObject.SetActive(true);
         }
 
-        private void LevelComplete()
+        private void LevelComplete(bool playerVictory)
         {
             _player.CameraHolder.ReleaseCamera();
             _formChangeUi.gameObject.SetActive(false);
-            _victoryUi.gameObject.SetActive(true);
+            
+            if (playerVictory)
+            {
+                _victoryUi.gameObject.SetActive(true);
+                return;
+            }
+            
+            _defeatUi.gameObject.SetActive(true);
         }
     }
 }
