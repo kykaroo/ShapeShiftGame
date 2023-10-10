@@ -1,5 +1,6 @@
 ﻿using Data.PlayerGameData;
 using FormsFactories;
+using FormStateMachine;
 using FormStateMachine.Forms;
 using FormStateMachine.States;
 using Level;
@@ -8,7 +9,7 @@ using Zenject;
 
 public class Player
 {
-    private FormStateMachine.FormStateMachine _playerFormStateMachine;
+    private FormStateMachine.FormStateMachine _formStateMachine;
     private HumanForm _playerHumanForm;
     private CarForm _playerCarForm;
     private HelicopterForm _playerHelicopterForm;
@@ -56,7 +57,7 @@ public class Player
 
     public void CreatePlayerForms()
     {
-        _playerFormStateMachine = new(new()
+        _formStateMachine = new(new()
         {
             {
                 typeof(HumanFormState),
@@ -120,27 +121,27 @@ public class Player
 
     public void SetHumanFormState()
     {
-        _playerFormStateMachine.SetState<HumanFormState>();
+        _formStateMachine.SetState<HumanFormState>();
     }
     
     public void SetCarFormState()
     {
-        _playerFormStateMachine.SetState<CarFormState>();
+        _formStateMachine.SetState<CarFormState>();
     }
     
     public void SetHelicopterFormState()
     {
-        _playerFormStateMachine.SetState<HelicopterFormState>();
+        _formStateMachine.SetState<HelicopterFormState>();
     }
     
     public void SetBoatFormState()
     {
-        _playerFormStateMachine.SetState<BoatFormState>();
+        _formStateMachine.SetState<BoatFormState>();
     }
     
     public void SetNoneFormState()
     {
-        _playerFormStateMachine.SetState<NoneFormState>();
+        _formStateMachine.SetState<NoneFormState>();
     }
 
     public void ClearPoofParticleSystem()
@@ -151,5 +152,10 @@ public class Player
     public void MoveToStartPosition()
     {
         PlayerBody.position = _levelGenerator.PlayerStartPosition.position; 
+    }
+
+    public IFormState GetCurrentState()
+    {
+        return _formStateMachine.GetCurrentState();
     }
 }

@@ -21,7 +21,6 @@ namespace DependencyInjection
         [SerializeField] private LayerMask groundMask;
         [SerializeField] private LayerMask underwaterGroundMask;
         [SerializeField] private EntryPoint entryPoint;
-        [SerializeField] private WheelManager wheelManager;
         [SerializeField] private GameObjectContext playerPrefab;
         [SerializeField] private Transform playerStartTransform;
         [SerializeField] private float gravityMultiplier;

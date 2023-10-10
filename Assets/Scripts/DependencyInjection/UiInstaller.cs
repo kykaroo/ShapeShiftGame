@@ -23,7 +23,10 @@ namespace DependencyInjection
         [SerializeField] private Slider[] aiProgressIndicators;
         [SerializeField] private Transform[] aiStartPositionTransform;
         [SerializeField] private Sound[] musicSounds; 
-        [SerializeField] private Sound[] sfxSounds;
+        [SerializeField] private AudioClip[] humanSounds;
+        [SerializeField] private AudioClip[] carSounds;
+        [SerializeField] private AudioClip[] helicopterSounds;
+        [SerializeField] private AudioClip[] boatSounds;
 
         public override void InstallBindings()
         {
@@ -35,7 +38,7 @@ namespace DependencyInjection
             Container.BindInterfacesAndSelfTo<FortuneWheelUiPresenter>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<DebugUiPresenter>().AsSingle().NonLazy();
             
-            Container.BindInterfacesAndSelfTo<AudioManager>().AsSingle().WithArguments(musicSounds, sfxSounds).NonLazy();
+            Container.BindInterfacesAndSelfTo<AudioManager>().AsSingle().WithArguments(musicSounds, humanSounds, carSounds, helicopterSounds, boatSounds).NonLazy();
             Container.BindInterfacesAndSelfTo<LevelProgressBar.LevelProgressBar>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<LevelProgressBar.ProgressBarUi>().AsSingle().WithArguments(playerProgressIndicator, aiProgressIndicators).NonLazy();
             Container.BindInterfacesAndSelfTo<WheelManager>().AsSingle().NonLazy();
