@@ -16,14 +16,11 @@ namespace Presenters
             _audioManager = audioManager;
             _optionsUi = optionsUi;
             _startUi = startUi;
-            
-            _audioManager.OnNewTrackPlay += (songName) => _optionsUi.UpdateCurrentTrack(songName);
-            
+
             _optionsUi.OnMusicSliderValueChanged += ChangeMusicVolume;
             _optionsUi.OnSfxSliderValueChanged += ChangeSfxVolume;
             _optionsUi.OnMusicMuteButtonClick += ToggleMusicMute;
             _optionsUi.OnSfxMuteButtonClick += ToggleSfxMute;
-            _optionsUi.OnNextTrackButtonClicked += SetNextMusicTrack;
             _optionsUi.OnBackButtonClick += CloseOptionsWindow;
         }
         
@@ -37,11 +34,6 @@ namespace Presenters
             _audioManager.ChangeMusicVolume(newValue);
         }
 
-        private void SetNextMusicTrack()
-        {
-            _optionsUi.UpdateCurrentTrack(_audioManager.PlayAllMusic());
-        }
-        
         private void CloseOptionsWindow()
         {
             _audioManager.SaveSettings();

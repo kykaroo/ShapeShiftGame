@@ -15,8 +15,6 @@ namespace Ui
         [SerializeField] private Button backButton;
         [SerializeField] private Button musicMuteButton;
         [SerializeField] private Button sfxMuteButton;
-        [SerializeField] private Button nextTrackButton;
-        [SerializeField] private TextMeshProUGUI currentTrackText;
         [Header("Scene images")]
         [SerializeField] private Image musicSliderHandleImage;
         [SerializeField] private Image sfxSliderHandleImage;
@@ -36,15 +34,12 @@ namespace Ui
         public event Action OnBackButtonClick;
         public event Action OnMusicMuteButtonClick;
         public event Action OnSfxMuteButtonClick;
-        public event Action OnNextTrackButtonClicked;
 
         private PersistentPlayerOptionsData _persistentPlayerData;
-        private void NextTrackButtonClick() => OnNextTrackButtonClicked?.Invoke();
 
         [Inject]
         public void Initialize(PersistentPlayerOptionsData persistentPlayerOptionsData)
         {
-            nextTrackButton.onClick.AddListener(NextTrackButtonClick);
             _persistentPlayerData = persistentPlayerOptionsData;
             MusicSliderValueChanged(persistentPlayerOptionsData.MusicVolume);
             SfxSliderValueChanged(persistentPlayerOptionsData.SfxVolume);
@@ -118,11 +113,6 @@ namespace Ui
             backButton.onClick.AddListener(BackButtonClick);
             musicMuteButton.onClick.AddListener(MusicMuteButtonClick);
             sfxMuteButton.onClick.AddListener(SfxMuteButtonClick);
-        }
-        
-        public void UpdateCurrentTrack(string trackName)
-        {
-            currentTrackText.text = $"Now playing: {trackName}";
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿using FortuneWheel;
+﻿using Audio;
+using Data;
+using Data.PlayerGameData;
+using FortuneWheel;
 using Ui;
 using UnityEngine;
 using Zenject;
@@ -8,13 +11,27 @@ namespace Presenters
     public class DebugUiPresenter : ITickable
     {
         private readonly DebugUi _debugUi;
+        private readonly AudioManager _audioManager;
         private Timer _timer;
         private Wallet.Wallet _wallet;
+        private IDataProvider<PersistentPlayerGameData> _gameDataProvider;
 
         [Inject]
-        public DebugUiPresenter(DebugUi debugUi)
+        public DebugUiPresenter(DebugUi debugUi, AudioManager audioManager, IDataProvider<PersistentPlayerGameData> gameDataProvider)
         {
             _debugUi = debugUi;
+            _audioManager = audioManager;
+            _gameDataProvider = gameDataProvider;
+            
+            _audioManager.OnNewTrackPlay += (songName) => _debugUi.UpdateCurrentTrack(songName);
+            _debugUi.OnNextTrackButtonClicked += () => _debugUi.UpdateCurrentTrack(_audioManager.PlayAllMusic());
+            _debugUi.OnDeleteSaveButtonClicked += DeleteSave;
+        }
+
+        private void DeleteSave()
+        {
+            _gameDataProvider.DeleteSave();
+            _gameDataProvider.GetData();
         }
 
         public void Tick()

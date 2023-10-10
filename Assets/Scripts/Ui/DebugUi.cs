@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using FortuneWheel;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Ui
 {
@@ -23,14 +23,31 @@ namespace Ui
         [SerializeField] private Button setSpinCurrentCooldownButton;
         [SerializeField] private TMP_InputField setSpinCurrentCooldownInputField;    
         [SerializeField] private Button applyInputFieldSpinCurrentCooldownValueButton;
+        [Header("Music")]
+        [SerializeField] private Button nextTrackButton;
+        [SerializeField] private TextMeshProUGUI currentTrackText;
+        [Header("Data")] 
+        [SerializeField] private Button deleteSaveButton;
+        [SerializeField] private TextMeshProUGUI onDeleteSaveButtonClickText;
 
         public event Action<int> OnChangeMoneyButtonClick;
         public event Action<TimeSpan> OnChangeCurrentSpinCooldownButtonClick;
         public event Action<TimeSpan> OnChangeSpinCooldownButtonClick;
+        public event Action OnNextTrackButtonClicked;
+        public event Action OnDeleteSaveButtonClicked;
         
-        public void Awake()
+        private void NextTrackButtonClick() => OnNextTrackButtonClicked?.Invoke();
+        private void DeleteSaveButtonClick()
+        {
+            OnDeleteSaveButtonClicked?.Invoke();
+            onDeleteSaveButtonClickText.gameObject.SetActive(true);
+        }
+
+        [Inject]
+        public void Initialize()
         {
             setMoneyButton.onClick.AddListener(ToggleSetMoneyInputField);
+            
             setSpinCooldownButtons.onClick.AddListener(ToggleSetSpinButtons);
             setSpinCooldownButton.onClick.AddListener(ToggleSetSpinCooldownInputField);
             setSpinCurrentCooldownButton.onClick.AddListener(ToggleSetSpinCurrentCooldownInputField);
@@ -38,6 +55,10 @@ namespace Ui
             applyInputFieldMoneyValueButton.onClick.AddListener(OnApplyInputFieldMoneyValueButton);
             applyInputFieldSpinCooldownValueButton.onClick.AddListener(OnApplyInputFieldSpinCooldownValueButton);
             applyInputFieldSpinCurrentCooldownValueButton.onClick.AddListener(OnApplyInputFieldSpinCurrentCooldownValueButton);
+            
+            nextTrackButton.onClick.AddListener(NextTrackButtonClick);
+            
+            deleteSaveButton.onClick.AddListener(DeleteSaveButtonClick);
         }
 
         private void ToggleSetSpinButtons()
@@ -157,6 +178,16 @@ namespace Ui
             setSpinCurrentCooldownButton.gameObject.SetActive(false);
             setSpinCurrentCooldownInputField.gameObject.SetActive(false);
             applyInputFieldSpinCurrentCooldownValueButton.gameObject.SetActive(false);
+            currentTrackText.gameObject.SetActive(true);
+            nextTrackButton.gameObject.SetActive(true);
+            onDeleteSaveButtonClickText.gameObject.SetActive(false);
+            setSpinCooldownButtons.gameObject.SetActive(true);
+            setMoneyButton.gameObject.SetActive(true);
+        }
+        
+        public void UpdateCurrentTrack(string trackName)
+        {
+            currentTrackText.text = $"Now playing: {trackName}";
         }
     }
 }
