@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Player;
+using UnityEngine;
 using Zenject;
 
 namespace DependencyInjection
@@ -14,7 +15,7 @@ namespace DependencyInjection
 
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<Player>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<Player.Player>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<CameraHolder>().AsSingle().WithArguments(cameraHolderGo, playerTransform, playerCamera, cameraGamePosition).NonLazy();
             
             Container.BindInterfacesAndSelfTo<Rigidbody>().FromInstance(playerBody).AsSingle();

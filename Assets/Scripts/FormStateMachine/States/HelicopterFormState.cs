@@ -1,4 +1,5 @@
 ﻿using FormStateMachine.Forms;
+using Level;
 using UnityEngine;
 
 namespace FormStateMachine.States
@@ -7,7 +8,7 @@ namespace FormStateMachine.States
     {
         private readonly HelicopterForm _helicopterForm;
         private readonly Rigidbody _playerBody;
-        private ParticleSystem _poofParticleSystem;
+        private readonly ParticleSystem _poofParticleSystem;
 
         public HelicopterFormState(HelicopterForm helicopterForm, Ground ground,
             Rigidbody playerBody, ParticleSystem poofParticleSystem)
@@ -23,7 +24,7 @@ namespace FormStateMachine.States
 
         protected override void OnEnter()
         {
-            _playerBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX;
+            _playerBody.constraints = (RigidbodyConstraints)114;
             _playerBody.rotation = Quaternion.identity;
             _poofParticleSystem.Play();
             _helicopterForm.gameObject.SetActive(true);

@@ -1,7 +1,7 @@
 ﻿using PrefabInfo;
 using UnityEngine;
 
-namespace ScriptableObjects
+namespace Level
 {
     [CreateAssetMenu(menuName = "Level/LevelTiles", fileName = "Level Tiles Config", order = 0)]
     public class LevelConfig : ScriptableObject

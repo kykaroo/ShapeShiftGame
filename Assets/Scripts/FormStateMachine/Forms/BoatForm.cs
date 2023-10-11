@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Level;
+using UnityEngine;
 
 namespace FormStateMachine.Forms
 {
@@ -47,8 +48,9 @@ namespace FormStateMachine.Forms
         private void BoatFormMovement()
         {
             _maxSpeed = baseSpeed;
-            var moveDirection = Ground.GetMoveDirection(transform.position + Vector3.forward * 
-                (transform.localScale.z * 0.55f));
+            var formTransform = transform;
+            var moveDirection = Ground.GetMoveDirection(formTransform.position + Vector3.forward * 
+                (formTransform.localScale.z * 0.55f));
             
             if (Ground.VerticalObstacleCheck(_collider.bounds, transform.forward, Ground.GroundMask))
             {

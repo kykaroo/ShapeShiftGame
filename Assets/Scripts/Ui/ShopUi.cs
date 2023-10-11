@@ -36,8 +36,8 @@ namespace Ui
         private OpenSkinsChecker _openSkinsChecker;
         private SelectedSkinChecker _selectedSkinChecker;
 
-        private IDataProvider<PersistentPlayerGameData> _gameDataProvider;
-        private PersistentPlayerGameData _persistentPlayerGameData;
+        private IDataProvider<PersistentGameData> _gameDataProvider;
+        private PersistentGameData _persistentGameData;
         private Wallet _wallet;
         private ShopItemView _previewedItem;
         private Dictionary<IFormState, bool> _skinChanges;
@@ -52,13 +52,13 @@ namespace Ui
         private void BackButtonClick() => OnBackButtonClick?.Invoke();
         
         [Inject]
-        public void Initialize(IDataProvider<PersistentPlayerGameData> gameDataProvider, Wallet wallet, PersistentPlayerGameData persistentPlayerGameData)
+        public void Initialize(IDataProvider<PersistentGameData> gameDataProvider, Wallet wallet, PersistentGameData persistentGameData)
         {
             _wallet = wallet;
             _gameDataProvider = gameDataProvider;
-            _persistentPlayerGameData = persistentPlayerGameData;
+            _persistentGameData = persistentGameData;
             walletView.Initialize(_wallet);
-            InitializeCheckers(_persistentPlayerGameData);
+            InitializeCheckers(_persistentGameData);
 
             shopPanel.Initialize(_openSkinsChecker, _selectedSkinChecker);
             shopPanel.ItemViewClicked += OnItemViewClicked;
@@ -79,12 +79,12 @@ namespace Ui
             OnHumanFormSkinsButtonClick();
         }
 
-        private void InitializeCheckers(PersistentPlayerGameData persistentPlayerGameData)
+        private void InitializeCheckers(PersistentGameData persistentGameData)
         {
-            _openSkinsChecker = new(persistentPlayerGameData);
-            _selectedSkinChecker = new(persistentPlayerGameData);
-            _skinSelector = new(persistentPlayerGameData);
-            _skinUnlocker = new(persistentPlayerGameData);
+            _openSkinsChecker = new(persistentGameData);
+            _selectedSkinChecker = new(persistentGameData);
+            _skinSelector = new(persistentGameData);
+            _skinUnlocker = new(persistentGameData);
         }
 
         private void SaveData(int obj)
@@ -221,7 +221,7 @@ namespace Ui
             _gameDataProvider.DeleteSave();
             _gameDataProvider.GetData();
             _wallet.UpdateCoinsView();
-            InitializeCheckers(_persistentPlayerGameData);
+            InitializeCheckers(_persistentGameData);
         }
 
         private void HideSelectionButton() => selectionButton.gameObject.SetActive(false);

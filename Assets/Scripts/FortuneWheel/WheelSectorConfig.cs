@@ -1,10 +1,9 @@
-﻿using FortuneWheel;
-using Shop;
+﻿using Shop;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ScriptableObjects
+namespace FortuneWheel
 {
     [CreateAssetMenu(menuName = "FortuneWheel/WheelSector", fileName = "Wheel Sector", order = 0)]
     public class WheelSectorConfig : ScriptableObject

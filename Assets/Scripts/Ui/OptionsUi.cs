@@ -1,7 +1,5 @@
 ﻿using System;
-using Data;
 using Data.PlayerOptionsData;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -35,14 +33,14 @@ namespace Ui
         public event Action OnMusicMuteButtonClick;
         public event Action OnSfxMuteButtonClick;
 
-        private PersistentPlayerOptionsData _persistentPlayerData;
+        private PlayerOptionsData _playerData;
 
         [Inject]
-        public void Initialize(PersistentPlayerOptionsData persistentPlayerOptionsData)
+        public void Initialize(PlayerOptionsData playerOptionsData)
         {
-            _persistentPlayerData = persistentPlayerOptionsData;
-            MusicSliderValueChanged(persistentPlayerOptionsData.MusicVolume);
-            SfxSliderValueChanged(persistentPlayerOptionsData.SfxVolume);
+            _playerData = playerOptionsData;
+            MusicSliderValueChanged(playerOptionsData.MusicVolume);
+            SfxSliderValueChanged(playerOptionsData.SfxVolume);
             UpdateMusicMuteIcon();
             UpdateSfxMuteIcon();
         }
@@ -81,7 +79,7 @@ namespace Ui
 
         public void UpdateMusicMuteIcon()
         {
-            if (_persistentPlayerData.MuteMusic)
+            if (_playerData.MuteMusic)
             {
                 musicMuteButtonImage.sprite = musicMuteOffSprite;
                 return;
@@ -97,7 +95,7 @@ namespace Ui
 
         public void UpdateSfxMuteIcon()
         {
-            if (_persistentPlayerData.MuteSfx)
+            if (_playerData.MuteSfx)
             {
                 sfxMuteButtonImage.sprite = sfxMuteOffSprite;
                 return;

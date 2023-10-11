@@ -26,14 +26,17 @@ namespace Shop.ShopModelView
 
         private void Update()
         {
-            if (Input.mouseScrollDelta.y > 0 && modelViewCamera.orthographicSize < maxCameraSize)
+            var orthographicSize = modelViewCamera.orthographicSize;
+            switch (Input.mouseScrollDelta.y)
             {
-                modelViewCamera.orthographicSize += scrollAmount;
-            }
-
-            if (Input.mouseScrollDelta.y < 0 && modelViewCamera.orthographicSize > minCameraSize)
-            {
-                modelViewCamera.orthographicSize -= scrollAmount;
+                case > 0 when orthographicSize < maxCameraSize:
+                    orthographicSize += scrollAmount;
+                    modelViewCamera.orthographicSize = orthographicSize;
+                    break;
+                case < 0 when orthographicSize > minCameraSize:
+                    orthographicSize -= scrollAmount;
+                    modelViewCamera.orthographicSize = orthographicSize;
+                    break;
             }
         }
     }

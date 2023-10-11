@@ -1,4 +1,5 @@
 ﻿using FormStateMachine.Forms;
+using Level;
 using UnityEngine;
 
 namespace FormStateMachine.States
@@ -7,7 +8,7 @@ namespace FormStateMachine.States
     {
         private readonly BoatForm _boatForm;
         private readonly Rigidbody _playerBody;
-        private ParticleSystem _poofParticleSystem;
+        private readonly ParticleSystem _poofParticleSystem;
 
         public BoatFormState(BoatForm boatForm, Ground ground, Rigidbody playerBody,
             ParticleSystem poofParticleSystem)
@@ -23,8 +24,7 @@ namespace FormStateMachine.States
 
         protected override void OnEnter()
         {
-            _playerBody.constraints = RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ 
-                                                                           | RigidbodyConstraints.FreezePositionX;
+            _playerBody.constraints = (RigidbodyConstraints)98;
             _playerBody.rotation = Quaternion.identity;
             _poofParticleSystem.Play();
             _boatForm.gameObject.SetActive(true);

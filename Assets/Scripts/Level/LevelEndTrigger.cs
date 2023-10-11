@@ -1,4 +1,5 @@
 using System;
+using Ai;
 using UnityEngine;
 
 namespace Level
@@ -14,7 +15,7 @@ namespace Level
 
             _isLevelComplete = true;
                 
-            if (other.transform.root.TryGetComponent<EnemyAi>(out var enemyAi))
+            if (other.transform.root.TryGetComponent<EnemyAi>(out _))
             {
                 OnLevelComplete?.Invoke(false);
                 return;

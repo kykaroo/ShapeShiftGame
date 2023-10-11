@@ -1,4 +1,4 @@
-﻿using Audio;
+﻿using Ai;
 using FormStateMachine.States;
 using Ui;
 using Zenject;
@@ -13,7 +13,7 @@ namespace Presenters
         private readonly ShopUi _shopUi;
         private readonly VictoryUi _victoryUi;
         private readonly FormChangeUi _formChangeUi;
-        private readonly Player _player;
+        private readonly Player.Player _player;
         private readonly EnemyHandler _enemyHandler;
         private readonly AiDifficulty[] _aiDifficulties;
         private readonly EnemyAi[] _enemyAis;
@@ -21,7 +21,7 @@ namespace Presenters
 
         [Inject]
         public StartUiPresenter(StartUi startUi, OptionsUi optionsUi, FortuneWheelUi fortuneWheelUi, ShopUi shopUi,
-            VictoryUi victoryUi, FormChangeUi formChangeUi, Player player, EnemyHandler enemyHandler, 
+            VictoryUi victoryUi, FormChangeUi formChangeUi, Player.Player player, EnemyHandler enemyHandler, 
             AiDifficulty[] aiDifficulties, EnemyAi[] enemyAis, DefeatUi defeatUi)
         {
             _startUi = startUi;

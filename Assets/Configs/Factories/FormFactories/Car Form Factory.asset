@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31a415b5a1ab4bd4b30bdcdaa54a8cc0, type: 3}
   m_Name: Car Form Factory
   m_EditorClassIdentifier: 
-  Blue: {fileID: 5297877653816162257, guid: cc6a9e70331392541bc094efaeeba1f6, type: 3}
-  Green: {fileID: 5968057522946417897, guid: 585516c9c4cc3864abedfa5f1e901786, type: 3}
-  GreenTruck: {fileID: 1944356541456001620, guid: ab45ef8d011565f4786a30c9413e094f, type: 3}
-  Police: {fileID: 5759413474520025256, guid: 621041ca310dcd84d8ff5715d0b248fa, type: 3}
-  Purple: {fileID: 2606330280443188524, guid: 7c3993f2c2a837041b0e18f6e6241390, type: 3}
-  Silver: {fileID: 8902787954586501448, guid: 8da1dccdfec8ffd498673bb89149e686, type: 3}
+  blue: {fileID: 5297877653816162257, guid: cc6a9e70331392541bc094efaeeba1f6, type: 3}
+  green: {fileID: 5968057522946417897, guid: 585516c9c4cc3864abedfa5f1e901786, type: 3}
+  greenTruck: {fileID: 1944356541456001620, guid: ab45ef8d011565f4786a30c9413e094f, type: 3}
+  police: {fileID: 5759413474520025256, guid: 621041ca310dcd84d8ff5715d0b248fa, type: 3}
+  purple: {fileID: 2606330280443188524, guid: 7c3993f2c2a837041b0e18f6e6241390, type: 3}
+  silver: {fileID: 8902787954586501448, guid: 8da1dccdfec8ffd498673bb89149e686, type: 3}
   sportWhite: {fileID: 6690160063586351658, guid: 5d0692bf9ec356b4793806e23d6e946b, type: 3}
   sportRed: {fileID: 9089819705463670732, guid: 0deacdf80cc895c4898ec2ebd406069e, type: 3}
   sportBlue: {fileID: 253483568281711546, guid: c44c8dcd945e8d44ab6a99acfb31b2ac, type: 3}
-  Yellow: {fileID: 8400399097001185401, guid: c60ff3fdd267a36419f14d1a2093c580, type: 3}
+  yellow: {fileID: 8400399097001185401, guid: c60ff3fdd267a36419f14d1a2093c580, type: 3}

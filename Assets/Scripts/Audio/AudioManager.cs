@@ -23,11 +23,11 @@ namespace Audio
         private List<Sound> _musicPlaylist;
         private AudioClip _previousMusicClip;
         private Sound _musicToPlay;
-        private readonly IDataProvider<PersistentPlayerOptionsData> _dataProvider;
-        private readonly PersistentPlayerOptionsData _persistentPlayerData;
+        private readonly IDataProvider<PlayerOptionsData> _dataProvider;
+        private readonly PlayerOptionsData _playerData;
         private IObjectPool<AudioSource> _audioSourcesPool;
         private Transform _audioSourceParent;
-        private readonly Player _player;
+        private readonly Player.Player _player;
         private IFormState _currentPlayerForm;
 
         private const float Interval = 1;
@@ -36,21 +36,22 @@ namespace Audio
         public event Action<string> OnNewTrackPlay;
 
         [Inject]
-        public AudioManager(PersistentPlayerOptionsData persistentPlayerData, IDataProvider<PersistentPlayerOptionsData> dataProvider, 
-            Sound[] musicSounds, AudioClip[] humanSounds, AudioClip[] helicopterSounds, AudioClip[] carSounds, AudioClip[] boatSounds, Player player)
+        public AudioManager(PlayerOptionsData playerData,
+            IDataProvider<PlayerOptionsData> dataProvider, Sound[] musicSounds, AudioClip[] humanSounds,
+            AudioClip[] helicopterSounds, AudioClip[] carSounds, AudioClip[] boatSounds, Player.Player player)
         {
             _dataProvider = dataProvider;
-            _persistentPlayerData = persistentPlayerData;
+            _playerData = playerData;
             _player = player;
 
             _musicSource = new GameObject("musicSource", typeof(AudioSource)).GetComponent<AudioSource>();
             _musicSounds = musicSounds;
-            _musicSource.volume = _persistentPlayerData.MusicVolume / 2;
-            _musicSource.mute = _persistentPlayerData.MuteMusic;
+            _musicSource.volume = _playerData.MusicVolume / 2;
+            _musicSource.mute = _playerData.MuteMusic;
 
             _sfxSource = new GameObject("sfxSource", typeof(AudioSource)).GetComponent<AudioSource>();
-            _sfxSource.volume = _persistentPlayerData.SfxVolume / 2;
-            _sfxSource.mute = _persistentPlayerData.MuteSfx;
+            _sfxSource.volume = _playerData.SfxVolume / 2;
+            _sfxSource.mute = _playerData.MuteSfx;
             
             _humanSounds = humanSounds;
             _carSounds = carSounds;
@@ -111,40 +112,40 @@ namespace Audio
 
         public void ChangeMusicVolume(float newValue)
         {
-            _persistentPlayerData.MusicVolume = newValue;
+            _playerData.MusicVolume = newValue;
             _musicSource.volume = newValue / 2;
         }
 
         public void ChangeSfxVolume(float newValue)
         {
-            _persistentPlayerData.SfxVolume = newValue;
+            _playerData.SfxVolume = newValue;
             _sfxSource.volume = newValue / 2;
         }
 
         public void ToggleMusic()
         {
-            if (_persistentPlayerData.MuteMusic)
+            if (_playerData.MuteMusic)
             {
                 _musicSource.mute = false;
-                _persistentPlayerData.MuteMusic = false;
+                _playerData.MuteMusic = false;
                 return;
             }
 
             _musicSource.mute = true;
-            _persistentPlayerData.MuteMusic = true;
+            _playerData.MuteMusic = true;
         }
 
         public void ToggleSfx()
         {
-            if (_persistentPlayerData.MuteSfx)
+            if (_playerData.MuteSfx)
             {
                 _sfxSource.mute = false;
-                _persistentPlayerData.MuteSfx = false;
+                _playerData.MuteSfx = false;
                 return;
             }
 
             _sfxSource.mute = true;
-            _persistentPlayerData.MuteSfx = true;
+            _playerData.MuteSfx = true;
         }
 
         public void SaveSettings()

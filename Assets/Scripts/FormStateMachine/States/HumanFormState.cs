@@ -1,4 +1,5 @@
 ﻿using FormStateMachine.Forms;
+using Level;
 using UnityEngine;
 
 namespace FormStateMachine.States
@@ -6,8 +7,8 @@ namespace FormStateMachine.States
     public class HumanFormState : FormStateBase
     {
         private readonly HumanForm _humanForm;
-        private Rigidbody _playerBody;
-        private ParticleSystem _poofParticleSystem;
+        private readonly Rigidbody _playerBody;
+        private readonly ParticleSystem _poofParticleSystem;
 
         public HumanFormState(HumanForm humanForm, Ground ground, Rigidbody playerBody,
             ParticleSystem poofParticleSystem)
@@ -23,7 +24,7 @@ namespace FormStateMachine.States
 
         protected override void OnEnter()
         {
-            _playerBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX;
+            _playerBody.constraints = (RigidbodyConstraints)114;
             _playerBody.rotation = Quaternion.identity;
             _poofParticleSystem.Play();
             _humanForm.gameObject.SetActive(true);

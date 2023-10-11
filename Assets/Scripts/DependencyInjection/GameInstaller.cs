@@ -1,10 +1,7 @@
 ﻿using Data;
 using Data.PlayerGameData;
 using Data.PlayerOptionsData;
-using FortuneWheel;
 using Level;
-using Presenters;
-using ScriptableObjects;
 using Shop;
 using UnityEngine;
 using Zenject;
@@ -43,12 +40,12 @@ namespace DependencyInjection
             Container.BindInterfacesAndSelfTo<Transform>().FromInstance(playerStartTransform).AsSingle();
             Container.BindInterfacesAndSelfTo<float>().FromInstance(gravityMultiplier).AsSingle();
 
-            Container.Bind<Player>().FromSubContainerResolve().ByNewContextPrefab(playerPrefab).AsSingle().NonLazy();
+            Container.Bind<Player.Player>().FromSubContainerResolve().ByNewContextPrefab(playerPrefab).AsSingle().NonLazy();
             
-            Container.BindInterfacesAndSelfTo<PersistentPlayerGameData>()
-                .FromMethod(context => context.Container.Resolve<IDataProvider<PersistentPlayerGameData>>().GetData());
-            Container.BindInterfacesAndSelfTo<PersistentPlayerOptionsData>()
-                .FromMethod(context => context.Container.Resolve<IDataProvider<PersistentPlayerOptionsData>>().GetData());
+            Container.BindInterfacesAndSelfTo<PersistentGameData>()
+                .FromMethod(context => context.Container.Resolve<IDataProvider<PersistentGameData>>().GetData());
+            Container.BindInterfacesAndSelfTo<PlayerOptionsData>()
+                .FromMethod(context => context.Container.Resolve<IDataProvider<PlayerOptionsData>>().GetData());
         }
     }
 }

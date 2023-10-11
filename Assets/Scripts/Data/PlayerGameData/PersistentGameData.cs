@@ -8,7 +8,7 @@ using Shop.HumanFormSkins;
 
 namespace Data.PlayerGameData
 {
-    public class PersistentPlayerGameData
+    public class PersistentGameData
     {
         private HumanFormSkins _selectedHumanFormSkin;
         private CarFormSkins _selectedCarFormSkin;
@@ -24,7 +24,7 @@ namespace Data.PlayerGameData
         
         public DateTime? LastClaimTime { get; set; }
 
-        public PersistentPlayerGameData()
+        public PersistentGameData()
         {
             _money = 0;
             _selectedHumanFormSkin = HumanFormSkins.White;
@@ -39,7 +39,7 @@ namespace Data.PlayerGameData
         }
 
         [JsonConstructor]
-        public PersistentPlayerGameData(int money, HumanFormSkins selectedHumanFormSkin, CarFormSkins selectedCarFormSkin,
+        public PersistentGameData(int money, HumanFormSkins selectedHumanFormSkin, CarFormSkins selectedCarFormSkin,
             HelicopterFormSkins selectedHelicopterFormSkin, BoatFormSkins selectedBoatFormSkin,
             List<HumanFormSkins> openHumanFormSkins, List<CarFormSkins> openCarFormSkins,
             List<HelicopterFormSkins> openHelicopterFormSkins, List<BoatFormSkins> openBoatFormSkins)

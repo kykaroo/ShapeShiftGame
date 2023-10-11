@@ -2,7 +2,6 @@
 using System.Linq;
 using Data;
 using Data.PlayerGameData;
-using ScriptableObjects;
 using Ui;
 using UnityEngine;
 using Wallet;
@@ -21,10 +20,10 @@ namespace FortuneWheel
         private readonly Wallet.Wallet _wallet;
         private WheelSectorConfig _finalSectorConfig;
         private float _finalAngle;
-        private int[] _wheelSectorsAngles;
+        private readonly int[] _wheelSectorsAngles;
         private float _currentLerpRotationTime;
         private float _startAngle;
-        private readonly IDataProvider<PersistentPlayerGameData> _gameDataProvider;
+        private readonly IDataProvider<PersistentGameData> _gameDataProvider;
         private readonly ShopUi _shopUi;
         private bool _isFreeSpin;
         private readonly FortuneWheelUi _fortuneWheelUi;
@@ -32,7 +31,7 @@ namespace FortuneWheel
         private const float MaxLerpRotationTime = 4f;
 
         [Inject]
-        public WheelManager(IDataProvider<PersistentPlayerGameData> gameDataProvider, Wallet.Wallet wallet, ShopUi shopUi, FortuneWheelUi fortuneWheelUi)
+        public WheelManager(IDataProvider<PersistentGameData> gameDataProvider, Wallet.Wallet wallet, ShopUi shopUi, FortuneWheelUi fortuneWheelUi)
         {
             _gameDataProvider = gameDataProvider;
             _wallet = wallet;

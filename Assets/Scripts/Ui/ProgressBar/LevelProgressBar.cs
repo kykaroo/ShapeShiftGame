@@ -1,20 +1,21 @@
-﻿using UnityEngine.UI;
+﻿using Ai;
+using UnityEngine.UI;
 using Zenject;
 
-namespace LevelProgressBar
+namespace Ui.ProgressBar
 {
     public class LevelProgressBar : ITickable
     {
         private readonly ProgressBarUi _progressBarUi;
-        private Player _player;
-        private EnemyHandler _enemyHandler;
+        private readonly Player.Player _player;
+        private readonly EnemyHandler _enemyHandler;
         private float _levelEndZ;
         private float _levelStartZ;
         private float _levelRemainDistance;
         private float _levelLenght;
 
         [Inject]
-        public LevelProgressBar(ProgressBarUi progressBarUi, Player player, EnemyHandler enemyHandler)
+        public LevelProgressBar(ProgressBarUi progressBarUi, Player.Player player, EnemyHandler enemyHandler)
         {
             _progressBarUi = progressBarUi;
             _player = player;
@@ -23,7 +24,6 @@ namespace LevelProgressBar
         public void SetLevelLenght(float levelStartZ, float levelEndZ)
         {
             var position = _player.PlayerBody.position;
-            // var position = _playerTransform.position;
             _levelRemainDistance = levelEndZ - position.z;
             _levelEndZ = levelEndZ;
             _levelStartZ = levelStartZ;
@@ -34,8 +34,8 @@ namespace LevelProgressBar
        {
            return _levelRemainDistance - playerZ - _levelStartZ;
        }
-       
-       static void SetProgress(Slider indicator ,float progress)
+
+       private static void SetProgress(Slider indicator ,float progress)
        {
            indicator.value = progress;
        }

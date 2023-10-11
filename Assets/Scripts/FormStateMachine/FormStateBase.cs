@@ -2,11 +2,8 @@
 {
     public class FormStateBase : IFormState
     {
-        protected FormStateMachine StateMachine;
-        
-        public void Enter(FormStateMachine formStateMachine)
+       public void Enter()
         {
-            StateMachine = formStateMachine;
             OnEnter();
         }
 

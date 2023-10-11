@@ -12,7 +12,7 @@ namespace Shop
         private OpenSkinsChecker _openSkinsChecker;
         private SelectedSkinChecker _selectedSkinChecker;
         
-        private List<ShopItemView> _shopItems = new();
+        private readonly List<ShopItemView> _shopItems = new();
 
         public event Action<ShopItemView> ItemViewClicked;
 

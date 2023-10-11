@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using Ai;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,8 +21,6 @@ namespace Ui
         public event Action OnOptionsButtonClicked;
         public event Action OnFortuneWheelButtonClick;
 
-        public TMP_Dropdown AIDifficultyDropdown => aiDifficultyDropdown;
-        
         private void FortuneWheelButtonClick() => OnFortuneWheelButtonClick?.Invoke();
 
         private void StartButtonClick() => OnStartButtonClick?.Invoke();

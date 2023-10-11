@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Level;
+using UnityEngine;
 
 namespace FormStateMachine.Forms
 {
@@ -47,10 +48,11 @@ namespace FormStateMachine.Forms
         private void HumanFormMovement()
         {
             _maxSpeed = baseSpeed;
-            var transformPosition = transform.position;
-            var transformRotation = transform.rotation;
+            var formTransform = transform;
+            var transformPosition = formTransform.position;
+            var transformRotation = formTransform.rotation;
             var moveDirection = Ground.GetMoveDirection(transformPosition + Vector3.forward * 
-                (transform.localScale.z * 0.55f));
+                (formTransform.localScale.z * 0.55f));
             
             if (Ground.SurfaceCollision(_collider.bounds, transformRotation, Ground.WaterMask))
             {

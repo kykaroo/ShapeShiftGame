@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ScriptableObjects
+namespace FortuneWheel
 {
     [CreateAssetMenu(menuName = "FortuneWheel/SpinCooldown", fileName = "Spin Cooldown", order = 1)]
     public class SpinCooldownConfig : ScriptableObject

@@ -16,10 +16,5 @@ namespace FormStateMachine.States
             _playerBody.velocity = Vector3.zero;
             _playerBody.transform.rotation = Quaternion.identity;
         }
-
-        protected override void OnExit()
-        {
-            
-        }
     }
 }

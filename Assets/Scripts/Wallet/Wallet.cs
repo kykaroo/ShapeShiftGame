@@ -8,10 +8,10 @@ namespace Wallet
     {
         public event Action<int> CoinsChanged;
 
-        private readonly PersistentPlayerGameData _persistentPlayerGameData;
+        private readonly PersistentGameData _persistentGameData;
         
         [Inject]
-        public Wallet(PersistentPlayerGameData persistentPlayerGameData) => _persistentPlayerGameData = persistentPlayerGameData;
+        public Wallet(PersistentGameData persistentGameData) => _persistentGameData = persistentGameData;
 
         public void AddCoins(int coins)
         {
@@ -20,11 +20,11 @@ namespace Wallet
                 throw new ArgumentException(nameof(coins));
             }
 
-            _persistentPlayerGameData.Money += coins;
-            CoinsChanged?.Invoke(_persistentPlayerGameData.Money);
+            _persistentGameData.Money += coins;
+            CoinsChanged?.Invoke(_persistentGameData.Money);
         }
 
-        public int GetCurrentCoins() => _persistentPlayerGameData.Money;
+        public int GetCurrentCoins() => _persistentGameData.Money;
 
         public bool IsEnough(int coins)
         {
@@ -33,7 +33,7 @@ namespace Wallet
                 throw new ArgumentException(nameof(coins));
             }
 
-            return _persistentPlayerGameData.Money >= coins;
+            return _persistentGameData.Money >= coins;
         }
 
         public void Spend(int coins)
@@ -43,19 +43,19 @@ namespace Wallet
                 throw new ArgumentException(nameof(coins));
             }
 
-            _persistentPlayerGameData.Money -= coins;
-            CoinsChanged?.Invoke(_persistentPlayerGameData.Money);
+            _persistentGameData.Money -= coins;
+            CoinsChanged?.Invoke(_persistentGameData.Money);
         }
 
         public void SetValue(int coins)
         {
-            _persistentPlayerGameData.Money = coins;
-            CoinsChanged?.Invoke(_persistentPlayerGameData.Money);
+            _persistentGameData.Money = coins;
+            CoinsChanged?.Invoke(_persistentGameData.Money);
         }
 
         public void UpdateCoinsView()
         {
-            CoinsChanged?.Invoke(_persistentPlayerGameData.Money);
+            CoinsChanged?.Invoke(_persistentGameData.Money);
         }
     }
 }

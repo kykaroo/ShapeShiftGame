@@ -3,12 +3,12 @@ using Newtonsoft.Json;
 
 namespace Data.PlayerOptionsData
 {
-    public class PersistentPlayerOptionsData
+    public class PlayerOptionsData
     {
         private float _musicVolume;
         private float _sfxVolume;
 
-        public PersistentPlayerOptionsData()
+        public PlayerOptionsData()
         {
             _musicVolume = 0.5f;
             _sfxVolume = 0.5f;
@@ -17,7 +17,7 @@ namespace Data.PlayerOptionsData
         }
         
         [JsonConstructor]
-        public PersistentPlayerOptionsData(float musicVolume, float sfxVolume, bool isMusicMute, bool isSfxMute)
+        public PlayerOptionsData(float musicVolume, float sfxVolume, bool isMusicMute, bool isSfxMute)
         {
             _musicVolume = musicVolume;
             _sfxVolume = sfxVolume;

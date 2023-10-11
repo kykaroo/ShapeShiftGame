@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using PrefabInfo;
-using ScriptableObjects;
 using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
@@ -12,10 +11,6 @@ namespace Level
         private readonly Transform _player;
         private readonly LevelConfig _levelConfig;
         private readonly Ground _ground;
-        private float _levelStartZ;
-        private float _levelEndZ;
-        private Transform _playerStartPosition;
-        private Transform[] _aiStartPositions;
 
         private LinkedList<TileInfo> TileList => _ground.TileInfoList;
     
@@ -23,13 +18,13 @@ namespace Level
 
         public LevelEndTrigger LevelEndTrigger;
 
-        public float LevelStartZ => _levelStartZ;
+        public float LevelStartZ { get; private set; }
 
-        public float LevelEndZ => _levelEndZ;
+        public float LevelEndZ { get; private set; }
 
-        public Transform PlayerStartPosition => _playerStartPosition;
+        public Transform PlayerStartPosition { get; private set; }
 
-        public Transform[] AIStartPositions => _aiStartPositions;
+        public Transform[] AIStartPositions { get; private set; }
 
         [Inject]
         public LevelGenerator(LevelConfig levelConfig, Ground ground)
@@ -41,8 +36,8 @@ namespace Level
         public void GenerateLevel()
         {
             TileList.AddFirst(Object.Instantiate(_levelConfig.StartTile, Vector3.zero, Quaternion.identity));
-            _playerStartPosition = TileList.First.Value.PlayerStartPosition;
-            _aiStartPositions = TileList.First.Value.AIStartPositions;
+            PlayerStartPosition = TileList.First.Value.PlayerStartPosition;
+            AIStartPositions = TileList.First.Value.AIStartPositions;
             BackgroundList.AddFirst(Object.Instantiate(
                 _levelConfig.BackgroundTileList[Random.Range(0, _levelConfig.BackgroundTileList.Length)],
                 _levelConfig.BackgroundStartPosition, Quaternion.identity));
@@ -65,8 +60,8 @@ namespace Level
 
         private void GetLevelInfo()
         {
-            _levelEndZ = TileList.Last.Value.FinishTileLevelEndTrigger.transform.position.z;
-            _levelStartZ = 0;
+            LevelEndZ = TileList.Last.Value.FinishTileLevelEndTrigger.transform.position.z;
+            LevelStartZ = 0;
         }
 
         private void GenerateFinishTile()

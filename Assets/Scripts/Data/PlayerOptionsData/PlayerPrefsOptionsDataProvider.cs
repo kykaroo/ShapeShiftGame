@@ -3,38 +3,38 @@ using UnityEngine;
 
 namespace Data.PlayerOptionsData
 {
-    public class PlayerPrefsOptionsDataProvider :  IDataProvider<PersistentPlayerOptionsData>
+    public class PlayerPrefsOptionsDataProvider :  IDataProvider<PlayerOptionsData>
     {
         private const string FileName = "PlayerOptionsSave";
 
-        private PersistentPlayerOptionsData _persistentPlayerOptionsData;
+        private PlayerOptionsData _playerOptionsData;
 
         public void Save()
         {
-            PlayerPrefs.SetString(FileName, JsonConvert.SerializeObject(_persistentPlayerOptionsData, Formatting.Indented, new JsonSerializerSettings
+            PlayerPrefs.SetString(FileName, JsonConvert.SerializeObject(_playerOptionsData, Formatting.Indented, new JsonSerializerSettings
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             }));
         }
 
-        public PersistentPlayerOptionsData GetData()
+        public PlayerOptionsData GetData()
         {
-            if (_persistentPlayerOptionsData != null)
+            if (_playerOptionsData != null)
             {
-                return _persistentPlayerOptionsData;
+                return _playerOptionsData;
             }
             
             if (IsDataAlreadyExists() == false)
             {
-                _persistentPlayerOptionsData = new();
-                return _persistentPlayerOptionsData;
+                _playerOptionsData = new();
+                return _playerOptionsData;
             }
             
-            _persistentPlayerOptionsData = JsonConvert.DeserializeObject<PersistentPlayerOptionsData>(PlayerPrefs.GetString(FileName));
-            return _persistentPlayerOptionsData;
+            _playerOptionsData = JsonConvert.DeserializeObject<PlayerOptionsData>(PlayerPrefs.GetString(FileName));
+            return _playerOptionsData;
         }
 
-        private bool IsDataAlreadyExists() => PlayerPrefs.HasKey(FileName);
+        private static bool IsDataAlreadyExists() => PlayerPrefs.HasKey(FileName);
 
         public void DeleteSave()
         {

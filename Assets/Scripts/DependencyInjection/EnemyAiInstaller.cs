@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Ai;
+using UnityEngine;
 using Zenject;
 
 namespace DependencyInjection
@@ -16,11 +17,11 @@ namespace DependencyInjection
         {
             Container.BindInterfacesAndSelfTo<EnemyHandler>().AsSingle().WithArguments(aiTransforms).NonLazy();
 
+            Container.BindInterfacesAndSelfTo<AiDifficulty[]>().FromInstance(aiDifficulties).AsSingle();
             Container.BindInterfacesAndSelfTo<int>().FromInstance(aiNumber).AsSingle();
             Container.BindInterfacesAndSelfTo<EnemyAi[]>().FromInstance(enemyAis).AsSingle();
             Container.BindInterfacesAndSelfTo<ParticleSystem[]>().FromInstance(aiPoofParticleSystems).AsSingle();
             Container.BindInterfacesAndSelfTo<Rigidbody[]>().FromInstance(aiBodies).AsSingle();
-            Container.BindInterfacesAndSelfTo<AiDifficulty[]>().FromInstance(aiDifficulties).AsSingle();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using FormStateMachine.States;
+﻿using Ai;
+using FormStateMachine.States;
 using Level;
 using Ui;
 using Zenject;
@@ -9,16 +10,16 @@ namespace Presenters
     {
         private readonly VictoryUi _victoryUi;
         private readonly LevelGenerator _levelGenerator;
-        private readonly LevelProgressBar.LevelProgressBar _levelProgressBar;
+        private readonly Ui.ProgressBar.LevelProgressBar _levelProgressBar;
         private readonly FormChangeUi _formChangeUi;
         private readonly StartUi _startUi;
-        private readonly Player _player;
+        private readonly Player.Player _player;
         private readonly EnemyHandler _enemyHandler;
         private readonly DefeatUi _defeatUi;
 
         [Inject]
         public VictoryUiPresenter(VictoryUi victoryUi, LevelGenerator levelGenerator,
-            LevelProgressBar.LevelProgressBar levelProgressBar, Player player,
+            Ui.ProgressBar.LevelProgressBar levelProgressBar, Player.Player player,
             EnemyHandler enemyHandler, FormChangeUi formChangeUi, StartUi startUi, DefeatUi defeatUi)
         {
             _victoryUi = victoryUi;
@@ -59,13 +60,6 @@ namespace Presenters
             _defeatUi.gameObject.SetActive(false);
             _startUi.gameObject.SetActive(true);
             _player.CameraHolder.ResetCamera();
-        }
-
-        private void LevelDefeat()
-        {
-            _player.CameraHolder.ReleaseCamera();
-            _formChangeUi.gameObject.SetActive(false);
-            _defeatUi.gameObject.SetActive(true);
         }
 
         private void LevelComplete(bool playerVictory)

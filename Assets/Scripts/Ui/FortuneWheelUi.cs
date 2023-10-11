@@ -1,6 +1,5 @@
 ﻿using System;
 using FortuneWheel;
-using ScriptableObjects;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

@@ -1,26 +1,20 @@
-﻿using Data;
-using Data.PlayerGameData;
-using Ui;
+﻿using Ui;
 
 namespace Presenters
 {
+    using Player = Player.Player;
     public class ShopUiPresenter
     {
         private readonly ShopUi _shopUi;
         private readonly StartUi _startUi;
-        private PersistentPlayerGameData _persistentPlayerGameData;
-        private Player _player;
-        private IDataProvider<PersistentPlayerGameData> _playerGameDataProvider;
+        private readonly Player _player;
 
-        public ShopUiPresenter(ShopUi shopUi, StartUi startUi, PersistentPlayerGameData persistentPlayerGameData, 
-            Player player, IDataProvider<PersistentPlayerGameData> playerGameDataProvider)
+        public ShopUiPresenter(ShopUi shopUi, StartUi startUi, Player player)
         {
             _shopUi = shopUi;
             _startUi = startUi;
-            _persistentPlayerGameData = persistentPlayerGameData;
             _player = player;
-            _playerGameDataProvider = playerGameDataProvider;
-            
+
             _shopUi.OnBackButtonClick += CloseShop;
         }
 

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using Data;
 using Data.PlayerGameData;
 using Shop.BoatFormSkins;
 using Shop.CarFormSkins;
@@ -11,11 +9,11 @@ namespace Shop
 {
     public class SelectedSkinChecker : IShopItemVisitor
     {
-        private PersistentPlayerGameData _persistentPlayerData;
+        private readonly PersistentGameData _persistentData;
         
         public bool IsSelected { get; private set; }
 
-        public SelectedSkinChecker(PersistentPlayerGameData persistentPlayerData) => _persistentPlayerData = persistentPlayerData;
+        public SelectedSkinChecker(PersistentGameData persistentData) => _persistentData = persistentData;
         
         public void Visit(ShopItem shopItem)
         {
@@ -39,15 +37,15 @@ namespace Shop
         }
 
         public void Visit(HumanFormSkinItem humanFormSkinItem) => 
-            IsSelected = _persistentPlayerData.SelectedHumanFormSkin == humanFormSkinItem.SkinType;
+            IsSelected = _persistentData.SelectedHumanFormSkin == humanFormSkinItem.SkinType;
 
         public void Visit(CarFormSkinItem carFormSkinItem) =>
-            IsSelected = _persistentPlayerData.SelectedCarFormSkin == carFormSkinItem.SkinType;
+            IsSelected = _persistentData.SelectedCarFormSkin == carFormSkinItem.SkinType;
 
         public void Visit(HelicopterFormSkinItem helicopterFormSkinItem) =>
-            IsSelected = _persistentPlayerData.SelectedHelicopterFormSkin == helicopterFormSkinItem.SkinType;
+            IsSelected = _persistentData.SelectedHelicopterFormSkin == helicopterFormSkinItem.SkinType;
 
         public void Visit(BoatFormSkinItem boatFormSkinItem) =>
-            IsSelected = _persistentPlayerData.SelectedBoatFormSkin == boatFormSkinItem.SkinType;
+            IsSelected = _persistentData.SelectedBoatFormSkin == boatFormSkinItem.SkinType;
     }
 }

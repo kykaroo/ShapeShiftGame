@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ScriptableObjects
+namespace FormStateMachine.Forms
 {
     [CreateAssetMenu(menuName = "Forms/FormDescription", fileName = "Form Description", order = 0)]
     public class FormDescription : ScriptableObject

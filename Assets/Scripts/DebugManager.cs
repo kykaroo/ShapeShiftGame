@@ -2,12 +2,11 @@
 using FortuneWheel;
 using Ui;
 using Zenject;
-
 public class DebugManager
 {
-    private Wallet.Wallet _wallet;
-    private DebugUi _debugUi;
-    private Timer _timer;
+    private readonly Wallet.Wallet _wallet;
+    private readonly DebugUi _debugUi;
+    private readonly Timer _timer;
 
     [Inject]
     public DebugManager(Wallet.Wallet wallet, DebugUi debugUi, Timer timer)

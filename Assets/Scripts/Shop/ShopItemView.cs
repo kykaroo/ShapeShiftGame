@@ -23,8 +23,8 @@ namespace Shop
         private Image _backgroundImage;
 
         public ShopItem Item { get; private set; }
-        
-        public bool IsLock { get; private set; }
+
+        private bool IsLock { get; set; }
 
         public int Price => Item.Price;
 

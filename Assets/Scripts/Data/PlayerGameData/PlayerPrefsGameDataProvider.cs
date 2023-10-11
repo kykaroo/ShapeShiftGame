@@ -3,42 +3,42 @@ using UnityEngine;
 
 namespace Data.PlayerGameData
 {
-    public class PlayerPrefsGameDataProvider : IDataProvider<PersistentPlayerGameData>
+    public class PlayerPrefsGameDataProvider : IDataProvider<PersistentGameData>
     {
         private const string FileName = "PlayerGameSave";
 
-        private PersistentPlayerGameData _persistentPlayerGameData;
+        private PersistentGameData _persistentGameData;
 
         public void Save()
         {
-            PlayerPrefs.SetString(FileName, JsonConvert.SerializeObject(_persistentPlayerGameData, Formatting.Indented, new JsonSerializerSettings
+            PlayerPrefs.SetString(FileName, JsonConvert.SerializeObject(_persistentGameData, Formatting.Indented, new JsonSerializerSettings
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             }));
         }
 
-        private bool IsDataAlreadyExists() => PlayerPrefs.HasKey(FileName);
+        private static bool IsDataAlreadyExists() => PlayerPrefs.HasKey(FileName);
 
         public void DeleteSave()
         {
             PlayerPrefs.DeleteKey(FileName);
         }
 
-        public PersistentPlayerGameData GetData()
+        public PersistentGameData GetData()
         {
-            if (_persistentPlayerGameData != null)
+            if (_persistentGameData != null)
             {
-                return _persistentPlayerGameData;
+                return _persistentGameData;
             }
             
             if (IsDataAlreadyExists() == false)
             {
-                _persistentPlayerGameData = new();
-                return _persistentPlayerGameData;
+                _persistentGameData = new();
+                return _persistentGameData;
             }
             
-            _persistentPlayerGameData = JsonConvert.DeserializeObject<PersistentPlayerGameData>(PlayerPrefs.GetString(FileName)); 
-            return _persistentPlayerGameData;
+            _persistentGameData = JsonConvert.DeserializeObject<PersistentGameData>(PlayerPrefs.GetString(FileName)); 
+            return _persistentGameData;
         }
     }
 }

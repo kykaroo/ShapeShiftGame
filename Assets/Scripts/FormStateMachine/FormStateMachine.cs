@@ -19,7 +19,7 @@ namespace FormStateMachine
             
             _currentState?.Exit();
             _currentState = _states[typeof(T)];
-            _currentState.Enter(this);
+            _currentState.Enter();
         }
 
         public IFormState GetCurrentState()
@@ -36,7 +36,7 @@ namespace FormStateMachine
         {
             _currentState?.Exit();
             _currentState = _states[form.GetType()];
-            _currentState.Enter(this);
+            _currentState.Enter();
         }
     }
 }
