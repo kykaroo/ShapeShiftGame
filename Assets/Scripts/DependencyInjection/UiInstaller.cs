@@ -40,7 +40,7 @@ namespace DependencyInjection
             Container.BindInterfacesAndSelfTo<DebugUiPresenter>().AsSingle().NonLazy();
             
             Container.BindInterfacesAndSelfTo<AudioManager>().AsSingle().WithArguments(musicSounds, humanSounds, carSounds, helicopterSounds, boatSounds).NonLazy();
-            Container.BindInterfacesAndSelfTo<Ui.ProgressBar.LevelProgressBar>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<LevelProgressBar>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<ProgressBarUi>().AsSingle().WithArguments(playerProgressIndicator, aiProgressIndicators).NonLazy();
             Container.BindInterfacesAndSelfTo<WheelManager>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<DebugManager>().AsSingle().NonLazy();

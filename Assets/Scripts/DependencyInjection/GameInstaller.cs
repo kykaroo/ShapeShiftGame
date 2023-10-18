@@ -43,9 +43,9 @@ namespace DependencyInjection
             Container.Bind<Player.Player>().FromSubContainerResolve().ByNewContextPrefab(playerPrefab).AsSingle().NonLazy();
             
             Container.BindInterfacesAndSelfTo<PersistentGameData>()
-                .FromMethod(context => context.Container.Resolve<IDataProvider<PersistentGameData>>().GetData());
+                .FromMethod(context => context.Container.Resolve<IDataProvider<PersistentGameData>>().GetData()).AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerOptionsData>()
-                .FromMethod(context => context.Container.Resolve<IDataProvider<PlayerOptionsData>>().GetData());
+                .FromMethod(context => context.Container.Resolve<IDataProvider<PlayerOptionsData>>().GetData()).AsSingle();
         }
     }
 }
