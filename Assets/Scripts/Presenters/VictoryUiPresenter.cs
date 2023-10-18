@@ -1,4 +1,5 @@
 ﻿using Ai;
+using Audio;
 using FormStateMachine.States;
 using Level;
 using Ui;
@@ -16,11 +17,12 @@ namespace Presenters
         private readonly Player.Player _player;
         private readonly EnemyHandler _enemyHandler;
         private readonly DefeatUi _defeatUi;
+        private readonly AudioManager _audioManager;
 
         [Inject]
         public VictoryUiPresenter(VictoryUi victoryUi, LevelGenerator levelGenerator,
             Ui.ProgressBar.LevelProgressBar levelProgressBar, Player.Player player,
-            EnemyHandler enemyHandler, FormChangeUi formChangeUi, StartUi startUi, DefeatUi defeatUi)
+            EnemyHandler enemyHandler, FormChangeUi formChangeUi, StartUi startUi, DefeatUi defeatUi, AudioManager audioManager)
         {
             _victoryUi = victoryUi;
             _levelGenerator = levelGenerator;
@@ -30,6 +32,7 @@ namespace Presenters
             _formChangeUi = formChangeUi;
             _startUi = startUi;
             _defeatUi = defeatUi;
+            _audioManager = audioManager;
 
             _victoryUi.OnPlayAgainButtonClick += RestartLevel;
             _defeatUi.OnPlayAgainButtonClick += RestartLevel;
@@ -44,6 +47,7 @@ namespace Presenters
         
             _player.SetNoneFormState();
             _player.ClearPoofParticleSystem();
+            _audioManager.isLevelEnd = false;
 
             foreach (var formStateMachine in _enemyHandler.AiFormStateMachine)
             {
@@ -66,7 +70,8 @@ namespace Presenters
         {
             _player.CameraHolder.ReleaseCamera();
             _formChangeUi.gameObject.SetActive(false);
-            
+            _audioManager.isLevelEnd = true;
+
             if (playerVictory)
             {
                 _victoryUi.gameObject.SetActive(true);

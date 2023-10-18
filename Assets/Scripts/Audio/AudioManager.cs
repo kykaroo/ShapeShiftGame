@@ -32,6 +32,7 @@ namespace Audio
 
         private const float Interval = 1;
         private float _timer;
+        public bool isLevelEnd;
 
         public event Action<string> OnNewTrackPlay;
 
@@ -155,13 +156,8 @@ namespace Audio
 
         public void Tick()
         {
-            if (!_sfxSource.isPlaying || _currentPlayerForm != _player.GetCurrentState())
-            {
-                _currentPlayerForm = _player.GetCurrentState();
-                PlayStateSfx(_currentPlayerForm);
-                
-            }
-            
+            PlayPlayerSfx();
+
             if (_musicSource.isPlaying) return;
 
             _timer += Time.deltaTime;
@@ -170,6 +166,20 @@ namespace Audio
             
             OnNewTrackPlay?.Invoke(PlayAllMusic());
             _timer = 0;
+        }
+
+        private void PlayPlayerSfx()
+        {
+            if (_sfxSource.isPlaying && _currentPlayerForm == _player.GetCurrentState()) return;
+            
+            if (isLevelEnd)
+            {
+                _sfxSource.Stop();
+                return;
+            }
+            
+            _currentPlayerForm = _player.GetCurrentState();
+            PlayStateSfx(_currentPlayerForm);
         }
 
         private void PlayStateSfx(IFormState currentForm)
