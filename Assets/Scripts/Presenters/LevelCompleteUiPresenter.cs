@@ -7,9 +7,9 @@ using Zenject;
 
 namespace Presenters
 {
-    public class VictoryUiPresenter
+    public class LevelCompleteUiPresenter
     {
-        private readonly VictoryUi _victoryUi;
+        private readonly LevelCompleteUi _levelCompleteUi;
         private readonly LevelGenerator _levelGenerator;
         private readonly Ui.ProgressBar.LevelProgressBar _levelProgressBar;
         private readonly FormChangeUi _formChangeUi;
@@ -20,11 +20,11 @@ namespace Presenters
         private readonly AudioManager _audioManager;
 
         [Inject]
-        public VictoryUiPresenter(VictoryUi victoryUi, LevelGenerator levelGenerator,
+        public LevelCompleteUiPresenter(LevelCompleteUi levelCompleteUi, LevelGenerator levelGenerator,
             Ui.ProgressBar.LevelProgressBar levelProgressBar, Player.Player player,
             EnemyHandler enemyHandler, FormChangeUi formChangeUi, StartUi startUi, DefeatUi defeatUi, AudioManager audioManager)
         {
-            _victoryUi = victoryUi;
+            _levelCompleteUi = levelCompleteUi;
             _levelGenerator = levelGenerator;
             _levelProgressBar = levelProgressBar;
             _player = player;
@@ -34,7 +34,7 @@ namespace Presenters
             _defeatUi = defeatUi;
             _audioManager = audioManager;
 
-            _victoryUi.OnPlayAgainButtonClick += RestartLevel;
+            _levelCompleteUi.OnPlayAgainButtonClick += RestartLevel;
             _defeatUi.OnPlayAgainButtonClick += RestartLevel;
             RestartLevel();
         }
@@ -60,7 +60,7 @@ namespace Presenters
             _levelProgressBar.SetLevelLenght(_levelGenerator.LevelStartZ, _levelGenerator.LevelEndZ);
 
             _formChangeUi.gameObject.SetActive(false);
-            _victoryUi.gameObject.SetActive(false);
+            _levelCompleteUi.gameObject.SetActive(false);
             _defeatUi.gameObject.SetActive(false);
             _startUi.gameObject.SetActive(true);
             _player.CameraHolder.ResetCamera();
@@ -74,7 +74,7 @@ namespace Presenters
 
             if (playerVictory)
             {
-                _victoryUi.gameObject.SetActive(true);
+                _levelCompleteUi.gameObject.SetActive(true);
                 return;
             }
             

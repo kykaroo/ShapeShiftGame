@@ -13,7 +13,7 @@ namespace DependencyInjection
     {
         [SerializeField] private FormChangeUi formChangeUi;
         [SerializeField] private StartUi startUi;
-        [SerializeField] private VictoryUi victoryUi;
+        [SerializeField] private LevelCompleteUi levelCompleteUi;
         [SerializeField] private ShopUi shopUi;
         [SerializeField] private OptionsUi optionsUi;
         [SerializeField] private FortuneWheelUi fortuneWheelUi;
@@ -33,7 +33,7 @@ namespace DependencyInjection
         {
             Container.BindInterfacesAndSelfTo<StartUiPresenter>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<OptionsUiPresenter>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<VictoryUiPresenter>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<LevelCompleteUiPresenter>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<FormChangeUiPresenter>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<ShopUiPresenter>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<FortuneWheelUiPresenter>().AsSingle().NonLazy();
@@ -47,7 +47,7 @@ namespace DependencyInjection
 
             Container.BindInterfacesAndSelfTo<FormChangeUi>().FromInstance(formChangeUi).AsSingle();
             Container.BindInterfacesAndSelfTo<StartUi>().FromInstance(startUi).AsSingle();
-            Container.BindInterfacesAndSelfTo<VictoryUi>().FromInstance(victoryUi).AsSingle();
+            Container.BindInterfacesAndSelfTo<LevelCompleteUi>().FromInstance(levelCompleteUi).AsSingle();
             Container.BindInterfacesAndSelfTo<ShopUi>().FromInstance(shopUi).AsSingle();
             Container.BindInterfacesAndSelfTo<OptionsUi>().FromInstance(optionsUi).AsSingle();
             Container.BindInterfacesAndSelfTo<FortuneWheelUi>().FromInstance(fortuneWheelUi).AsSingle();

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Ui
 {
-    public class VictoryUi : MonoBehaviour
+    public class LevelCompleteUi : MonoBehaviour
     {
         [SerializeField] private Button playAgainButton;
 

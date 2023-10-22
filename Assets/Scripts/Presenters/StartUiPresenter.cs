@@ -11,7 +11,7 @@ namespace Presenters
         private readonly OptionsUi _optionsUi;
         private readonly FortuneWheelUi _fortuneWheelUi;
         private readonly ShopUi _shopUi;
-        private readonly VictoryUi _victoryUi;
+        private readonly LevelCompleteUi _levelCompleteUi;
         private readonly FormChangeUi _formChangeUi;
         private readonly Player.Player _player;
         private readonly EnemyHandler _enemyHandler;
@@ -21,14 +21,14 @@ namespace Presenters
 
         [Inject]
         public StartUiPresenter(StartUi startUi, OptionsUi optionsUi, FortuneWheelUi fortuneWheelUi, ShopUi shopUi,
-            VictoryUi victoryUi, FormChangeUi formChangeUi, Player.Player player, EnemyHandler enemyHandler, 
+            LevelCompleteUi levelCompleteUi, FormChangeUi formChangeUi, Player.Player player, EnemyHandler enemyHandler, 
             AiDifficulty[] aiDifficulties, EnemyAi[] enemyAis, DefeatUi defeatUi)
         {
             _startUi = startUi;
             _optionsUi = optionsUi;
             _fortuneWheelUi = fortuneWheelUi;
             _shopUi = shopUi;
-            _victoryUi = victoryUi;
+            _levelCompleteUi = levelCompleteUi;
             _formChangeUi = formChangeUi;
             _player = player;
             _enemyHandler = enemyHandler;
@@ -46,7 +46,7 @@ namespace Presenters
         private void OnStartGame()
         {
             _startUi.gameObject.SetActive(false);
-            _victoryUi.gameObject.SetActive(false);
+            _levelCompleteUi.gameObject.SetActive(false);
             _defeatUi.gameObject.SetActive(false);
             _formChangeUi.gameObject.SetActive(true);
         
