@@ -18,11 +18,15 @@ namespace Presenters
         private readonly EnemyHandler _enemyHandler;
         private readonly DefeatUi _defeatUi;
         private readonly AudioManager _audioManager;
+        private readonly YG.YandexGame _yandexGame;
+
+        private bool _firstLevelGenerate = true;
 
         [Inject]
         public LevelCompleteUiPresenter(LevelCompleteUi levelCompleteUi, LevelGenerator levelGenerator,
             Ui.ProgressBar.LevelProgressBar levelProgressBar, Player.Player player,
-            EnemyHandler enemyHandler, FormChangeUi formChangeUi, StartUi startUi, DefeatUi defeatUi, AudioManager audioManager)
+            EnemyHandler enemyHandler, FormChangeUi formChangeUi, StartUi startUi, DefeatUi defeatUi, 
+            AudioManager audioManager, YG.YandexGame yandexGame)
         {
             _levelCompleteUi = levelCompleteUi;
             _levelGenerator = levelGenerator;
@@ -33,6 +37,7 @@ namespace Presenters
             _startUi = startUi;
             _defeatUi = defeatUi;
             _audioManager = audioManager;
+            _yandexGame = yandexGame;
 
             _levelCompleteUi.OnPlayAgainButtonClick += RestartLevel;
             _defeatUi.OnPlayAgainButtonClick += RestartLevel;
@@ -64,6 +69,15 @@ namespace Presenters
             _defeatUi.gameObject.SetActive(false);
             _startUi.gameObject.SetActive(true);
             _player.CameraHolder.ResetCamera();
+
+            if (_firstLevelGenerate)
+            {
+                _yandexGame._RewardedShow(0);
+                _firstLevelGenerate = false;
+                return;
+            }
+            
+            _yandexGame._RewardedShow(1);
         }
 
         private void LevelComplete(bool playerVictory)

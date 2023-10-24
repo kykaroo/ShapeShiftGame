@@ -28,6 +28,7 @@ namespace DependencyInjection
         [SerializeField] private AudioClip[] carSounds;
         [SerializeField] private AudioClip[] helicopterSounds;
         [SerializeField] private AudioClip[] boatSounds;
+        [SerializeField] private YG.YandexGame yandexGame;
 
         public override void InstallBindings()
         {
@@ -44,7 +45,9 @@ namespace DependencyInjection
             Container.BindInterfacesAndSelfTo<ProgressBarUi>().AsSingle().WithArguments(playerProgressIndicator, aiProgressIndicators).NonLazy();
             Container.BindInterfacesAndSelfTo<WheelManager>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<DebugManager>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<RewardedAd.RewardedAd>().AsSingle().NonLazy();
 
+            Container.BindInterfacesAndSelfTo<YG.YandexGame>().FromInstance(yandexGame).AsSingle();
             Container.BindInterfacesAndSelfTo<FormChangeUi>().FromInstance(formChangeUi).AsSingle();
             Container.BindInterfacesAndSelfTo<StartUi>().FromInstance(startUi).AsSingle();
             Container.BindInterfacesAndSelfTo<LevelCompleteUi>().FromInstance(levelCompleteUi).AsSingle();

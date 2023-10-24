@@ -21,5 +21,7 @@ public class EntryPoint : MonoBehaviour, IInitializable
         {
             _startUiPresenter.OpenFortuneWheelWindow();
         }
+        
+        YG.YandexGame.GameReadyAPI();
     }
 }
