@@ -17,12 +17,11 @@ namespace Presenters
         private readonly EnemyHandler _enemyHandler;
         private readonly AiDifficulty[] _aiDifficulties;
         private readonly EnemyAi[] _enemyAis;
-        private readonly DefeatUi _defeatUi;
 
         [Inject]
         public StartUiPresenter(StartUi startUi, OptionsUi optionsUi, FortuneWheelUi fortuneWheelUi, ShopUi shopUi,
             LevelCompleteUi levelCompleteUi, FormChangeUi formChangeUi, Player.Player player, EnemyHandler enemyHandler, 
-            AiDifficulty[] aiDifficulties, EnemyAi[] enemyAis, DefeatUi defeatUi)
+            AiDifficulty[] aiDifficulties, EnemyAi[] enemyAis)
         {
             _startUi = startUi;
             _optionsUi = optionsUi;
@@ -34,8 +33,7 @@ namespace Presenters
             _enemyHandler = enemyHandler;
             _aiDifficulties = aiDifficulties;
             _enemyAis = enemyAis;
-            _defeatUi = defeatUi;
-        
+
             _startUi.OnStartButtonClick += OnStartGame;
             _startUi.OnShopButtonClick += OpenShop;
             _startUi.OnOptionsButtonClicked += OpenOptionsWindow;
@@ -47,7 +45,6 @@ namespace Presenters
         {
             _startUi.gameObject.SetActive(false);
             _levelCompleteUi.gameObject.SetActive(false);
-            _defeatUi.gameObject.SetActive(false);
             _formChangeUi.gameObject.SetActive(true);
         
             _player.SetHumanFormState();

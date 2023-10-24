@@ -75,3 +75,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   yandexGame: {fileID: 2211564899198745196, guid: caf9732433f4dc044845763962493607, type: 3}
+  reviewYg: {fileID: 4599446247094708748, guid: a1dfdbb0103bfba439419b727773e9b4, type: 3}
