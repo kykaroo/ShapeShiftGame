@@ -1,6 +1,7 @@
 using Presenters;
 using Ui;
 using UnityEngine;
+using YG;
 using Zenject;
 
 public class EntryPoint : MonoBehaviour, IInitializable
@@ -22,6 +23,6 @@ public class EntryPoint : MonoBehaviour, IInitializable
             _startUiPresenter.OpenFortuneWheelWindow();
         }
         
-        YG.YandexGame.GameReadyAPI();
+        YandexGame.GameReadyAPI();
     }
 }

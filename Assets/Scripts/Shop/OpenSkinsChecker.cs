@@ -10,11 +10,11 @@ namespace Shop
 {
     public class OpenSkinsChecker : IShopItemVisitor
     {
-        private readonly PersistentGameData _persistentGameData;
+        private readonly PlayerGameData _playerGameData;
         
         public bool IsOpened { get; private set; }
 
-        public OpenSkinsChecker(PersistentGameData persistentGameData) => _persistentGameData = persistentGameData;
+        public OpenSkinsChecker(PlayerGameData playerGameData) => _playerGameData = playerGameData;
         
         public void Visit(ShopItem shopItem)
         {
@@ -38,15 +38,15 @@ namespace Shop
         }
 
         public void Visit(HumanFormSkinItem humanFormSkinItem) => 
-            IsOpened = _persistentGameData.OpenHumanFormSkins.Contains(humanFormSkinItem.SkinType);
+            IsOpened = _playerGameData.OpenHumanFormSkins.Contains(humanFormSkinItem.SkinType);
 
         public void Visit(CarFormSkinItem carFormSkinItem) =>
-            IsOpened = _persistentGameData.OpenCarFormSkins.Contains(carFormSkinItem.SkinType);
+            IsOpened = _playerGameData.OpenCarFormSkins.Contains(carFormSkinItem.SkinType);
 
         public void Visit(HelicopterFormSkinItem helicopterFormSkinItem) =>
-            IsOpened = _persistentGameData.OpenHelicopterFormSkins.Contains(helicopterFormSkinItem.SkinType);
+            IsOpened = _playerGameData.OpenHelicopterFormSkins.Contains(helicopterFormSkinItem.SkinType);
 
         public void Visit(BoatFormSkinItem boatFormSkinItem) =>
-            IsOpened = _persistentGameData.OpenBoatFormSkins.Contains(boatFormSkinItem.SkinType);
+            IsOpened = _playerGameData.OpenBoatFormSkins.Contains(boatFormSkinItem.SkinType);
     }
 }

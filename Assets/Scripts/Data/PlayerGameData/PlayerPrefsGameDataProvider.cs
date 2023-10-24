@@ -3,15 +3,15 @@ using UnityEngine;
 
 namespace Data.PlayerGameData
 {
-    public class PlayerPrefsGameDataProvider : IDataProvider<PersistentGameData>
+    public class PlayerPrefsGameDataProvider : IDataProvider<PlayerGameData>
     {
         private const string FileName = "PlayerGameSave";
 
-        private PersistentGameData _persistentGameData;
+        private PlayerGameData _playerGameData;
 
         public void Save()
         {
-            PlayerPrefs.SetString(FileName, JsonConvert.SerializeObject(_persistentGameData, Formatting.Indented, new JsonSerializerSettings
+            PlayerPrefs.SetString(FileName, JsonConvert.SerializeObject(_playerGameData, Formatting.Indented, new JsonSerializerSettings
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             }));
@@ -24,21 +24,21 @@ namespace Data.PlayerGameData
             PlayerPrefs.DeleteKey(FileName);
         }
 
-        public PersistentGameData GetData()
+        public PlayerGameData GetData()
         {
-            if (_persistentGameData != null)
+            if (_playerGameData != null)
             {
-                return _persistentGameData;
+                return _playerGameData;
             }
             
             if (IsDataAlreadyExists() == false)
             {
-                _persistentGameData = new();
-                return _persistentGameData;
+                _playerGameData = new();
+                return _playerGameData;
             }
             
-            _persistentGameData = JsonConvert.DeserializeObject<PersistentGameData>(PlayerPrefs.GetString(FileName)); 
-            return _persistentGameData;
+            _playerGameData = JsonConvert.DeserializeObject<PlayerGameData>(PlayerPrefs.GetString(FileName)); 
+            return _playerGameData;
         }
     }
 }

@@ -24,8 +24,8 @@ namespace DependencyInjection
 
         public override void InstallBindings()
         { 
-            Container.BindInterfacesTo<PlayerPrefsGameDataProvider>().AsSingle();
-            Container.BindInterfacesTo<PlayerPrefsOptionsDataProvider>().AsSingle();
+            Container.BindInterfacesTo<YgGameDataProvider>().AsSingle();
+            Container.BindInterfacesTo<YgOptionsDataProvider>().AsSingle();
             
             Container.BindInterfacesAndSelfTo<EntryPoint>().FromInstance(entryPoint).AsSingle();
             Container.BindInterfacesAndSelfTo<Wallet.Wallet>().AsSingle();
@@ -42,8 +42,8 @@ namespace DependencyInjection
 
             Container.Bind<Player.Player>().FromSubContainerResolve().ByNewContextPrefab(playerPrefab).AsSingle().NonLazy();
             
-            Container.BindInterfacesAndSelfTo<PersistentGameData>()
-                .FromMethod(context => context.Container.Resolve<IDataProvider<PersistentGameData>>().GetData()).AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerGameData>()
+                .FromMethod(context => context.Container.Resolve<IDataProvider<PlayerGameData>>().GetData()).AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerOptionsData>()
                 .FromMethod(context => context.Container.Resolve<IDataProvider<PlayerOptionsData>>().GetData()).AsSingle();
         }

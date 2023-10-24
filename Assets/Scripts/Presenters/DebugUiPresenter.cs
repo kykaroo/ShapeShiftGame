@@ -14,10 +14,10 @@ namespace Presenters
         private readonly AudioManager _audioManager;
         private Timer _timer;
         private Wallet.Wallet _wallet;
-        private readonly IDataProvider<PersistentGameData> _gameDataProvider;
+        private readonly IDataProvider<PlayerGameData> _gameDataProvider;
 
         [Inject]
-        public DebugUiPresenter(DebugUi debugUi, AudioManager audioManager, IDataProvider<PersistentGameData> gameDataProvider)
+        public DebugUiPresenter(DebugUi debugUi, AudioManager audioManager, IDataProvider<PlayerGameData> gameDataProvider)
         {
             _debugUi = debugUi;
             _audioManager = audioManager;

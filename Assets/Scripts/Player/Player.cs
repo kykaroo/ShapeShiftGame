@@ -19,7 +19,7 @@ namespace Player
         private readonly Ground _ground;
         private readonly ParticleSystem _playerPoofParticleSystem;
         private readonly float _gravityForce;
-        private readonly PersistentGameData _persistentGameData;
+        private readonly PlayerGameData _playerGameData;
         private readonly Transform _playerTransform;
         private readonly HumanFormFactory _humanFormFactory;
         private readonly CarFormFactory _carFormFactory;
@@ -33,13 +33,13 @@ namespace Player
 
         [Inject]
         public Player(Rigidbody playerBody, ParticleSystem playerPoofParticleSystem, 
-            PersistentGameData persistentGameData, Transform playerTransform, HumanFormFactory humanFormFactory, 
+            PlayerGameData playerGameData, Transform playerTransform, HumanFormFactory humanFormFactory, 
             CarFormFactory carFormFactory, HelicopterFormFactory helicopterFormFactory, BoatFormFactory boatFormFactory, 
             Ground ground, CameraHolder cameraHolder, LevelGenerator levelGenerator)
         {
             PlayerBody = playerBody;
             _playerPoofParticleSystem = playerPoofParticleSystem;
-            _persistentGameData = persistentGameData;
+            _playerGameData = playerGameData;
             _playerTransform = playerTransform;
             _humanFormFactory = humanFormFactory;
             _carFormFactory = carFormFactory;
@@ -88,7 +88,7 @@ namespace Player
                 Object.Destroy(_playerHumanForm.gameObject);
             }
         
-            _playerHumanForm = _humanFormFactory.Get(_persistentGameData.SelectedHumanFormSkin, _playerTransform.position, _playerTransform);
+            _playerHumanForm = _humanFormFactory.Get(_playerGameData.SelectedHumanFormSkin, _playerTransform.position, _playerTransform);
         }
 
         public void SpawnCarForm()
@@ -98,7 +98,7 @@ namespace Player
                 Object.Destroy(_playerCarForm.gameObject);
             }
         
-            _playerCarForm = _carFormFactory.Get(_persistentGameData.SelectedCarFormSkin, _playerTransform.position, _playerTransform);
+            _playerCarForm = _carFormFactory.Get(_playerGameData.SelectedCarFormSkin, _playerTransform.position, _playerTransform);
         }
 
         public void SpawnHelicopterForm()
@@ -108,7 +108,7 @@ namespace Player
                 Object.Destroy(_playerHelicopterForm.gameObject);
             }
 
-            _playerHelicopterForm = _helicopterFormFactory.Get(_persistentGameData.SelectedHelicopterFormSkin, _playerTransform.position, _playerTransform);
+            _playerHelicopterForm = _helicopterFormFactory.Get(_playerGameData.SelectedHelicopterFormSkin, _playerTransform.position, _playerTransform);
         }
 
         public void SpawnBoatForm()
@@ -118,7 +118,7 @@ namespace Player
                 Object.Destroy(_playerBoatForm.gameObject);
             }
         
-            _playerBoatForm = _boatFormFactory.Get(_persistentGameData.SelectedBoatFormSkin, _playerTransform.position, _playerTransform);
+            _playerBoatForm = _boatFormFactory.Get(_playerGameData.SelectedBoatFormSkin, _playerTransform.position, _playerTransform);
         }
 
         public void SetHumanFormState()

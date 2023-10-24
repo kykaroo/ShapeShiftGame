@@ -4,39 +4,39 @@ using UnityEngine;
 
 namespace Data.PlayerGameData
 {
-    public class LocalGameDataProvider : IDataProvider<PersistentGameData>
+    public class LocalGameDataProvider : IDataProvider<PlayerGameData>
     {
         private const string FileName = "PlayerSave";
         private const string SaveFileExtension = ".json";
 
-        private PersistentGameData _persistentGameData;
+        private PlayerGameData _playerGameData;
 
         private static string SavePath => Application.persistentDataPath;
         private static string FullPath => Path.Combine(SavePath, $"{FileName}{SaveFileExtension}");
             
         public void Save()
         {
-            File.WriteAllText(FullPath, JsonConvert.SerializeObject(_persistentGameData, Formatting.Indented, new JsonSerializerSettings
+            File.WriteAllText(FullPath, JsonConvert.SerializeObject(_playerGameData, Formatting.Indented, new JsonSerializerSettings
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             }));
         }
         
-        public PersistentGameData GetData()
+        public PlayerGameData GetData()
         {
-            if (_persistentGameData != null)
+            if (_playerGameData != null)
             {
-                return _persistentGameData;
+                return _playerGameData;
             }
             
             if (IsDataAlreadyExists() == false)
             {
-                _persistentGameData = new();
-                return _persistentGameData;
+                _playerGameData = new();
+                return _playerGameData;
             }
             
-            _persistentGameData = JsonConvert.DeserializeObject<PersistentGameData>(File.ReadAllText(FullPath));
-            return _persistentGameData;
+            _playerGameData = JsonConvert.DeserializeObject<PlayerGameData>(File.ReadAllText(FullPath));
+            return _playerGameData;
         }
 
         private static bool IsDataAlreadyExists() => File.Exists(FullPath);

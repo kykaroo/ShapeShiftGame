@@ -13,8 +13,8 @@ namespace FortuneWheel
         [SerializeField] private GameObject texts;
         [SerializeField] private SpinCooldownConfig spinCooldownConfig;
         
-        private PersistentGameData _persistentData;
-        private IDataProvider<PersistentGameData> _gameDataProvider;
+        private PlayerGameData _playerData;
+        private IDataProvider<PlayerGameData> _gameDataProvider;
         private TimeSpan _currentFreeSpinCooldown;
         private TimeSpan _freeSpinCooldown;
         private DateTime _cooldownExpireTime;
@@ -26,16 +26,16 @@ namespace FortuneWheel
         public event Action OnCanFreeSpinVariableChange;
 
         [Inject]
-        public void Initialize(PersistentGameData persistentGameData, IDataProvider<PersistentGameData> gameDataProvider)
+        public void Initialize(PlayerGameData playerGameData, IDataProvider<PlayerGameData> gameDataProvider)
         {
-            _persistentData = persistentGameData;
+            _playerData = playerGameData;
             _gameDataProvider = gameDataProvider;
             _freeSpinCooldown = new(spinCooldownConfig.freeSpinDaysCooldown,spinCooldownConfig.freeSpinHoursCooldown,
                 spinCooldownConfig.freeSpinMinutesCooldown,spinCooldownConfig.freeSpinSecondsCooldown);
             
-             _persistentData.LastClaimTime ??= DateTime.UtcNow.Subtract(_freeSpinCooldown);
+             _playerData.LastClaimTime ??= DateTime.UtcNow.Subtract(_freeSpinCooldown);
              
-            _cooldownExpireTime = _persistentData.LastClaimTime.Value;
+            _cooldownExpireTime = _playerData.LastClaimTime.Value;
             _cooldownExpireTime = _cooldownExpireTime.Add(_freeSpinCooldown);
             Update();
         }
@@ -87,8 +87,8 @@ namespace FortuneWheel
 
         public void OnRewardEarned()
         {
-            _persistentData.LastClaimTime = _currentTime;
-            _cooldownExpireTime = _persistentData.LastClaimTime.Value.Add(_freeSpinCooldown);
+            _playerData.LastClaimTime = _currentTime;
+            _cooldownExpireTime = _playerData.LastClaimTime.Value.Add(_freeSpinCooldown);
             UpdateRewardState();
         }
 
@@ -107,7 +107,7 @@ namespace FortuneWheel
             OnRewardEarned();
             _currentFreeSpinCooldown = _currentFreeSpinCooldown.Subtract(_currentFreeSpinCooldown - targetedCooldown);
             _cooldownExpireTime = _currentTime.Add(_currentFreeSpinCooldown);
-            _persistentData.LastClaimTime = _currentTime.Subtract(_freeSpinCooldown - _currentFreeSpinCooldown);
+            _playerData.LastClaimTime = _currentTime.Subtract(_freeSpinCooldown - _currentFreeSpinCooldown);
             _gameDataProvider.Save();
             UpdateTimerText();
             OnDebugTimerChange?.Invoke();

@@ -9,9 +9,9 @@ namespace Shop
 {
     public class SkinUnlocker : IShopItemVisitor
     {
-        private readonly PersistentGameData _persistentData;
+        private readonly PlayerGameData _playerData;
 
-        public SkinUnlocker(PersistentGameData persistentData) => _persistentData = persistentData;
+        public SkinUnlocker(PlayerGameData playerData) => _playerData = playerData;
 
         public void Visit(ShopItem shopItem)
         {
@@ -35,15 +35,15 @@ namespace Shop
         }
 
         public void Visit(HumanFormSkinItem humanFormSkinItem) =>
-            _persistentData.OpenHumanFormSkin(humanFormSkinItem.SkinType);
+            _playerData.OpenHumanFormSkin(humanFormSkinItem.SkinType);
 
         public void Visit(CarFormSkinItem carFormSkinItem) =>
-            _persistentData.OpenCarFormSkin(carFormSkinItem.SkinType);
+            _playerData.OpenCarFormSkin(carFormSkinItem.SkinType);
 
         public void Visit(HelicopterFormSkinItem helicopterFormSkinItem) =>
-            _persistentData.OpenHelicopterFormSkin(helicopterFormSkinItem.SkinType);
+            _playerData.OpenHelicopterFormSkin(helicopterFormSkinItem.SkinType);
 
         public void Visit(BoatFormSkinItem boatFormSkinItem) =>
-            _persistentData.OpenBoatFormSkin(boatFormSkinItem.SkinType);
+            _playerData.OpenBoatFormSkin(boatFormSkinItem.SkinType);
     }
 }

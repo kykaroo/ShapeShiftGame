@@ -8,10 +8,10 @@ namespace Wallet
     {
         public event Action<int> CoinsChanged;
 
-        private readonly PersistentGameData _persistentGameData;
+        private readonly PlayerGameData _playerGameData;
         
         [Inject]
-        public Wallet(PersistentGameData persistentGameData) => _persistentGameData = persistentGameData;
+        public Wallet(PlayerGameData playerGameData) => _playerGameData = playerGameData;
 
         public void AddCoins(int coins)
         {
@@ -20,11 +20,11 @@ namespace Wallet
                 throw new ArgumentException(nameof(coins));
             }
 
-            _persistentGameData.Money += coins;
-            CoinsChanged?.Invoke(_persistentGameData.Money);
+            _playerGameData.Money += coins;
+            CoinsChanged?.Invoke(_playerGameData.Money);
         }
 
-        public int GetCurrentCoins() => _persistentGameData.Money;
+        public int GetCurrentCoins() => _playerGameData.Money;
 
         public bool IsEnough(int coins)
         {
@@ -33,7 +33,7 @@ namespace Wallet
                 throw new ArgumentException(nameof(coins));
             }
 
-            return _persistentGameData.Money >= coins;
+            return _playerGameData.Money >= coins;
         }
 
         public void Spend(int coins)
@@ -43,19 +43,19 @@ namespace Wallet
                 throw new ArgumentException(nameof(coins));
             }
 
-            _persistentGameData.Money -= coins;
-            CoinsChanged?.Invoke(_persistentGameData.Money);
+            _playerGameData.Money -= coins;
+            CoinsChanged?.Invoke(_playerGameData.Money);
         }
 
         public void SetValue(int coins)
         {
-            _persistentGameData.Money = coins;
-            CoinsChanged?.Invoke(_persistentGameData.Money);
+            _playerGameData.Money = coins;
+            CoinsChanged?.Invoke(_playerGameData.Money);
         }
 
         public void UpdateCoinsView()
         {
-            CoinsChanged?.Invoke(_persistentGameData.Money);
+            CoinsChanged?.Invoke(_playerGameData.Money);
         }
     }
 }

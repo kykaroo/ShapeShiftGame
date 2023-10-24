@@ -9,11 +9,11 @@ namespace Shop
 {
     public class SelectedSkinChecker : IShopItemVisitor
     {
-        private readonly PersistentGameData _persistentData;
+        private readonly PlayerGameData _playerData;
         
         public bool IsSelected { get; private set; }
 
-        public SelectedSkinChecker(PersistentGameData persistentData) => _persistentData = persistentData;
+        public SelectedSkinChecker(PlayerGameData playerData) => _playerData = playerData;
         
         public void Visit(ShopItem shopItem)
         {
@@ -37,15 +37,15 @@ namespace Shop
         }
 
         public void Visit(HumanFormSkinItem humanFormSkinItem) => 
-            IsSelected = _persistentData.SelectedHumanFormSkin == humanFormSkinItem.SkinType;
+            IsSelected = _playerData.SelectedHumanFormSkin == humanFormSkinItem.SkinType;
 
         public void Visit(CarFormSkinItem carFormSkinItem) =>
-            IsSelected = _persistentData.SelectedCarFormSkin == carFormSkinItem.SkinType;
+            IsSelected = _playerData.SelectedCarFormSkin == carFormSkinItem.SkinType;
 
         public void Visit(HelicopterFormSkinItem helicopterFormSkinItem) =>
-            IsSelected = _persistentData.SelectedHelicopterFormSkin == helicopterFormSkinItem.SkinType;
+            IsSelected = _playerData.SelectedHelicopterFormSkin == helicopterFormSkinItem.SkinType;
 
         public void Visit(BoatFormSkinItem boatFormSkinItem) =>
-            IsSelected = _persistentData.SelectedBoatFormSkin == boatFormSkinItem.SkinType;
+            IsSelected = _playerData.SelectedBoatFormSkin == boatFormSkinItem.SkinType;
     }
 }

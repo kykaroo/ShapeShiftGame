@@ -23,7 +23,7 @@ namespace FortuneWheel
         private readonly int[] _wheelSectorsAngles;
         private float _currentLerpRotationTime;
         private float _startAngle;
-        private readonly IDataProvider<PersistentGameData> _gameDataProvider;
+        private readonly IDataProvider<PlayerGameData> _gameDataProvider;
         private readonly ShopUi _shopUi;
         private bool _isFreeSpin;
         private readonly FortuneWheelUi _fortuneWheelUi;
@@ -31,7 +31,7 @@ namespace FortuneWheel
         private const float MaxLerpRotationTime = 4f;
 
         [Inject]
-        public WheelManager(IDataProvider<PersistentGameData> gameDataProvider, Wallet.Wallet wallet, ShopUi shopUi, FortuneWheelUi fortuneWheelUi)
+        public WheelManager(IDataProvider<PlayerGameData> gameDataProvider, Wallet.Wallet wallet, ShopUi shopUi, FortuneWheelUi fortuneWheelUi)
         {
             _gameDataProvider = gameDataProvider;
             _wallet = wallet;
