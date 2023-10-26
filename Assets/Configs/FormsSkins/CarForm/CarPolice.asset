@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0bf08c55fe4e79a88ad488b84fc87a, type: 3}
   m_Name: CarPolice
   m_EditorClassIdentifier: 
-  <GameModel>k__BackingField: {fileID: 5309774519857396765, guid: 621041ca310dcd84d8ff5715d0b248fa, type: 3}
   <ShopModel>k__BackingField: {fileID: 3685706415577095182, guid: 2dea714a522f4c443b021b62f79beb96, type: 3}
   <Image>k__BackingField: {fileID: 21300000, guid: 6c45e34ffafdaba43ad4a45c27f61db2, type: 3}
   <Price>k__BackingField: 500
+  <IsAdReward>k__BackingField: 1
   <SkinType>k__BackingField: 3

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44d23a8472284ab199904c9f4d3b5e20, type: 3}
   m_Name: HeliAttack
   m_EditorClassIdentifier: 
-  <GameModel>k__BackingField: {fileID: 1427252464479526767, guid: 22f924f2d2b7ea944a57737534713e5b, type: 3}
   <ShopModel>k__BackingField: {fileID: 356784661622658980, guid: 18eb7fc2d14111545800060e40309fdf, type: 3}
   <Image>k__BackingField: {fileID: 21300000, guid: 23c072842158cce42a8181f599832727, type: 3}
   <Price>k__BackingField: 300
+  <IsAdReward>k__BackingField: 1
   <SkinType>k__BackingField: 1

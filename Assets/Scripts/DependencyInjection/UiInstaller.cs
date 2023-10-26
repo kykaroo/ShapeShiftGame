@@ -44,6 +44,7 @@ namespace DependencyInjection
             Container.BindInterfacesAndSelfTo<WheelManager>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<DebugManager>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<RewardedAd.RewardedAd>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<SkinsManager>().AsSingle().NonLazy();
             
             Container.BindInterfacesAndSelfTo<FormChangeUi>().FromInstance(formChangeUi).AsSingle();
             Container.BindInterfacesAndSelfTo<StartUi>().FromInstance(startUi).AsSingle();

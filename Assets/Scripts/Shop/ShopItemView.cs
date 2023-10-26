@@ -19,17 +19,18 @@ namespace Shop
         [SerializeField] private Image selectionText;
         [SerializeField] private Image priceImage;
         [SerializeField] private TextMeshProUGUI priceText;
+        [SerializeField] private Image adImage;
 
         private Image _backgroundImage;
 
         public ShopItem Item { get; private set; }
-
+        public bool IsAdReward { get; private set; }
+        public int AdUnlockId { get; private set; }
         private bool IsLock { get; set; }
-
+        
         public int Price => Item.Price;
-
         public GameObject Model => Item.ShopModel;
-
+        
         public event Action<ShopItemView> OnClick;
 
         public void OnPointerClick(PointerEventData eventData) => OnClick?.Invoke(this);
@@ -37,7 +38,9 @@ namespace Shop
         public void Initialize(ShopItem item)
         {
             _backgroundImage = GetComponent<Image>();
-            
+            IsAdReward = item.IsAdReward;
+            AdUnlockId = item.AdUnlockId;
+
             if (useSprites)
             {
                 _backgroundImage.sprite = defaultBackgroundSprite;
@@ -50,8 +53,9 @@ namespace Shop
             Item = item;
 
             contentImage.sprite = item.Image;
-
-            priceText.text = $"{Price}";
+            
+            priceText.text = IsAdReward ? priceText.text = string.Empty : priceText.text = $"{Price}";
+            adImage.gameObject.SetActive(IsAdReward);
         }
 
         public void Lock()

@@ -24,19 +24,20 @@ namespace FortuneWheel
         private float _currentLerpRotationTime;
         private float _startAngle;
         private readonly IDataProvider<PlayerGameData> _gameDataProvider;
-        private readonly ShopUi _shopUi;
         private bool _isFreeSpin;
         private readonly FortuneWheelUi _fortuneWheelUi;
+        private readonly SkinsManager _skinsManager;
 
         private const float MaxLerpRotationTime = 4f;
 
         [Inject]
-        public WheelManager(IDataProvider<PlayerGameData> gameDataProvider, Wallet.Wallet wallet, ShopUi shopUi, FortuneWheelUi fortuneWheelUi)
+        public WheelManager(IDataProvider<PlayerGameData> gameDataProvider, Wallet.Wallet wallet, FortuneWheelUi fortuneWheelUi,
+            SkinsManager skinsManager)
         {
             _gameDataProvider = gameDataProvider;
             _wallet = wallet;
-            _shopUi = shopUi;
             _fortuneWheelUi = fortuneWheelUi;
+            _skinsManager = skinsManager;
 
             _fortuneWheelUi.WalletView.Initialize(wallet);
             
@@ -146,13 +147,13 @@ namespace FortuneWheel
                     _wallet.AddCoins(_finalSectorConfig.moneyRewardValue);
                     break;
                 case RewardType.Skin:
-                    _shopUi.OpenSkinsChecker.Visit(_finalSectorConfig.itemReward);
-                    if (_shopUi.OpenSkinsChecker.IsOpened)
+                    _skinsManager.OpenChecker.Visit(_finalSectorConfig.itemReward);
+                    if (_skinsManager.OpenChecker.IsOpened)
                     { 
                         _wallet.AddCoins(_finalSectorConfig.rewardMoneyValueIfItemOpened);
                         break;   
                     }
-                    _shopUi.SkinUnlocker.Visit(_finalSectorConfig.itemReward);
+                    _skinsManager.Unlocker.Visit(_finalSectorConfig.itemReward);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

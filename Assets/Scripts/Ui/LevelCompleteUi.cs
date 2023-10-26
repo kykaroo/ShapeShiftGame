@@ -9,6 +9,7 @@ namespace Ui
     {
         [SerializeField] private Button playAgainButton;
         [SerializeField] private Button confirmRating;
+        [SerializeField] private Button doubleRewardButton;
         [SerializeField] private GameObject victoryLabel;
         [SerializeField] private GameObject defeatLabel;
 
@@ -16,14 +17,17 @@ namespace Ui
 
         public event Action OnPlayAgainButtonClick;
         public event Action OnConfirmRatingButtonClick;
+        public event Action OnDoubleRewardButtonClick;
 
         private void PlayAgainButtonClick() => OnPlayAgainButtonClick?.Invoke();
         private void ConfirmRatingButtonClick() => OnConfirmRatingButtonClick?.Invoke(); 
+        private void DoubleRewardButtonClick() => OnDoubleRewardButtonClick?.Invoke(); 
 
         private void Awake()
         {
             playAgainButton.onClick.AddListener(PlayAgainButtonClick);
             confirmRating.onClick.AddListener(ConfirmRatingButtonClick);
+            doubleRewardButton.onClick.AddListener(DoubleRewardButtonClick);
         }
 
         public void ShowReviewButton()

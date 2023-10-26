@@ -1,8 +1,8 @@
 {
-    "idSave": 8,
+    "idSave": 11,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
-    "PlayerGameData": "{\r\n  \"LastClaimTime\": \"2023-10-24T12:17:18.576842Z\",\r\n  \"Money\": 100,\r\n  \"SelectedHumanFormSkin\": 0,\r\n  \"SelectedCarFormSkin\": 8,\r\n  \"SelectedHelicopterFormSkin\": 0,\r\n  \"SelectedBoatFormSkin\": 0,\r\n  \"OpenHumanFormSkins\": [\r\n    0\r\n  ],\r\n  \"OpenCarFormSkins\": [\r\n    8\r\n  ],\r\n  \"OpenHelicopterFormSkins\": [\r\n    0\r\n  ],\r\n  \"OpenBoatFormSkins\": [\r\n    0\r\n  ]\r\n}",
+    "PlayerGameData": "{\r\n  \"LastClaimTime\": \"2023-10-26T11:01:18.509836Z\",\r\n  \"Money\": 0,\r\n  \"SelectedHumanFormSkin\": 1,\r\n  \"SelectedCarFormSkin\": 8,\r\n  \"SelectedHelicopterFormSkin\": 0,\r\n  \"SelectedBoatFormSkin\": 0,\r\n  \"OpenHumanFormSkins\": [\r\n    0,\r\n    1\r\n  ],\r\n  \"OpenCarFormSkins\": [\r\n    8\r\n  ],\r\n  \"OpenHelicopterFormSkins\": [\r\n    0\r\n  ],\r\n  \"OpenBoatFormSkins\": [\r\n    0\r\n  ]\r\n}",
     "PlayerOptionsData": "{\r\n  \"MuteMusic\": true,\r\n  \"MuteSfx\": true,\r\n  \"MusicVolume\": 0.5,\r\n  \"SfxVolume\": 0.5\r\n}"
 }

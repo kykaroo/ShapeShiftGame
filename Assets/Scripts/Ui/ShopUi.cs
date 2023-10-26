@@ -8,6 +8,7 @@ using Shop.ShopModelView;
 using UnityEngine;
 using UnityEngine.UI;
 using Wallet;
+using YG;
 using Zenject;
 
 namespace Ui
@@ -31,36 +32,30 @@ namespace Ui
 
         private ShopCategoryButton _currentButtonSelect;
 
-        private SkinSelector _skinSelector;
-        private SkinUnlocker _skinUnlocker;
-        private OpenSkinsChecker _openSkinsChecker;
-        private SelectedSkinChecker _selectedSkinChecker;
+        private SkinsManager _skinsManager;
 
         private IDataProvider<PlayerGameData> _gameDataProvider;
-        private PlayerGameData _playerGameData;
         private Wallet _wallet;
         private ShopItemView _previewedItem;
-        private Dictionary<IFormState, bool> _skinChanges;
-
-        public SkinUnlocker SkinUnlocker => _skinUnlocker;
-        
-
-        public OpenSkinsChecker OpenSkinsChecker => _openSkinsChecker;
+        private YandexGame _yandexGame;
+        private RewardedAd.RewardedAd _rewardedAd;
 
         public event Action OnBackButtonClick;
 
         private void BackButtonClick() => OnBackButtonClick?.Invoke();
         
         [Inject]
-        public void Initialize(IDataProvider<PlayerGameData> gameDataProvider, Wallet wallet, PlayerGameData playerGameData)
+        public void Initialize(IDataProvider<PlayerGameData> gameDataProvider, Wallet wallet, PlayerGameData playerGameData,
+            YandexGame yandexGame, SkinsManager skinsManager, RewardedAd.RewardedAd rewardedAd)
         {
             _wallet = wallet;
             _gameDataProvider = gameDataProvider;
-            _playerGameData = playerGameData;
+            _yandexGame = yandexGame;
+            _skinsManager = skinsManager;
+            _rewardedAd = rewardedAd;
             walletView.Initialize(_wallet);
-            InitializeCheckers(_playerGameData);
 
-            shopPanel.Initialize(_openSkinsChecker, _selectedSkinChecker);
+            shopPanel.Initialize(_skinsManager.OpenChecker, _skinsManager.SelectedChecker);
             shopPanel.ItemViewClicked += OnItemViewClicked;
             _wallet.CoinsChanged += SaveData;
             
@@ -79,14 +74,6 @@ namespace Ui
             OnHumanFormSkinsButtonClick();
         }
 
-        private void InitializeCheckers(PlayerGameData playerGameData)
-        {
-            _openSkinsChecker = new(playerGameData);
-            _selectedSkinChecker = new(playerGameData);
-            _skinSelector = new(playerGameData);
-            _skinUnlocker = new(playerGameData);
-        }
-
         private void SaveData(int obj)
         {
             _gameDataProvider.Save();
@@ -95,14 +82,14 @@ namespace Ui
         private void OnItemViewClicked(ShopItemView item)
         {
             _previewedItem = item;
-            _openSkinsChecker.Visit(_previewedItem.Item);
+            _skinsManager.OpenChecker.Visit(_previewedItem.Item);
             skinPlacement.InstantiateModel(_previewedItem.Model);
 
-            if (_openSkinsChecker.IsOpened)
+            if (_skinsManager.OpenChecker.IsOpened)
             {
-                _selectedSkinChecker.Visit(_previewedItem.Item);
+                _skinsManager.SelectedChecker.Visit(_previewedItem.Item);
 
-                if (_selectedSkinChecker.IsSelected)
+                if (_skinsManager.SelectedChecker.IsSelected)
                 {
                     ShowSelectedText();
                     return;
@@ -118,10 +105,21 @@ namespace Ui
 
         private void OnBuyButtonClick()
         {
+            if (_previewedItem.IsAdReward)
+            {
+                _rewardedAd.ShopItem= _previewedItem.Item;
+                _yandexGame._RewardedShow(_previewedItem.AdUnlockId);
+                return;
+            }
             if (!_wallet.IsEnough(_previewedItem.Price)) return;
             
             _wallet.Spend(_previewedItem.Price);
-            _skinUnlocker.Visit(_previewedItem.Item);
+            UnlockSkin();
+        }
+
+        public void UnlockSkin()
+        {
+            _skinsManager.Unlocker.Visit(_previewedItem.Item);
             SelectSkin();
             _previewedItem.Unlock();
             _gameDataProvider.Save();
@@ -170,13 +168,13 @@ namespace Ui
             buyButton.gameObject.SetActive(true);
             buyButton.UpdateText(price);
 
-            if (_wallet.IsEnough(price))
+            if (_wallet.IsEnough(price) || _previewedItem.IsAdReward)
             {
-                buyButton.SetAvailable();
+                buyButton.SetAvailable(_previewedItem.IsAdReward);
             }
             else
             {
-                buyButton.SetNotAvailable();
+                buyButton.SetNotAvailable(_previewedItem.IsAdReward);
             }
 
             HideSelectedText();
@@ -187,11 +185,11 @@ namespace Ui
         {
             if (_wallet.IsEnough(price))
             {
-                buyButton.SetAvailable();
+                buyButton.SetAvailable(_previewedItem.IsAdReward);
             }
             else
             {
-                buyButton.SetNotAvailable();
+                buyButton.SetNotAvailable(_previewedItem.IsAdReward);
             }
         }
 
@@ -211,7 +209,7 @@ namespace Ui
 
         private void SelectSkin()
         {
-            _skinSelector.Visit(_previewedItem.Item);
+            _skinsManager.Selector.Visit(_previewedItem.Item);
             shopPanel.Select(_previewedItem);
             ShowSelectedText();
         }
@@ -221,7 +219,6 @@ namespace Ui
             _gameDataProvider.DeleteSave();
             _gameDataProvider.GetData();
             _wallet.UpdateCoinsView();
-            InitializeCheckers(_playerGameData);
         }
 
         private void HideSelectionButton() => selectionButton.gameObject.SetActive(false);
