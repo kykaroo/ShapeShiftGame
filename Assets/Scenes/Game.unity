@@ -244,6 +244,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FortuneWheelWindow
       objectReference: {fileID: 0}
+    - target: {fileID: 526361536788282991, guid: 467fec33313cbe246b4cd2cbb4baa18b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1007522160223773159, guid: 467fec33313cbe246b4cd2cbb4baa18b, type: 3}
       propertyPath: spinCooldownConfig
       value: 
@@ -333,8 +337,32 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2232788161121882125, guid: 467fec33313cbe246b4cd2cbb4baa18b, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2232788161121882125, guid: 467fec33313cbe246b4cd2cbb4baa18b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.312
+      objectReference: {fileID: 0}
+    - target: {fileID: 2232788161121882125, guid: 467fec33313cbe246b4cd2cbb4baa18b, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2232788161121882125, guid: 467fec33313cbe246b4cd2cbb4baa18b, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.312
+      objectReference: {fileID: 0}
+    - target: {fileID: 2232788161121882125, guid: 467fec33313cbe246b4cd2cbb4baa18b, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2232788161121882125, guid: 467fec33313cbe246b4cd2cbb4baa18b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.47695
+      objectReference: {fileID: 0}
+    - target: {fileID: 2232788161121882125, guid: 467fec33313cbe246b4cd2cbb4baa18b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.000015258789
       objectReference: {fileID: 0}
     - target: {fileID: 2753852417824621299, guid: 467fec33313cbe246b4cd2cbb4baa18b, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1242,6 +1270,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8935000800431797179, guid: 46c08b7dd2f7a7a46865561f17dbb010, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 5.5582275
+      objectReference: {fileID: 0}
     - target: {fileID: 9085856652074516430, guid: 46c08b7dd2f7a7a46865561f17dbb010, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1558,6 +1590,18 @@ PrefabInstance:
     - target: {fileID: 4245322716865307760, guid: 8e556e4433445284e8202e1a12e00a97, type: 3}
       propertyPath: m_Name
       value: FormChangeWindow
+      objectReference: {fileID: 0}
+    - target: {fileID: 4245322716865307760, guid: 8e556e4433445284e8202e1a12e00a97, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5568522208913623302, guid: 8e556e4433445284e8202e1a12e00a97, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7094550779870939293, guid: 8e556e4433445284e8202e1a12e00a97, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

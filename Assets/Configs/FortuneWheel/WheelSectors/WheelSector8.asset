@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WheelSector8
   m_EditorClassIdentifier: 
   image: {fileID: 21300000, guid: 6c45e34ffafdaba43ad4a45c27f61db2, type: 3}
-  rewardText: 100
+  rewardText: Skin
   rewardType: 1
   probabilityWeight: 1
   moneyRewardValue: 0
